@@ -3,16 +3,119 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Lady Justice</title>
-  <meta name="description" content="">
+  <title>Lady Justice — site under construction</title>
+  <meta name="description" content="Personal site for a dancer. Schedule, gallery, and contact details will appear here soon.">
   <link rel="icon" type="image/png" href="assets/images/icon.png">
+  <link rel="apple-touch-icon" href="assets/images/icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/styles/main.css">
 </head>
 <body>
-  <main>
-    <img class="site-icon" src="assets/images/icon.png" alt="" width="96" height="96">
-    <h1>Lady Justice</h1>
-    <p>Site under construction.</p>
-  </main>
+  <header class="site-header">
+    <a class="brand" href="#">
+      <img class="brand__mark" src="assets/images/icon.png" alt="" width="40" height="40">
+      <span class="brand__name">Lady Justice</span>
+    </a>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="#">Home</a>
+      <a href="#">Classes</a>
+      <a href="#">Gallery</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero__mist" aria-hidden="true"></div>
+    <div class="hero__inner">
+      <p class="hero__eyebrow">Personal site for a dancer</p>
+      <h1 id="hero-title" class="hero__title">
+        <span class="hero__title-line hero__title-line--accent">A new website</span>
+        <span class="hero__title-line hero__title-line--plain">is on the way</span>
+      </h1>
+      <p class="hero__lead">Soon you will find performance dates, rehearsal and stage photos and video, and easy ways to get in touch. Check back shortly—we are still counting in.</p>
+      <a class="btn btn--ghost" href="mailto:hello@example.com">Get in touch</a>
+    </div>
+  </section>
+
+  <section class="soon" aria-labelledby="soon-title">
+    <div class="section-head">
+      <h2 id="soon-title" class="section-title">Coming soon</h2>
+      <p class="section-sub">Three pillars of the full site—in the same spirit as your reference layout.</p>
+    </div>
+    <div class="soon__grid">
+      <article class="card">
+        <div class="card__visual" aria-hidden="true"></div>
+        <span class="card__num">01</span>
+        <h3 class="card__title">Schedule</h3>
+        <p class="card__text">Upcoming classes, shows, and events in one place.</p>
+        <span class="card__hint">Details to follow</span>
+      </article>
+      <article class="card">
+        <div class="card__visual card__visual--alt" aria-hidden="true"></div>
+        <span class="card__num">02</span>
+        <h3 class="card__title">Gallery</h3>
+        <p class="card__text">Stage and studio moments in a calm black-and-white palette.</p>
+        <span class="card__hint">Details to follow</span>
+      </article>
+      <article class="card">
+        <div class="card__visual card__visual--wide" aria-hidden="true"></div>
+        <span class="card__num">03</span>
+        <h3 class="card__title">Contact</h3>
+        <p class="card__text">Booking, collaborations, and questions—via a form or your preferred messengers.</p>
+        <span class="card__hint">Details to follow</span>
+      </article>
+    </div>
+  </section>
+
+  <section class="studio" aria-labelledby="studio-title">
+    <div class="studio__wash" aria-hidden="true"></div>
+    <div class="studio__inner">
+      <div class="studio__copy">
+        <p class="studio__eyebrow">About</p>
+        <h2 id="studio-title" class="studio__title">Room for dance and story</h2>
+        <p class="studio__text">This page is a temporary calling card. When the full site is ready, there will be more space, bold typography, and your photography—like the mockup you shared.</p>
+        <p class="studio__text studio__text--muted">For now, drop in real contact details and social links in the footer to replace the placeholders.</p>
+      </div>
+      <div class="studio__figure" aria-hidden="true">
+        <span class="studio__big-num">79</span>
+        <div class="studio__silhouette"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="gallery-strip" aria-hidden="true">
+    <div class="gallery-strip__item"></div>
+    <div class="gallery-strip__item gallery-strip__item--accent"></div>
+    <div class="gallery-strip__item"></div>
+    <div class="gallery-strip__item gallery-strip__item--tall"></div>
+    <div class="gallery-strip__item"></div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="site-footer__grid">
+      <div class="site-footer__brand">
+        <img src="assets/images/icon.png" alt="" class="site-footer__logo" width="48" height="48">
+        <p class="site-footer__name">Lady Justice</p>
+        <p class="site-footer__contact">hello@example.com<br>+1 (000) 000-0000</p>
+      </div>
+      <div class="site-footer__map" role="img" aria-label="Placeholder map—replace with a map widget or screenshot">
+        <span class="site-footer__map-pin"></span>
+      </div>
+      <div class="site-footer__social">
+        <p>Social</p>
+        <ul>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Telegram</a></li>
+          <li><a href="#">YouTube</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="site-footer__copy">© <span id="year"></span> Lady Justice. Site under construction.</p>
+  </footer>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
