@@ -5,6 +5,31 @@
   const STORAGE_KEY = "lj-lang";
   const DEFAULT_LANG = "en";
 
+  /** Refilled when schedule week tab UI initializes */
+  const scheduleNav = { refresh() {} };
+
+  /** Названия тренировок и время — только EN на всех языках (студия один раз в тексте секции) */
+  const SCHEDULE_EVENTS_EN = {
+    schedule_mon_e1_title: "Band Dance",
+    schedule_mon_e1_meta: "16:30-17:00",
+    schedule_mon_e2_title: "Stretching",
+    schedule_mon_e2_meta: "17:15–18:00",
+    schedule_mon_e3_title: "Core Burn",
+    schedule_mon_e3_meta: "18:15–19:00",
+    schedule_tue_e1_title: "Booty Pump",
+    schedule_tue_e1_meta: "20:15–21:00",
+    schedule_wed_e1_title: "Band Dance",
+    schedule_wed_e1_meta: "20:15-21:00",
+    schedule_wed_e2_title: "Stretching",
+    schedule_wed_e2_meta: "21:00–21:45",
+    schedule_thu_e1_title: "Core Burn",
+    schedule_thu_e1_meta: "20:15-21:00",
+    schedule_thu_e2_title: "High Heels & Strip",
+    schedule_thu_e2_meta: "21:00-22:00",
+    schedule_fri_e1_title: "Booty Pump",
+    schedule_fri_e1_meta: "17:15–18:00",
+  };
+
   const T = {
     en: {
       meta_title: "Lady Justice — individual lessons in Nicosia",
@@ -25,7 +50,7 @@
       hero_title: "Hero Section",
       hero_copy:
         "A short, powerful statement about what you do, for whom, or how you work goes in this section—often with a photo of you, your product, etc.",
-      hero_book: "Book",
+      hero_book: "Book Now",
       social_heading: "Social proof",
       social_lede:
         "An “As Seen On” row or your best testimonials go here. You can repeat a social proof section farther down the page, too.",
@@ -49,15 +74,34 @@
       lead_display: "Lead magnet",
       lead_title: "Make this title results-driven and punchy and the subtitle the same",
       lead_text: "CTA buttons should be a stand-out color.",
-      lead_book: "Book",
+      lead_book: "Book Now",
       lead_figcap: "Use a visual/mockup of the lead magnet here",
       content_heading: "Content section",
       content_lede:
         "Optional section to highlight your best content (the ones that convert the most leads).",
-      schedule_head: "Schedule",
+      schedule_group_kicker: "Group classes",
+      schedule_head: "Group class schedule",
       schedule_lede:
-        "Put weekly hours, term dates, or a PDF timetable here. When visitors are ready, send them to the calendar in the Book section below.",
-      schedule_cta: "Open booking",
+        "Mon–Fri at JUSTICE Fitness & Dance. Group classes are booked in the My Fitness Trainer app; private one-to-one lessons use the calendar in the next section.",
+      schedule_cta: "Open My Fitness Trainer",
+      schedule_cta_title: "My Fitness Trainer on the App Store (iOS). Group class bookings for partner studios run in this app.",
+      schedule_cta_android: "Google Play (Android)",
+      schedule_week_aria: "Group class timetable, Monday through Friday",
+      schedule_tabs_aria: "Choose a weekday to see classes",
+      schedule_day_mon: "Mon",
+      schedule_day_tue: "Tue",
+      schedule_day_wed: "Wed",
+      schedule_day_thu: "Thu",
+      schedule_day_fri: "Fri",
+      ...SCHEDULE_EVENTS_EN,
+      schedule_coach_themida: "Themida",
+      schedule_coach_julia: "Julia",
+      schedule_coach_kristina: "Kristina",
+      schedule_weekday_long_mon: "Monday",
+      schedule_weekday_long_tue: "Tuesday",
+      schedule_weekday_long_wed: "Wednesday",
+      schedule_weekday_long_thu: "Thursday",
+      schedule_weekday_long_fri: "Friday",
       content_c1t: "Individual lessons",
       content_c1p:
         "Describe format, length, who individual lessons suit (kids, adults, event prep), how booking works, and what someone gets after the first session. Add numbers, a quote, or a calendar link.",
@@ -103,7 +147,7 @@
       hero_title: "Ενότητα ήρωας",
       hero_copy:
         "Εδώ μπαίνει μια σύντομη, δυνατή πρόταση για το τι κάνετε, για ποιους ή πώς—συχνά με φωτογραφία σας, του προϊόντος σας κ.λπ.",
-      hero_book: "Κράτηση",
+      hero_book: "Κλείστε τώρα",
       social_heading: "Κοινωνική απόδειξη",
       social_lede:
         "Εδώ μπορείτε να βάλετε λογότυπα «Όπως εμφανίστηκε σε» ή τις καλύτερες μαρτυρίες. Μπορείτε να επαναλάβετε παρόμοια ενότητα και πιο κάτω στη σελίδα.",
@@ -128,15 +172,34 @@
       lead_title:
         "Κάντε τον τίτλο αποτελεσματικό και «σφιχτό» και το υπότιτλο το ίδιο",
       lead_text: "Τα κουμπιά CTA πρέπει να ξεχωρίζουν με χρώμα.",
-      lead_book: "Κράτηση",
+      lead_book: "Κλείστε τώρα",
       lead_figcap: "Χρησιμοποιήστε εικόνα/mockup του lead magnet εδώ",
       content_heading: "Ενότητα περιεχομένου",
       content_lede:
         "Προαιρετική ενότητα για τα καλύτερα κομμάτια περιεχομένου σας (αυτά που φέρνουν τις περισσότερες επαφές).",
-      schedule_head: "Πρόγραμμα",
+      schedule_group_kicker: "Ομαδικά μαθήματα",
+      schedule_head: "Πρόγραμμα ομαδικών μαθημάτων",
       schedule_lede:
-        "Εδώ μπαίνουν εβδομαδιαίες ώρες, ημερομηνίες περιόδων ή PDF προγράμματος. Όταν ο επισκέπτης είναι έτοιμος, οδηγήστε τον στο ημερολόγιο στην ενότητα «Κράτηση» παρακάτω.",
-      schedule_cta: "Άνοιγμα κράτησης",
+        "Δευ–Παρ στο JUSTICE Fitness & Dance. Τα ομαδικά μαθήματα κλείνουν μέσω της εφαρμογής My Fitness Trainer· τα ατομικά μαθήματα μέσω του ημερολογίου στην επόμενη ενότητα.",
+      schedule_cta: "Άνοιγμα My Fitness Trainer",
+      schedule_cta_title: "My Fitness Trainer στο App Store (iOS). Οι κρατήσεις ομαδικών για συνεργαζόμενα γυμναστήρια γίνονται στην εφαρμογή.",
+      schedule_cta_android: "Google Play (Android)",
+      schedule_week_aria: "Πρόγραμμα ομαδικών μαθημάτων, Δευτέρα έως Παρασκευή",
+      schedule_tabs_aria: "Επιλέξτε ημέρα για να δείτε τα μαθήματα",
+      schedule_day_mon: "Δευ",
+      schedule_day_tue: "Τρί",
+      schedule_day_wed: "Τετ",
+      schedule_day_thu: "Πέμ",
+      schedule_day_fri: "Παρ",
+      ...SCHEDULE_EVENTS_EN,
+      schedule_coach_themida: "Θέμιδα",
+      schedule_coach_julia: "Julia",
+      schedule_coach_kristina: "Kristina",
+      schedule_weekday_long_mon: "Δευτέρα",
+      schedule_weekday_long_tue: "Τρίτη",
+      schedule_weekday_long_wed: "Τετάρτη",
+      schedule_weekday_long_thu: "Πέμπτη",
+      schedule_weekday_long_fri: "Παρασκευή",
       content_c1t: "Ατομικά μαθήματα",
       content_c1p:
         "Περιγράψτε τη μορφή, τη διάρκεια, για ποιους ταιριάζει το one-to-one, πώς γίνεται η κράτηση και τι κερδίζει κάποιος μετά το πρώτο μάθημα. Προσθέστε αριθμούς, μαρτυρία ή σύνδεση ημερολογίου.",
@@ -182,7 +245,7 @@
       hero_title: "Блок героя",
       hero_copy:
         "Сюда — короткая сильная формулировка: что вы делаете, для кого или как—часто с фото вас, продукта и т.д.",
-      hero_book: "Запись",
+      hero_book: "Записаться",
       social_heading: "Социальное доказательство",
       social_lede:
         "Строка «As Seen On» или лучшие отзывы — здесь. Такой же блок можно повторить ниже по странице.",
@@ -207,15 +270,34 @@
       lead_title:
         "Сделайте заголовок про результат и «ударность», подзаголовок — в том же духе",
       lead_text: "Кнопки призыва к действию должны выделяться цветом.",
-      lead_book: "Запись",
+      lead_book: "Записаться",
       lead_figcap: "Сюда — визуал или макет лид-магнита",
       content_heading: "Контент-блок",
       content_lede:
         "Необязательный блок, чтобы показать лучший контент (тот, что чаще всего приводит к заявкам).",
-      schedule_head: "Расписание",
+      schedule_group_kicker: "Групповые занятия",
+      schedule_head: "Расписание групповых занятий",
       schedule_lede:
-        "Сюда можно вынести часы работы по дням, даты сезона или PDF с расписанием. Когда человек готов записаться — отправьте его в блок «Запись» ниже, к календарю.",
-      schedule_cta: "К записи",
+        "Пн–пт в JUSTICE Fitness & Dance. Групповые занятия — запись в приложении My Fitness Trainer; индивидуальные уроки — в календаре в блоке ниже.",
+      schedule_cta: "Открыть My Fitness Trainer",
+      schedule_cta_title: "My Fitness Trainer в App Store (iOS). Запись на групповые у партнёрских студий ведётся в приложении.",
+      schedule_cta_android: "Google Play (Android)",
+      schedule_week_aria: "Расписание групповых занятий по дням недели, понедельник–пятница",
+      schedule_tabs_aria: "Выберите день недели, чтобы увидеть занятия",
+      schedule_day_mon: "Пн",
+      schedule_day_tue: "Вт",
+      schedule_day_wed: "Ср",
+      schedule_day_thu: "Чт",
+      schedule_day_fri: "Пт",
+      ...SCHEDULE_EVENTS_EN,
+      schedule_coach_themida: "Фемида",
+      schedule_coach_julia: "Юлия",
+      schedule_coach_kristina: "Кристина",
+      schedule_weekday_long_mon: "Понедельник",
+      schedule_weekday_long_tue: "Вторник",
+      schedule_weekday_long_wed: "Среда",
+      schedule_weekday_long_thu: "Четвер",
+      schedule_weekday_long_fri: "Пятница",
       content_c1t: "Индивидуальные уроки",
       content_c1p:
         "Опишите формат, длительность, для кого подходит персональный формат (дети, взрослые, подготовка к событию), как проходит запись и что человек получит после первого занятия. Добавьте цифры, отзыв или ссылку на календарь.",
@@ -225,7 +307,7 @@
       content_c3t: "Аренда студии",
       content_c3p:
         "Укажите площадь, покрытие, оборудование, правила по времени и звуку, как бронировать почасово или пакетом. Если аренда связана с JUSTICE Fitness & Dance, кратко напомните адрес и ссылку на карту в подвале страницы.",
-      book_kicker: "Расписание",
+      book_kicker: "Бронирование",
       book_title: "Записаться на урок",
       book_sub: "Выберите время ниже. Календарь и подтверждения — через Calendly.",
       footer_touch_eyebrow: "Бронирование, визит в студию или короткое «привет»",
@@ -334,9 +416,59 @@
     if (navToggle && navToggle.getAttribute("aria-expanded") !== "true") {
       navToggle.setAttribute("aria-label", s.nav_menu_open);
     }
+
+    scheduleNav.refresh();
+  }
+
+  function initScheduleWeekNav() {
+    const tabs = Array.from(document.querySelectorAll(".schedule-week__tab"));
+    const panels = Array.from(document.querySelectorAll(".schedule-week__columns .schedule-day"));
+    if (tabs.length !== 5 || panels.length !== 5) {
+      scheduleNav.refresh = () => {};
+      return;
+    }
+
+    const mq = window.matchMedia("(max-width: 600px)");
+    let selected = panels.findIndex((p) => p.classList.contains("schedule-day--tab-active"));
+    if (selected < 0) selected = 0;
+
+    function syncTabSelectionUi() {
+      tabs.forEach((tab, i) => {
+        tab.setAttribute("aria-selected", i === selected ? "true" : "false");
+      });
+      panels.forEach((panel, i) => {
+        panel.classList.toggle("schedule-day--tab-active", i === selected);
+      });
+    }
+
+    function syncTabsPanelsForMq() {
+      if (mq.matches) {
+        syncTabSelectionUi();
+      } else {
+        panels.forEach((p) => p.classList.remove("schedule-day--tab-active"));
+        tabs.forEach((tab, i) => {
+          tab.setAttribute("aria-selected", i === selected ? "true" : "false");
+        });
+      }
+    }
+
+    tabs.forEach((tab, i) => {
+      tab.addEventListener("click", () => {
+        if (!mq.matches) return;
+        selected = i;
+        syncTabSelectionUi();
+      });
+    });
+
+    mq.addEventListener("change", syncTabsPanelsForMq);
+
+    scheduleNav.refresh = () => {};
+
+    syncTabsPanelsForMq();
   }
 
   function init() {
+    initScheduleWeekNav();
     const initial = readStoredLang();
     apply(initial);
 

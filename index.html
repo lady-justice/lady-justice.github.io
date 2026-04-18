@@ -17,20 +17,6 @@
       <img class="brand__mark" src="assets/images/icon.png" alt="" width="40" height="40" data-i18n-attr="alt:brand_alt">
       <span class="brand__name">Lady Justice</span>
     </a>
-    <button
-      type="button"
-      id="lj-nav-toggle"
-      class="site-header__menu-toggle"
-      aria-expanded="false"
-      aria-controls="lj-nav-drawer"
-      data-i18n-attr="aria-label:nav_menu_open"
-    >
-      <span class="site-header__menu-bars" aria-hidden="true">
-        <span class="site-header__menu-bar"></span>
-        <span class="site-header__menu-bar"></span>
-        <span class="site-header__menu-bar"></span>
-      </span>
-    </button>
     <div id="lj-nav-drawer" class="site-header__drawer">
       <nav class="nav" data-i18n-attr="aria-label:nav_aria">
         <a href="#site-top" data-i18n="nav_home">Home</a>
@@ -41,6 +27,8 @@
         <a href="#location" data-i18n="nav_studio">Studio</a>
         <a href="#site-footer-touch" data-i18n="nav_contact">Contact</a>
       </nav>
+    </div>
+    <div class="site-header__actions">
       <div class="lang-switch">
         <select id="lj-lang-select" class="lang-switch__select" data-i18n-attr="aria-label:lang_aria" autocomplete="off">
           <option value="el">Ελληνικά</option>
@@ -48,6 +36,20 @@
           <option value="ru">Русский</option>
         </select>
       </div>
+      <button
+        type="button"
+        id="lj-nav-toggle"
+        class="site-header__menu-toggle"
+        aria-expanded="false"
+        aria-controls="lj-nav-drawer"
+        data-i18n-attr="aria-label:nav_menu_open"
+      >
+        <span class="site-header__menu-bars" aria-hidden="true">
+          <span class="site-header__menu-bar"></span>
+          <span class="site-header__menu-bar"></span>
+          <span class="site-header__menu-bar"></span>
+        </span>
+      </button>
     </div>
     <div id="lj-nav-backdrop" class="site-header__backdrop" aria-hidden="true"></div>
   </header>
@@ -57,19 +59,24 @@
     <section class="anatomy-hero hero" id="hero" aria-labelledby="hero-title">
       <div class="hero__mist" aria-hidden="true"></div>
       <div class="hero__inner">
-        <div class="hero__col hero__col--title">
-          <h1 id="hero-title" class="hero__title" data-i18n="hero_title">Hero Section</h1>
-        </div>
-        <div class="hero__col hero__col--body">
-          <p class="hero__copy" data-i18n="hero_copy">A short, powerful statement about what you do, for whom, or how you work goes in this section—often with a photo of you, your product, etc.</p>
-          <a class="btn btn--hero-book" href="#book">
-            <span class="btn__label" data-i18n="hero_book">Book</span>
-            <span class="btn__icon" aria-hidden="true">
-              <svg class="btn__arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </span>
-          </a>
+        <div class="hero__window" aria-hidden="true"></div>
+        <div class="hero__content">
+          <div class="hero__col hero__col--title">
+            <h1 id="hero-title" class="hero__title" data-i18n="hero_title">Hero Section</h1>
+          </div>
+          <div class="hero__col hero__col--body">
+            <p class="hero__copy" data-i18n="hero_copy">A short, powerful statement about what you do, for whom, or how you work goes in this section—often with a photo of you, your product, etc.</p>
+            <div class="hero-cta">
+              <a class="btn btn--hero-book" href="#book">
+                <span class="btn__label" data-i18n="hero_book">Book Now</span>
+                <span class="btn__icon" aria-hidden="true">
+                  <svg class="btn__arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -126,14 +133,16 @@
           <p class="lead-magnet__display" data-i18n="lead_display">Lead magnet</p>
           <h2 id="lead-title" class="lead-magnet__title" data-i18n="lead_title">Make this title results-driven and punchy and the subtitle the same</h2>
           <p class="lead-magnet__text" data-i18n="lead_text">CTA buttons should be a stand-out color.</p>
-          <a class="btn btn--hero-book lead-magnet__book" href="#book">
-            <span class="btn__label" data-i18n="lead_book">Book</span>
-            <span class="btn__icon" aria-hidden="true">
-              <svg class="btn__arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </span>
-          </a>
+          <div class="hero-cta">
+            <a class="btn btn--hero-book lead-magnet__book" href="#book">
+              <span class="btn__label" data-i18n="lead_book">Book Now</span>
+              <span class="btn__icon" aria-hidden="true">
+                <svg class="btn__arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </a>
+          </div>
         </div>
         <div class="lead-magnet__aside">
           <figure class="lead-magnet__figure">
@@ -166,12 +175,160 @@
       </div>
     </section>
 
-    <!-- Schedule strip (timetable / notes → then booking) -->
+    <!-- Schedule: Mon–Fri columns + pill events (edit copy in i18n.js) -->
     <section class="anatomy-schedule schedule-teaser" id="schedule" aria-labelledby="schedule-title">
       <div class="schedule-teaser__inner">
-        <h2 id="schedule-title" class="schedule-teaser__title" data-i18n="schedule_head">Schedule</h2>
-        <p class="schedule-teaser__lede" data-i18n="schedule_lede">Put weekly hours, term dates, or a PDF timetable here. When visitors are ready, send them to the calendar in the Book section below.</p>
-        <a class="btn btn--ghost schedule-teaser__cta" href="#book" data-i18n="schedule_cta">Open booking</a>
+        <div class="schedule-teaser__intro">
+          <p class="section-kicker schedule-teaser__kicker" data-i18n="schedule_group_kicker">Group classes</p>
+          <h2 id="schedule-title" class="schedule-teaser__title" data-i18n="schedule_head">Group class schedule</h2>
+          <p class="schedule-teaser__lede" data-i18n="schedule_lede">Mon–Fri at JUSTICE Fitness &amp; Dance. Group classes are booked in the My Fitness Trainer app; private lessons use the calendar below.</p>
+        </div>
+
+        <div class="schedule-week" role="region" data-i18n-attr="aria-label:schedule_week_aria">
+          <div class="schedule-week__board">
+            <div class="schedule-week__tabs" role="tablist" data-i18n-attr="aria-label:schedule_tabs_aria">
+              <button type="button" class="schedule-week__tab" role="tab" id="schedule-tab-0" aria-selected="true" aria-controls="schedule-panel-0" data-schedule-day="0">
+                <span class="schedule-week__tab-wd" data-i18n="schedule_day_mon">Mon</span>
+              </button>
+              <button type="button" class="schedule-week__tab" role="tab" id="schedule-tab-1" aria-selected="false" aria-controls="schedule-panel-1" data-schedule-day="1">
+                <span class="schedule-week__tab-wd" data-i18n="schedule_day_tue">Tue</span>
+              </button>
+              <button type="button" class="schedule-week__tab" role="tab" id="schedule-tab-2" aria-selected="false" aria-controls="schedule-panel-2" data-schedule-day="2">
+                <span class="schedule-week__tab-wd" data-i18n="schedule_day_wed">Wed</span>
+              </button>
+              <button type="button" class="schedule-week__tab" role="tab" id="schedule-tab-3" aria-selected="false" aria-controls="schedule-panel-3" data-schedule-day="3">
+                <span class="schedule-week__tab-wd" data-i18n="schedule_day_thu">Thu</span>
+              </button>
+              <button type="button" class="schedule-week__tab" role="tab" id="schedule-tab-4" aria-selected="false" aria-controls="schedule-panel-4" data-schedule-day="4">
+                <span class="schedule-week__tab-wd" data-i18n="schedule_day_fri">Fri</span>
+              </button>
+            </div>
+            <div class="schedule-week__columns">
+            <section class="schedule-day schedule-day--tab-active" id="schedule-panel-0" role="tabpanel" aria-labelledby="schedule-tab-0 sch-day-mon" data-schedule-day="0">
+              <h3 id="sch-day-mon" class="schedule-day__name" data-i18n="schedule_day_mon">Mon</h3>
+              <div class="schedule-day__pills">
+                <article class="schedule-pill schedule-pill--accent-wine">
+                  <span class="schedule-pill__accent" aria-hidden="true"></span>
+                  <div class="schedule-pill__body">
+                    <p class="schedule-pill__title" data-i18n="schedule_mon_e1_title">Band Dance</p>
+                    <p class="schedule-pill__coach" data-i18n="schedule_coach_themida">Themida</p>
+                    <p class="schedule-pill__meta" data-i18n="schedule_mon_e1_meta">16:30</p>
+                  </div>
+                </article>
+                <article class="schedule-pill schedule-pill--accent-teal">
+                  <span class="schedule-pill__accent" aria-hidden="true"></span>
+                  <div class="schedule-pill__body">
+                    <p class="schedule-pill__title" data-i18n="schedule_mon_e2_title">Stretching</p>
+                    <p class="schedule-pill__coach" data-i18n="schedule_coach_themida">Themida</p>
+                    <p class="schedule-pill__meta" data-i18n="schedule_mon_e2_meta">17:15–18:00</p>
+                  </div>
+                </article>
+                <article class="schedule-pill schedule-pill--accent-coral">
+                  <span class="schedule-pill__accent" aria-hidden="true"></span>
+                  <div class="schedule-pill__body">
+                    <p class="schedule-pill__title" data-i18n="schedule_mon_e3_title">Core Burnout Workout</p>
+                    <p class="schedule-pill__coach" data-i18n="schedule_coach_themida">Themida</p>
+                    <p class="schedule-pill__meta" data-i18n="schedule_mon_e3_meta">18:15–19:00</p>
+                  </div>
+                </article>
+              </div>
+            </section>
+
+            <section class="schedule-day" id="schedule-panel-1" role="tabpanel" aria-labelledby="schedule-tab-1 sch-day-tue" data-schedule-day="1">
+              <h3 id="sch-day-tue" class="schedule-day__name" data-i18n="schedule_day_tue">Tue</h3>
+              <div class="schedule-day__pills">
+                <article class="schedule-pill schedule-pill--accent-gold">
+                  <span class="schedule-pill__accent" aria-hidden="true"></span>
+                  <div class="schedule-pill__body">
+                    <p class="schedule-pill__title" data-i18n="schedule_tue_e1_title">Booty Bump</p>
+                    <p class="schedule-pill__coach" data-i18n="schedule_coach_kristina">Kristina</p>
+                    <p class="schedule-pill__meta" data-i18n="schedule_tue_e1_meta">20:15–21:00</p>
+                  </div>
+                </article>
+              </div>
+            </section>
+
+            <section class="schedule-day" id="schedule-panel-2" role="tabpanel" aria-labelledby="schedule-tab-2 sch-day-wed" data-schedule-day="2">
+              <h3 id="sch-day-wed" class="schedule-day__name" data-i18n="schedule_day_wed">Wed</h3>
+              <div class="schedule-day__pills">
+                <article class="schedule-pill schedule-pill--accent-wine">
+                  <span class="schedule-pill__accent" aria-hidden="true"></span>
+                  <div class="schedule-pill__body">
+                    <p class="schedule-pill__title" data-i18n="schedule_wed_e1_title">Band Dance</p>
+                    <p class="schedule-pill__coach" data-i18n="schedule_coach_themida">Themida</p>
+                    <p class="schedule-pill__meta" data-i18n="schedule_wed_e1_meta">20:15</p>
+                  </div>
+                </article>
+                <article class="schedule-pill schedule-pill--accent-teal">
+                  <span class="schedule-pill__accent" aria-hidden="true"></span>
+                  <div class="schedule-pill__body">
+                    <p class="schedule-pill__title" data-i18n="schedule_wed_e2_title">Stretching</p>
+                    <p class="schedule-pill__coach" data-i18n="schedule_coach_themida">Themida</p>
+                    <p class="schedule-pill__meta" data-i18n="schedule_wed_e2_meta">20:45–21:30</p>
+                  </div>
+                </article>
+              </div>
+            </section>
+
+            <section class="schedule-day" id="schedule-panel-3" role="tabpanel" aria-labelledby="schedule-tab-3 sch-day-thu" data-schedule-day="3">
+              <h3 id="sch-day-thu" class="schedule-day__name" data-i18n="schedule_day_thu">Thu</h3>
+              <div class="schedule-day__pills">
+                <article class="schedule-pill schedule-pill--accent-coral">
+                  <span class="schedule-pill__accent" aria-hidden="true"></span>
+                  <div class="schedule-pill__body">
+                    <p class="schedule-pill__title" data-i18n="schedule_thu_e1_title">Core Burn Workout</p>
+                    <p class="schedule-pill__coach" data-i18n="schedule_coach_themida">Themida</p>
+                    <p class="schedule-pill__meta" data-i18n="schedule_thu_e1_meta">20:15</p>
+                  </div>
+                </article>
+                <article class="schedule-pill schedule-pill--accent-lavender">
+                  <span class="schedule-pill__accent" aria-hidden="true"></span>
+                  <div class="schedule-pill__body">
+                    <p class="schedule-pill__title" data-i18n="schedule_thu_e2_title">High Heels &amp; Strip Plastic</p>
+                    <p class="schedule-pill__coach" data-i18n="schedule_coach_julia">Julia</p>
+                    <p class="schedule-pill__meta" data-i18n="schedule_thu_e2_meta">21:00</p>
+                  </div>
+                </article>
+              </div>
+            </section>
+
+            <section class="schedule-day" id="schedule-panel-4" role="tabpanel" aria-labelledby="schedule-tab-4 sch-day-fri" data-schedule-day="4">
+              <h3 id="sch-day-fri" class="schedule-day__name" data-i18n="schedule_day_fri">Fri</h3>
+              <div class="schedule-day__pills">
+                <article class="schedule-pill schedule-pill--accent-gold">
+                  <span class="schedule-pill__accent" aria-hidden="true"></span>
+                  <div class="schedule-pill__body">
+                    <p class="schedule-pill__title" data-i18n="schedule_fri_e1_title">Booty Pump</p>
+                    <p class="schedule-pill__coach" data-i18n="schedule_coach_themida">Themida</p>
+                    <p class="schedule-pill__meta" data-i18n="schedule_fri_e1_meta">17:15–18:00</p>
+                  </div>
+                </article>
+              </div>
+            </section>
+            </div>
+          </div>
+        </div>
+
+        <!-- MFT: swap href / add deep link when in-app schedule integration is wired -->
+        <div class="schedule-teaser__cta-block">
+          <a
+            class="btn btn--ghost schedule-teaser__cta"
+            href="https://apps.apple.com/cy/app/my-fitness-trainer/id1372844136"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-i18n="schedule_cta"
+            data-i18n-attr="title:schedule_cta_title"
+          >Open My Fitness Trainer</a>
+          <p class="schedule-teaser__cta-alt">
+            <a
+              class="schedule-teaser__cta-alt-link"
+              href="https://play.google.com/store/apps/details?id=eu.dscompass.myfitnesstrainer_app"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-i18n="schedule_cta_android"
+            >Google Play (Android)</a>
+          </p>
+        </div>
       </div>
     </section>
 
@@ -185,7 +342,7 @@
         </div>
         <div class="book__frame">
           <!-- Calendly inline widget begin -->
-          <div class="calendly-inline-widget" data-url="https://calendly.com/themida-lj/30min?hide_event_type_details=1&amp;hide_gdpr_banner=1&amp;background_color=fffefc&amp;text_color=1a0e12&amp;primary_color=8b2d3d" style="min-width:320px;height:700px;"></div>
+          <div class="calendly-inline-widget" data-url="https://calendly.com/themida-lj/30min?hide_event_type_details=1&amp;hide_gdpr_banner=1&amp;background_color=fff6f1&amp;text_color=3a2832&amp;primary_color=e97266" style="min-width:320px;"></div>
           <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
           <!-- Calendly inline widget end -->
         </div>
