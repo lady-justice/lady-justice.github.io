@@ -1,0 +1,32 @@
+/* §3 Social proof — homepage anatomy */
+
+.social-proof {
+  padding: clamp(2.5rem, 6vw, 3.75rem) clamp(1.5rem, 5vw, 3.5rem);
+  border-top: 1px solid var(--rule);
+  background: var(--bg);
+}
+
+.social-proof__inner {
+  max-width: 42rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.social-proof__heading {
+  margin: 0 0 1rem;
+  font-family: var(--font-serif);
+  font-size: clamp(1.3rem, 2.9vw, 1.75rem);
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  line-height: 1.22;
+  color: var(--ink);
+}
+
+.social-proof__lede {
+  margin: 0 auto 0.35rem;
+  max-width: 36rem;
+  font-size: clamp(0.98rem, 2vw, 1.05rem);
+  line-height: 1.68;
+  color: var(--ink-muted);
+}
+
