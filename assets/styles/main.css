@@ -416,6 +416,36 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
   background: linear-gradient(180deg, #3a1822, #0e0507);
 }
 
+/* ——— Calendly booking ——— */
+.book {
+  padding: clamp(3rem, 8vw, 5rem) clamp(1.25rem, 4vw, 3rem);
+  background: var(--bg);
+  border-top: 1px solid color-mix(in srgb, var(--accent-mid) 10%, transparent);
+}
+
+.book__inner {
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+.book__frame {
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--accent-mid) 14%, transparent);
+  box-shadow: 0 22px 48px -26px color-mix(in srgb, var(--accent-end) 35%, transparent);
+  background: #fffefc;
+}
+
+.book__frame .calendly-inline-widget {
+  min-width: 100% !important;
+}
+
+@media (max-width: 480px) {
+  .book__frame .calendly-inline-widget {
+    height: 640px !important;
+  }
+}
+
 /* ——— Footer ——— */
 .site-footer {
   background: var(--footer);

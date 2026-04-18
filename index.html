@@ -21,6 +21,7 @@
     <nav class="nav" aria-label="Main navigation">
       <a href="#">Home</a>
       <a href="#">Classes</a>
+      <a href="#book">Book</a>
       <a href="#">Gallery</a>
       <a href="#">Contact</a>
     </nav>
@@ -91,6 +92,21 @@
     <div class="gallery-strip__item"></div>
     <div class="gallery-strip__item gallery-strip__item--tall"></div>
     <div class="gallery-strip__item"></div>
+  </section>
+
+  <section class="book" id="book" aria-labelledby="book-title">
+    <div class="book__inner">
+      <div class="section-head">
+        <h2 id="book-title" class="section-title">Book a lesson</h2>
+        <p class="section-sub">Choose a time below. Calendar and confirmations are handled by Calendly.</p>
+      </div>
+      <div class="book__frame">
+        <!-- Calendly inline widget begin -->
+        <div class="calendly-inline-widget" data-url="https://calendly.com/themida-lj/30min?hide_event_type_details=1&amp;hide_gdpr_banner=1" style="min-width:320px;height:700px;"></div>
+        <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+        <!-- Calendly inline widget end -->
+      </div>
+    </div>
   </section>
 
   <footer class="site-footer">
