@@ -1735,8 +1735,9 @@ body.nav-drawer-open .site-header__menu-bar:nth-child(3) {
 
 @media (max-width: 480px) {
   .book__frame .calendly-inline-widget {
-    height: clamp(600px, 72vh, 668px) !important;
-    min-height: 600px;
+    /* Телефон: чуть выше, чтобы реже резался низ формы и кнопка подтверждения */
+    height: clamp(640px, 78vh, 720px) !important;
+    min-height: 640px;
   }
 }
 
