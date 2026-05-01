@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Studio — JusticeApp</title>
+  <meta name="description" content="JUSTICE Fitness & Dance in Nicosia — address, map, and directions.">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/images/icon-192.png">
+  <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#2a9d8c">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="JusticeApp">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="stylesheet" href="assets/styles/main.css">
+</head>
+<body class="page--studio">
+  <div id="site-top" class="top-anchor" aria-hidden="true"></div>
+  <div id="j-header"></div>
+
+  <main>
+    <header class="contact-intro">
+      <h1 class="contact-intro__title" data-i18n="studio_intro_title">Studio</h1>
+      <p class="contact-intro__note" data-i18n="studio_intro_note">JUSTICE Fitness &amp; Dance in Nicosia — open the map for directions.</p>
+      <p class="contact-page__cross">
+        <a class="contact-page__cross-link" href="contact.html" data-i18n="studio_link_contact">Contact &amp; socials</a>
+      </p>
+    </header>
+
+    <section id="location" class="studio-map" aria-labelledby="location-title">
+      <div class="map-card">
+        <div>
+          <p class="map-card__eyebrow" data-i18n="footer_map_eyebrow">Studio</p>
+          <h2 id="location-title" class="map-card__name"><span class="map-card__name-justice">Justice</span> Fitness &amp; Dance</h2>
+          <address class="map-card__address">Ilia Venezi 5, 1076 Nicosia, Cyprus</address>
+          <a class="map-card__link" href="https://www.google.com/maps/search/?api=1&amp;query=Ilia+Venezi+5%2C+Nicosia+1076%2C+Cyprus" target="_blank" rel="noopener noreferrer" data-i18n="footer_open_maps">Open in Google Maps</a>
+        </div>
+        <div class="map-card__embed">
+          <iframe
+            data-i18n-attr="title:footer_map_iframe_title"
+            title="Map: Ilia Venezi 5, Nicosia, Cyprus"
+            src="https://maps.google.com/maps?q=Ilia+Venezi+5%2C+Nicosia+1076%2C+Cyprus&amp;hl=en&amp;z=17&amp;output=embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen=""></iframe>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="assets/js/app.js"></script>
+</body>
+</html>

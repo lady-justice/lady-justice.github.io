@@ -1,0 +1,18 @@
+/**
+ * Desktop overrides (mobile-first base lives in the per-page CSS files).
+ * Breakpoint must match VIEWPORT_DESKTOP_MIN_PX in assets/js/config.js.
+ */
+
+@media (min-width: 900px) {
+  body.page--home .home {
+    padding-inline: clamp(1rem, 4vw, 1.35rem);
+  }
+
+  .home__book-private {
+    min-height: 5.65rem;
+  }
+
+  .drawer__lang {
+    display: none;
+  }
+}

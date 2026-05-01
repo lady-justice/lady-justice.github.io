@@ -1,0 +1,25 @@
+{
+  "name": "JusticeApp — JUSTICE Fitness & Dance",
+  "short_name": "JusticeApp",
+  "description": "JusticeApp: schedule, bookings, and studio at JUSTICE Fitness & Dance, Nicosia.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#d8f4f6",
+  "theme_color": "#2a9d8c",
+  "icons": [
+    {
+      "src": "assets/images/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/images/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

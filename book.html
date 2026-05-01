@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Book a lesson — JusticeApp</title>
+  <meta name="description" content="Choose a time for a personal session or studio booking. Calendar and confirmations are handled by Calendly.">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/images/icon-192.png">
+  <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#2a9d8c">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="JusticeApp">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="stylesheet" href="assets/styles/main.css">
+</head>
+<body class="page--book">
+  <div id="site-top" class="top-anchor" aria-hidden="true"></div>
+  <div id="j-header"></div>
+
+  <main>
+    <section class="book" id="book" aria-labelledby="book-title">
+      <span id="book-individual" class="book__jump" aria-hidden="true"></span>
+      <header class="book__head">
+        <p class="book__kicker" data-i18n="book_kicker">Scheduling</p>
+        <h1 id="book-title" class="book__title" data-i18n="book_title">Book a lesson</h1>
+        <p class="book__sub" data-i18n="book_sub">Choose a time below. Calendar and confirmations are handled by Calendly.</p>
+      </header>
+      <span id="book-studio" class="book__jump" aria-hidden="true"></span>
+      <div class="book__frame">
+        <div class="calendly-inline-widget" data-url="https://calendly.com/themida-lj/30min?hide_event_type_details=1&amp;hide_gdpr_banner=1&amp;background_color=fff6f1&amp;text_color=3a2832&amp;primary_color=2a9d8c"></div>
+        <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="assets/js/app.js"></script>
+</body>
+</html>

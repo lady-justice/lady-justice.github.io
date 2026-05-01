@@ -1,0 +1,152 @@
+/**
+ * Reset + global background + typography.
+ * The fixed elliptical gradient lives on html::before so it stays anchored
+ * regardless of scroll position (no jumping on iOS rubber-band).
+ */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  font-size: 16px;
+  color-scheme: light;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  background: var(--bg-canvas);
+  scroll-behavior: smooth;
+  scroll-padding-bottom: calc(var(--dock-h) + var(--safe-bottom) + 0.65rem);
+  min-height: 100%;
+}
+
+html:has(body.page--home) {
+  overflow: hidden;
+  height: 100%;
+}
+
+/* Pages without dock mount — avoid empty space reserved for the fixed dock */
+html:has(body.page--schedule),
+html:has(body.page--book),
+html:has(body.page--contact),
+html:has(body.page--studio) {
+  scroll-padding-bottom: max(1rem, calc(var(--safe-bottom) + 0.65rem));
+}
+
+body.page--schedule,
+body.page--book,
+body.page--contact,
+body.page--studio {
+  padding-bottom: max(1rem, calc(var(--safe-bottom) + 0.45rem));
+}
+
+html::before {
+  content: "";
+  position: fixed;
+  inset: auto;
+  z-index: -1;
+  width: min(1135px, 220vw);
+  height: min(1128px, 210vh);
+  left: clamp(-22rem, -35vw, -6rem);
+  top: clamp(-5.5rem, -12vh, -2rem);
+  border-radius: 50%;
+  background: var(--bg-app-gradient);
+  pointer-events: none;
+}
+
+body {
+  min-height: 100dvh;
+  padding-bottom: calc(var(--dock-h) + var(--safe-bottom) + 0.45rem);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.55;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  background: transparent;
+  text-rendering: optimizeLegibility;
+}
+
+/* Home: layered “studio window light” — soft cyan-white, not dark or noisy */
+body.page--home {
+  position: relative;
+  isolation: isolate;
+}
+
+body.page--home::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 85% at 100% -5%, rgba(255, 255, 255, 0.97) 0%, transparent 52%),
+    radial-gradient(95% 75% at -8% 100%, color-mix(in srgb, var(--c-cyan-soft) 88%, #fff) 0%, transparent 48%),
+    radial-gradient(80% 55% at 50% 110%, color-mix(in srgb, var(--c-teal) 12%, rgba(255, 255, 255, 0.9)) 0%, transparent 45%);
+}
+
+body.page--home::after {
+  content: "";
+  position: fixed;
+  inset: -25% -15%;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.85;
+  background:
+    radial-gradient(ellipse 70% 48% at 50% 0%, rgba(255, 255, 255, 0.65) 0%, transparent 58%),
+    radial-gradient(ellipse 55% 40% at 92% 35%, rgba(210, 238, 248, 0.45) 0%, transparent 52%),
+    radial-gradient(ellipse 60% 45% at 5% 55%, rgba(190, 236, 232, 0.32) 0%, transparent 50%),
+    radial-gradient(ellipse 90% 60% at 50% 75%, rgba(232, 251, 250, 0.35) 0%, transparent 55%);
+  filter: blur(42px);
+  transform: translateZ(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.page--home::after {
+    filter: blur(28px);
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+h1, h2, h3, h4 {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+img { max-width: 100%; display: block; }
+
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.top-anchor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}

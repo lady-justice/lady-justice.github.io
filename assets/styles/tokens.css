@@ -1,0 +1,82 @@
+/**
+ * JusticeApp design tokens — single source of truth.
+ * One palette: white canvas + cyan/teal accent + Inter typography.
+ *
+ * IMPORTANT: keep --bp-desktop-min in sync with VIEWPORT_DESKTOP_MIN_PX in assets/js/config.js.
+ */
+
+:root {
+  /* —— Brand —— */
+  --c-cyan: #5de2eb;
+  --c-cyan-soft: #d2eef8;
+  --c-teal: #2a9d8c;
+  --c-teal-deep: #1f7a6d;
+
+  /* Schedule pill accents (semantic intensity tags from group-schedule.json) */
+  --c-accent-wine: #c8506e;
+  --c-accent-coral: #f08b7a;
+  --c-accent-gold: #e4b042;
+  --c-accent-lavender: #a06bee;
+
+  /* —— Surfaces —— */
+  --bg-canvas: #ffffff;
+  --bg-app-gradient: linear-gradient(180deg, #d2eef8 0%, #d8f4f6 52%, #c8f0ee 78%, #beece8 100%);
+  --surface: #ffffff;
+  --surface-glass: rgba(255, 255, 255, 0.72);
+  --surface-glass-bright: rgba(255, 255, 255, 0.94);
+  --surface-glass-card: rgba(255, 255, 255, 0.58);
+  --surface-glass-strong: rgba(255, 255, 255, 0.82);
+  --glass-border: rgba(255, 255, 255, 0.72);
+  --glass-border-mid: color-mix(in srgb, var(--c-cyan) 22%, rgba(255, 255, 255, 0.55));
+  --glass-blur: 18px;
+
+  /* —— Ink —— */
+  --ink: #1a4549;
+  --ink-muted: rgba(26, 69, 73, 0.72);
+  --ink-faint: rgba(26, 69, 73, 0.5);
+
+  /* —— Lines & shadows —— */
+  --rule: rgba(26, 69, 73, 0.12);
+  --rule-soft: rgba(26, 69, 73, 0.08);
+  --shadow-sm: 0 2px 8px rgba(18, 72, 76, 0.06);
+  --shadow-md: 0 8px 20px rgba(18, 72, 76, 0.1);
+  --shadow-lg: 0 12px 28px rgba(18, 72, 76, 0.16);
+  --shadow-glass-card:
+    0 1px 0 rgba(255, 255, 255, 0.88) inset,
+    0 0 0 1px rgba(26, 69, 73, 0.06) inset,
+    0 4px 16px rgba(18, 72, 76, 0.08),
+    0 16px 40px rgba(18, 72, 76, 0.07);
+  --shadow-primary-cta:
+    0 1px 0 rgba(255, 255, 255, 0.35) inset,
+    0 6px 20px rgba(42, 157, 140, 0.28),
+    0 14px 36px rgba(18, 72, 76, 0.12);
+  --shadow-glass-inset: inset 1px 2px 4px rgba(18, 70, 72, 0.12);
+  --shadow-neu-inset:
+    inset -2px -2px 5px rgba(200, 236, 238, 0.85),
+    inset 2px 2px 5px rgba(32, 88, 86, 0.16);
+
+  /* —— Brand-tinted gradients —— */
+  --grad-cta: linear-gradient(135deg, #7eeaed 0%, #4dc9c4 48%, #2a9d8c 100%);
+  --grad-tile: linear-gradient(92deg, #d4f6fb 0%, #e8fbfc 52%, #d2eef3 100%);
+  --grad-primary-card: linear-gradient(155deg, rgba(255, 255, 255, 0.92) 0%, rgba(236, 251, 252, 0.88) 42%, rgba(212, 246, 251, 0.55) 100%);
+  --grad-secondary-card: linear-gradient(168deg, rgba(255, 255, 255, 0.75) 0%, rgba(245, 252, 252, 0.82) 100%);
+
+  /* —— Geometry —— */
+  --r-sm: 12px;
+  --r-md: 16px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+  --r-pill: 9999px;
+
+  /* —— Type —— */
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  /* —— Layout —— */
+  --bp-desktop-min: 900px;
+  --shell-max-w: 28rem;
+  --dock-h: 3.35rem;
+  /* Sticky bar: logo row + vertical padding + notch / Dynamic Island inset */
+  --header-h: calc(4.35rem + env(safe-area-inset-top, 0px));
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-top: env(safe-area-inset-top, 0px);
+}

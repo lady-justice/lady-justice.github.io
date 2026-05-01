@@ -1,0 +1,73 @@
+/**
+ * Booking page: intro + Calendly inline embed.
+ */
+
+.book {
+  padding: clamp(0.85rem, 2.8vw, 1.35rem) clamp(1rem, 4vw, 1.5rem) clamp(1rem, 3vw, 1.5rem);
+  max-width: var(--shell-max-w);
+  margin: 0 auto;
+}
+
+/* Tight intro so the Calendly “Select a day” UI fits above the fold on phones */
+.book__head {
+  text-align: center;
+  max-width: 32rem;
+  margin: 0 auto clamp(0.65rem, 2vw, 0.95rem);
+}
+.book__kicker {
+  margin: 0 0 0.28rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--c-teal);
+}
+.book__title {
+  margin: 0;
+  font-size: clamp(1.12rem, 3.4vw, 1.42rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.book__sub {
+  margin-top: 0.4rem;
+  color: var(--ink-muted);
+  font-size: clamp(0.78rem, 2.2vw, 0.86rem);
+  line-height: 1.42;
+  max-width: 26rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.book__jump { display: block; height: 0; scroll-margin-top: 4.6rem; }
+
+/* Convex “squircle” plate — light top-left, soft depth bottom-right (like the header mark) */
+.book__frame {
+  position: relative;
+  border-radius: var(--r-xl);
+  overflow: visible;
+  border: 1px solid color-mix(in srgb, #fff 70%, var(--rule-soft));
+  background: linear-gradient(
+    152deg,
+    #fffefb 0%,
+    #fff8f3 38%,
+    #ffefe6 100%
+  );
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    0 0 0 1px rgba(255, 255, 255, 0.4) inset,
+    -3px -4px 10px rgba(255, 255, 255, 0.75),
+    2px 3px 8px rgba(18, 72, 76, 0.06),
+    6px 10px 22px rgba(18, 72, 76, 0.1),
+    12px 22px 40px rgba(18, 72, 76, 0.06);
+}
+
+.book__frame .calendly-inline-widget {
+  min-width: 100% !important;
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  background: #fff6f1;
+  /* Leave room for sticky header + compact intro; Calendly scrolls inside */
+  height: clamp(480px, calc(100dvh - var(--header-h) - 5.5rem), 720px) !important;
+  min-height: 440px;
+}

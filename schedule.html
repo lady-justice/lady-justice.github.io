@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Group schedule — JusticeApp</title>
+  <meta name="description" content="Mon–Sat group class schedule at JUSTICE Fitness & Dance, Nicosia. Personal bookings use Calendly.">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/images/icon-192.png">
+  <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#2a9d8c">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="JusticeApp">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="stylesheet" href="assets/styles/main.css">
+</head>
+<body class="page--schedule">
+  <div id="site-top" class="top-anchor" aria-hidden="true"></div>
+  <div id="j-header"></div>
+
+  <main>
+    <section class="schedule" id="schedule" aria-labelledby="schedule-title">
+      <header class="schedule__intro">
+        <p class="schedule__kicker" data-i18n="schedule_group_kicker">Group classes</p>
+        <h1 id="schedule-title" class="schedule__title" data-i18n="schedule_head">Group class schedule</h1>
+        <p class="schedule__lede" data-i18n="schedule_lede">Mon–Sat at JUSTICE Fitness &amp; Dance.</p>
+      </header>
+
+      <div class="week" role="region" data-i18n-attr="aria-label:schedule_week_aria">
+        <div class="week__tabs" role="tablist" data-i18n-attr="aria-label:schedule_tabs_aria">
+          <button type="button" class="week__tab" role="tab" id="j-tab-0" aria-selected="true" aria-controls="j-day-0" data-i18n="schedule_day_mon">Mon</button>
+          <button type="button" class="week__tab" role="tab" id="j-tab-1" aria-selected="false" aria-controls="j-day-1" data-i18n="schedule_day_tue">Tue</button>
+          <button type="button" class="week__tab" role="tab" id="j-tab-2" aria-selected="false" aria-controls="j-day-2" data-i18n="schedule_day_wed">Wed</button>
+          <button type="button" class="week__tab" role="tab" id="j-tab-3" aria-selected="false" aria-controls="j-day-3" data-i18n="schedule_day_thu">Thu</button>
+          <button type="button" class="week__tab" role="tab" id="j-tab-4" aria-selected="false" aria-controls="j-day-4" data-i18n="schedule_day_fri">Fri</button>
+          <button type="button" class="week__tab" role="tab" id="j-tab-5" aria-selected="false" aria-controls="j-day-5" data-i18n="schedule_day_sat">Sat</button>
+        </div>
+        <div class="week__panels" id="j-week-panels"></div>
+      </div>
+
+      <div class="schedule__cta-block">
+        <a class="schedule__cta" href="https://apps.apple.com/cy/app/my-fitness-trainer/id1372844136" target="_blank" rel="noopener noreferrer" data-i18n="schedule_cta" data-i18n-attr="title:schedule_cta_title">Open My Fitness Trainer</a>
+        <p>
+          <a class="schedule__cta-android" href="https://play.google.com/store/apps/details?id=eu.dscompass.myfitnesstrainer_app" target="_blank" rel="noopener noreferrer" data-i18n="schedule_cta_android">Google Play (Android)</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="assets/js/app.js"></script>
+</body>
+</html>
