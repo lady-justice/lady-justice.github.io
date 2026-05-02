@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover, user-scalable=no">
   <title>Group schedule — JusticeApp</title>
   <meta name="description" content="Mon–Sat group class schedule at JUSTICE Fitness & Dance, Nicosia. Personal bookings use Calendly.">
   <link rel="icon" type="image/png" sizes="192x192" href="assets/images/icon-192.png">
@@ -19,30 +19,42 @@
   <div id="j-header"></div>
 
   <main>
-    <section class="schedule" id="schedule" aria-labelledby="schedule-title">
-      <header class="schedule__intro">
-        <p class="schedule__kicker" data-i18n="schedule_group_kicker">Group classes</p>
-        <h1 id="schedule-title" class="schedule__title" data-i18n="schedule_head">Group class schedule</h1>
-        <p class="schedule__lede" data-i18n="schedule_lede">Mon–Sat at JUSTICE Fitness &amp; Dance.</p>
-      </header>
-
-      <div class="week" role="region" data-i18n-attr="aria-label:schedule_week_aria">
-        <div class="week__tabs" role="tablist" data-i18n-attr="aria-label:schedule_tabs_aria">
-          <button type="button" class="week__tab" role="tab" id="j-tab-0" aria-selected="true" aria-controls="j-day-0" data-i18n="schedule_day_mon">Mon</button>
-          <button type="button" class="week__tab" role="tab" id="j-tab-1" aria-selected="false" aria-controls="j-day-1" data-i18n="schedule_day_tue">Tue</button>
-          <button type="button" class="week__tab" role="tab" id="j-tab-2" aria-selected="false" aria-controls="j-day-2" data-i18n="schedule_day_wed">Wed</button>
-          <button type="button" class="week__tab" role="tab" id="j-tab-3" aria-selected="false" aria-controls="j-day-3" data-i18n="schedule_day_thu">Thu</button>
-          <button type="button" class="week__tab" role="tab" id="j-tab-4" aria-selected="false" aria-controls="j-day-4" data-i18n="schedule_day_fri">Fri</button>
-          <button type="button" class="week__tab" role="tab" id="j-tab-5" aria-selected="false" aria-controls="j-day-5" data-i18n="schedule_day_sat">Sat</button>
+    <section class="schedule" id="schedule" data-i18n-attr="aria-label:nav_schedule">
+      <p class="schedule__kicker" data-i18n="schedule_group_kicker">Group classes</p>
+      <div class="week week--calendar" role="region" data-i18n-attr="aria-label:schedule_week_aria">
+        <div class="week__hero">
+          <div class="week__hero-slide-viewport">
+            <div class="week__hero-slide week__slider-pane" id="j-week-hero-slide">
+              <div class="week__hero-date" id="j-schedule-hero" aria-live="polite">
+                <span class="week__hero-daynum" id="j-schedule-hero-dd"></span>
+                <div class="week__hero-stack">
+                  <span class="week__hero-weekday" id="j-schedule-hero-weekday"></span>
+                  <span class="week__hero-monthyear" id="j-schedule-hero-my"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="week__today" id="j-schedule-today" data-i18n="schedule_today">Today</button>
         </div>
-        <div class="week__panels" id="j-week-panels"></div>
-      </div>
-
-      <div class="schedule__cta-block">
-        <a class="schedule__cta" href="https://apps.apple.com/cy/app/my-fitness-trainer/id1372844136" target="_blank" rel="noopener noreferrer" data-i18n="schedule_cta" data-i18n-attr="title:schedule_cta_title">Open My Fitness Trainer</a>
-        <p>
-          <a class="schedule__cta-android" href="https://play.google.com/store/apps/details?id=eu.dscompass.myfitnesstrainer_app" target="_blank" rel="noopener noreferrer" data-i18n="schedule_cta_android">Google Play (Android)</a>
-        </p>
+        <div class="week__strip-row">
+          <button type="button" class="week__nav week__nav--prev" id="j-week-prev" data-i18n-attr="aria-label:schedule_week_prev_aria">
+            <svg class="week__nav-icon" width="6" height="11" viewBox="0 0 12 20" fill="none" aria-hidden="true"><path d="M9 3L3 10l6 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="week__slider-viewport">
+            <div class="week__slider-pane" id="j-week-slider-pane">
+              <div class="week__strip" id="j-week-strip" role="tablist" data-i18n-attr="aria-label:schedule_tabs_aria"></div>
+              <div class="week__list-head">
+                <span class="week__list-head-time" data-i18n="schedule_col_time">Time</span>
+                <span class="week__list-head-course" data-i18n="schedule_col_course">Course</span>
+                <span class="week__list-head-sort" aria-hidden="true"></span>
+              </div>
+              <div class="week__panels" id="j-week-panels"></div>
+            </div>
+          </div>
+          <button type="button" class="week__nav week__nav--next" id="j-week-next" data-i18n-attr="aria-label:schedule_week_next_aria">
+            <svg class="week__nav-icon" width="6" height="11" viewBox="0 0 12 20" fill="none" aria-hidden="true"><path d="M3 3l6 7-6 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
       </div>
     </section>
   </main>

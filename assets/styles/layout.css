@@ -592,6 +592,9 @@ body.drawer-open .drawer-backdrop {
 
 /* Home: single-screen shell — no dock, no footer, no page scroll */
 body.page--home {
+  /* One horizontal rhythm for header + main (matches .home below; avoids logo vs cards misalignment) */
+  --home-pad-inline: max(env(safe-area-inset-left, 0px), clamp(1rem, 4.25vw, 1.35rem));
+  --home-pad-inline-end: max(env(safe-area-inset-right, 0px), clamp(1rem, 4.25vw, 1.35rem));
   display: flex;
   flex-direction: column;
   height: 100dvh;
@@ -602,10 +605,16 @@ body.page--home {
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
+body.page--home #j-header {
+  flex-shrink: 0;
+}
+
 /* Home header: airier bar + round frosted glass icon buttons */
 body.page--home .header {
   padding-top: calc(0.55rem + env(safe-area-inset-top, 0px));
   padding-bottom: 0.7rem;
+  padding-left: var(--home-pad-inline);
+  padding-right: var(--home-pad-inline-end);
   background: color-mix(in srgb, var(--surface-glass-strong) 82%, transparent);
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
@@ -630,6 +639,15 @@ body.page--home .brand__tagline {
   letter-spacing: 0.03em;
   text-transform: uppercase;
   color: var(--ink-faint);
+}
+
+/* Strong scale made the mark read as “flush left” vs padded cards — keep a little lift without overflowing gutter */
+body.page--home .brand__mark {
+  margin-inline: 0;
+}
+
+body.page--home .brand__logo {
+  transform: scale(1.12);
 }
 
 body.page--home .header__lang-btn,

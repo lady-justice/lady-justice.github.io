@@ -66,12 +66,12 @@ function render(root, data) {
   root.setAttribute('aria-busy', 'false');
 
   if (dayIx === null || !data.days[dayIx]) {
-    root.innerHTML = `<p class="home-card__class-title">${escape(s.home_preview_weekend)}</p>`;
+    root.innerHTML = `<div class="home-card__body"><p class="home-card__class-title">${escape(s.home_preview_weekend)}</p></div>`;
     return;
   }
 
   if (!events.length) {
-    root.innerHTML = `<p class="home-card__class-title">${escape(s.home_preview_empty)}</p>`;
+    root.innerHTML = `<div class="home-card__body"><p class="home-card__class-title">${escape(s.home_preview_empty)}</p></div>`;
     return;
   }
 
@@ -102,8 +102,10 @@ function render(root, data) {
   const seeAria = escape(s.home_see_all_classes);
 
   root.innerHTML = `
-    ${helper}
-    <div class="home-card__slots">${rows}</div>
+    <div class="home-card__body">
+      ${helper}
+      <div class="home-card__slots">${rows}</div>
+    </div>
     <div class="home-card__footer">
       <a class="home-card__see-link" href="schedule.html" aria-label="${seeAria}">${seeLabel}</a>
     </div>`;
@@ -118,7 +120,7 @@ export async function initHomePreview() {
     data = await loadGroupSchedule();
   } catch {
     const s = getStrings(document.documentElement.getAttribute('data-lang'));
-    root.innerHTML = `<p class="home-card__class-title">${escape(s.home_preview_error)}</p>`;
+    root.innerHTML = `<div class="home-card__body"><p class="home-card__class-title">${escape(s.home_preview_error)}</p></div>`;
     root.setAttribute('aria-busy', 'false');
     return;
   }

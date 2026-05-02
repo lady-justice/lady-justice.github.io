@@ -37,6 +37,7 @@
 
 /* Date card — ref: light #E0F2F1 field, waves right, short thick rule, Playfair numerals, #4DB6AC labels */
 .home__date {
+  flex-shrink: 0;
   --date-ink: #062a2c;
   --date-label: #3d9d91;
   --date-rule: #4db6ac;
@@ -202,11 +203,14 @@
   margin-inline: 0;
   display: flex;
   flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
   /* Air between “Today at the studio” and the schedule card */
   gap: clamp(1.05rem, 3.2vw, 1.5rem);
 }
 
 .home__intro {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   gap: var(--home-gap);
@@ -237,10 +241,9 @@
   opacity: 0.85;
 }
 
-/* Booking: fills space below “today”; content pinned to bottom so tiles stay short */
+/* Booking: fixed block at bottom of home; “today” flex area scrolls above when needed */
 .home__booking {
-  flex: 1 1 auto;
-  min-height: 0;
+  flex: 0 0 auto;
   width: 100%;
   max-width: none;
   margin-inline: 0;
@@ -248,7 +251,6 @@
   padding-top: 0;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
   gap: var(--home-gap);
 }
 
@@ -440,6 +442,8 @@
   display: flex;
   flex-direction: column;
   gap: var(--home-gap);
+  flex: 1 1 auto;
+  min-height: 0;
   width: 100%;
   padding: clamp(1.1rem, 3.6vw, 1.45rem) clamp(1.05rem, 3.4vw, 1.35rem);
   border-radius: var(--r-xl);
@@ -461,6 +465,15 @@
     0 6px 22px rgba(18, 72, 76, 0.1),
     0 18px 44px rgba(18, 72, 76, 0.08);
   border-color: color-mix(in srgb, var(--c-cyan) 28%, var(--glass-border-mid));
+}
+
+/* Scrollable list / messages; footer (see-all link) stays pinned in the card */
+.home-card__body {
+  flex: 1 1 auto;
+  min-height: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .home-card__placeholder {
@@ -563,6 +576,7 @@
 }
 
 .home-card__footer {
+  flex-shrink: 0;
   display: flex;
   justify-content: flex-start;
   padding-top: 0.15rem;
@@ -614,14 +628,14 @@ body.page--home .home-main {
   overflow: hidden;
 }
 
-/* Match header edge padding; same --home-gap rhythm as base .home */
+/* Match header: inherits --home-pad-inline* from body.page--home (layout.css) */
 body.page--home .home {
   --home-gap: clamp(0.8rem, 2.5vw, 1.05rem);
   padding:
     clamp(0.45rem, 1.8vw, 0.85rem)
-    clamp(0.75rem, 4vw, 1.25rem)
+    var(--home-pad-inline-end)
     max(1.35rem, calc(1.05rem + env(safe-area-inset-bottom, 0px)))
-    clamp(0.75rem, 4vw, 1.25rem);
+    var(--home-pad-inline);
 }
 
 body.page--home .home__today {
@@ -634,6 +648,15 @@ body.page--home .home__today {
 body.page--home .home-card--schedule {
   gap: var(--home-gap);
   padding: clamp(1.05rem, 3.4vw, 1.35rem) clamp(1rem, 3.2vw, 1.25rem);
+  overflow: hidden;
+}
+
+body.page--home .home-card__body {
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
 }
 
 body.page--home .home-card__placeholder {

@@ -5,7 +5,8 @@
 
 @media (min-width: 900px) {
   body.page--home .home {
-    padding-inline: clamp(1rem, 4vw, 1.35rem);
+    padding-inline-start: var(--home-pad-inline);
+    padding-inline-end: var(--home-pad-inline-end);
   }
 
   .home__book-private {
