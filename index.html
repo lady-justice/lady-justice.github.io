@@ -8,7 +8,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="assets/images/icon-192.png">
   <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
   <link rel="manifest" href="manifest.webmanifest">
-  <meta name="theme-color" content="#2a9d8c">
+  <meta name="theme-color" content="#0d9488">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="JusticeApp">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -20,78 +20,102 @@
 
   <main class="home-main">
     <section class="home" aria-labelledby="home-schedule-heading">
-      <div class="home__date" role="group" data-i18n-attr="aria-label:home_date_aria">
-        <div class="home__date-waves" aria-hidden="true">
-          <svg class="home__date-waves-svg" viewBox="0 0 200 120" preserveAspectRatio="xMaxYMid slice" xmlns="http://www.w3.org/2000/svg" focusable="false">
-            <path fill="rgb(129 200 190 / 0.2)" d="M72 120c28-38 12-78 44-120H200v120H72z" />
-            <path fill="rgb(77 182 172 / 0.16)" d="M96 120c22-32 4-68 40-120h64v120H96z" />
-            <path fill="rgb(255 255 255 / 0.42)" d="M0 120c36-22 52-58 88-86s48-18 112-34v120H0z" />
-          </svg>
-        </div>
-        <div class="home__date-dots" aria-hidden="true"></div>
-        <div class="home__date-inner">
-          <div class="home__date-top">
-            <div class="home__date-copy">
-              <span class="home__date-weekday" id="j-home-date-weekday"></span>
-              <span class="home__date-numeric" id="j-home-date-numeric"></span>
-              <span class="home__date-month" id="j-home-date-month"></span>
-            </div>
-            <div class="home__date-icon" aria-hidden="true">
-              <svg class="home__date-icon-svg" width="21" height="21" viewBox="0 0 24 24" fill="none">
-                <rect x="3.5" y="5.5" width="17" height="14" rx="2" stroke="currentColor" stroke-width="1.35" />
-                <path d="M3.5 10.5h17" stroke="currentColor" stroke-width="1.35" />
-                <path d="M8 3.5V7M16 3.5V7" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" />
-              </svg>
-            </div>
-          </div>
-        </div>
-      </div>
+      <p class="home__greeting" id="j-home-greeting" aria-live="polite">
+        <span class="home__greeting-text" data-i18n="home_greeting">Good morning, Kristina!</span>
+        <span class="home__greeting-emoji" aria-hidden="true">&#128075;</span>
+      </p>
 
-      <div class="home__today">
+      <article class="home__date" role="group" data-i18n-attr="aria-label:home_date_aria">
+        <div class="home__date-body">
+          <span class="home__date-eyebrow" data-i18n="home_today_eyebrow">TODAY</span>
+          <h1 class="home__date-title" id="j-home-date-title">Saturday, 02 May</h1>
+          <p class="home__date-status">
+            <span class="home__date-status-icon" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                <rect x="3.5" y="5.5" width="17" height="14" rx="2.5" stroke="currentColor" stroke-width="1.6"/>
+                <path d="M3.5 10.5h17" stroke="currentColor" stroke-width="1.6"/>
+                <path d="M8 3.5V7M16 3.5V7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <span id="j-home-date-status">3 classes today</span>
+          </p>
+        </div>
+        <span class="home__date-cta" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <rect x="3.5" y="5.5" width="17" height="14" rx="2.5" stroke="currentColor" stroke-width="1.6"/>
+            <path d="M3.5 10.5h17" stroke="currentColor" stroke-width="1.6"/>
+            <path d="M8 3.5V7M16 3.5V7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </span>
+      </article>
+
+      <section class="home__today" aria-labelledby="home-schedule-heading">
         <header class="home__intro">
           <h2 id="home-schedule-heading" class="home__heading" data-i18n="home_today_schedule">Today at the studio</h2>
         </header>
 
-        <article id="j-home-preview" class="home-card home-card--schedule" aria-busy="true" aria-live="polite">
+        <div id="j-home-preview" class="home-card home-card--schedule" aria-busy="true" aria-live="polite">
           <div class="home-card__body">
             <p class="home-card__placeholder">&nbsp;</p>
           </div>
-        </article>
-      </div>
+        </div>
+      </section>
 
       <div class="home__booking">
         <a class="home__book-private" href="book.html#book-individual">
-          <div class="home__book-private-text">
+          <span class="home__book-private-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="9" r="3.6" stroke="currentColor" stroke-width="1.6"/>
+              <path d="M5 20.5c0-3 3-5 7-5s7 2 7 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              <path d="M18.5 5.2l.65 1.4 1.55.18-1.15 1.05.32 1.52L18.5 8.6l-1.37.77.32-1.52L16.3 6.78l1.55-.18z" fill="currentColor"/>
+            </svg>
+          </span>
+          <span class="home__book-private-text">
             <span class="home__book-private-title" data-i18n="home_book_private_title">Book Private</span>
             <span class="home__book-private-sub" data-i18n="home_book_private_desc">One-to-One Class</span>
-          </div>
+          </span>
           <span class="home__book-private-arrow" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </span>
         </a>
+
         <div class="home__book-row">
           <a class="home__book-tile home__book-tile--studio" href="book.html#book-studio">
-            <div class="home__book-tile-text">
+            <span class="home__book-tile-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M4 11l8-7 8 7v9a1 1 0 0 1-1 1h-4v-6h-6v6H5a1 1 0 0 1-1-1z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="home__book-tile-text">
               <span class="home__book-tile-title" data-i18n="home_book_studio_title">Book Studio</span>
               <span class="home__book-tile-desc" data-i18n="home_book_studio_desc">Private studio rental</span>
-            </div>
+            </span>
             <span class="home__book-tile-go" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </span>
           </a>
           <a class="home__book-tile home__book-tile--group" href="schedule.html">
-            <div class="home__book-tile-text">
+            <span class="home__book-tile-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <rect x="3.5" y="5.5" width="17" height="14" rx="2.5" stroke="currentColor" stroke-width="1.6"/>
+                <path d="M3.5 10.5h17" stroke="currentColor" stroke-width="1.6"/>
+                <path d="M8 3.5V7M16 3.5V7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <span class="home__book-tile-text">
               <span class="home__book-tile-title" data-i18n="home_group_sched_title">Group Schedule</span>
               <span class="home__book-tile-desc" data-i18n="home_group_sched_desc">See all upcoming classes</span>
-            </div>
+            </span>
             <span class="home__book-tile-go" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </span>
           </a>
         </div>
       </div>
     </section>
   </main>
+
+  <div id="j-dock"></div>
 
   <script type="module" src="assets/js/app.js"></script>
 </body>

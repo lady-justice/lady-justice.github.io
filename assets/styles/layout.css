@@ -6,6 +6,7 @@
  */
 
 /* ───────── Header ───────── */
+/* One bar everywhere: cream canvas, compact brand (same as original Home). Lang + menu → “More” / drawer only. */
 .header {
   position: sticky;
   top: 0;
@@ -15,12 +16,10 @@
   justify-content: space-between;
   gap: 0.75rem;
   width: 100%;
-  /* Inset + small gap: content never sits under notch / Dynamic Island */
-  padding: calc(0.5rem + env(safe-area-inset-top, 0px)) clamp(0.75rem, 4vw, 1.25rem) 0.55rem;
-  background: var(--surface-glass-bright);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--rule-soft);
+  padding: calc(0.55rem + env(safe-area-inset-top, 0px)) var(--header-pad-inline-end) 0.6rem var(--header-pad-inline);
+  background: var(--bg-canvas);
+  border-bottom: 0;
+  box-shadow: none;
   isolation: isolate;
 }
 
@@ -34,32 +33,27 @@
 }
 .brand:hover { text-decoration: none; opacity: 0.92; }
 
-/* No extra white plate: PNG already has the squircle. Rectangular box-shadow was fighting the asset and read as a “white rim”. */
 .brand__mark {
   position: relative;
   display: grid;
   place-items: center;
-  width: 3.45rem;
-  height: 3.45rem;
+  width: 2.85rem;
+  height: 2.85rem;
   flex-shrink: 0;
-  margin-inline: 0.15rem;
-  background: transparent;
+  margin-inline: 0;
+  background: var(--surface);
   overflow: visible;
-  border-radius: 0;
-  box-shadow: none;
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-sm), 0 0 0 1px var(--rule-soft);
 }
 .brand__logo {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: contain;
-  transform: scale(1.32);
+  transform: scale(1.04);
   transform-origin: center center;
-  /* Shadow follows the PNG alpha — no second white layer */
-  filter:
-    drop-shadow(0 1px 2px rgba(18, 72, 76, 0.06))
-    drop-shadow(0 4px 12px rgba(18, 72, 76, 0.08))
-    drop-shadow(0 12px 28px rgba(18, 72, 76, 0.07));
+  filter: drop-shadow(0 1px 1px rgba(15, 23, 42, 0.05));
   transition: filter 0.22s ease, transform 0.22s ease;
 }
 .brand:hover .brand__logo {
@@ -69,16 +63,26 @@
     drop-shadow(0 14px 34px rgba(18, 72, 76, 0.09));
 }
 
-.brand__text { display: flex; flex-direction: column; gap: 0.05rem; min-width: 0; }
-.brand__name { font-size: 1rem; font-weight: 700; white-space: nowrap; }
+.brand__text { display: flex; flex-direction: column; gap: 0.12rem; min-width: 0; }
+.brand__name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  white-space: nowrap;
+}
 .brand__tagline {
-  font-size: 0.78rem;
-  font-weight: 500;
-  color: var(--ink-muted);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
   white-space: nowrap;
 }
 
-.header__actions { display: flex; align-items: center; gap: 0.45rem; flex-shrink: 0; }
+.header__actions {
+  display: none;
+}
 
 /* Header language: button + popover list (no native <select> — iOS paints it in the wrong place). */
 .header__lang-wrap {
@@ -221,16 +225,18 @@ body.drawer-open .header__menu-bars > span:nth-child(2) { opacity: 0; transform:
 body.drawer-open .header__menu-bars > span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
 /* ───────── Drawer + backdrop ───────── */
+/* Drawer stays above the dock (40) even while closing — otherwise removing .drawer-open
+   drops z-index mid-transition and the panel slides *under* the bottom bar. */
 .drawer {
   position: fixed;
-  z-index: 26;
+  z-index: 46;
   top: calc(var(--header-h) + 0.35rem);
   right: 0;
   bottom: 0.5rem;
   display: flex;
   flex-direction: column;
   width: min(100vw - 2.25rem, 19rem);
-  padding: 1.25rem 1.25rem calc(1.25rem + var(--safe-bottom));
+  padding: 1.25rem 1.25rem calc(1.5rem + var(--safe-bottom));
   background: var(--surface-glass-bright);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
@@ -240,7 +246,10 @@ body.drawer-open .header__menu-bars > span:nth-child(3) { transform: translateY(
   visibility: hidden;
   transition: transform 0.3s ease, visibility 0.3s;
 }
-body.drawer-open .drawer { transform: translateX(0); visibility: visible; }
+body.drawer-open .drawer {
+  transform: translateX(0);
+  visibility: visible;
+}
 
 .drawer__nav {
   display: flex;
@@ -325,9 +334,9 @@ body.drawer-open .drawer { transform: translateX(0); visibility: visible; }
   flex-direction: column;
   gap: 0.85rem;
   padding-top: 1.25rem;
+  padding-bottom: 0.35rem;
 }
-.drawer__call,
-.drawer__cta {
+.drawer__call {
   display: flex;
   align-items: center;
   gap: 0.85rem;
@@ -339,8 +348,7 @@ body.drawer-open .drawer { transform: translateX(0); visibility: visible; }
   box-shadow: var(--shadow-sm);
   transition: box-shadow 0.18s ease;
 }
-.drawer__call:hover,
-.drawer__cta:hover { box-shadow: var(--shadow-md); }
+.drawer__call:hover { box-shadow: var(--shadow-md); }
 
 .drawer__call-icon {
   display: flex;
@@ -357,26 +365,47 @@ body.drawer-open .drawer { transform: translateX(0); visibility: visible; }
 .drawer__call-number { font-weight: 700; font-size: 1rem; }
 .drawer__call-hint { font-size: 0.78rem; color: var(--ink-muted); }
 
-.drawer__cta {
-  justify-content: space-between;
-  font-weight: 700;
-  font-size: 1rem;
-  background: var(--grad-cta);
-  color: #fff;
-}
-.drawer__cta-arrow {
-  display: flex;
+.drawer__back {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.25rem;
-  height: 2.25rem;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.22);
+  gap: 0.4rem;
+  width: 100%;
+  margin: 0;
+  padding: 0.7rem 1rem;
+  border: 1px solid var(--rule-soft);
+  border-radius: var(--r-md);
+  font: inherit;
+  font-weight: 600;
+  font-size: 0.88rem;
+  letter-spacing: 0.02em;
+  color: var(--ink-muted);
+  background: color-mix(in srgb, var(--c-cyan-soft) 38%, #fff);
+  cursor: pointer;
+  transition: background 0.16s ease, color 0.16s ease, border-color 0.16s ease;
+}
+.drawer__back:hover {
+  color: var(--ink);
+  border-color: color-mix(in srgb, var(--c-teal) 22%, var(--rule-soft));
+  background: color-mix(in srgb, var(--c-cyan-soft) 58%, #fff);
+}
+.drawer__back:active {
+  transform: scale(0.99);
+}
+.drawer__back:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--c-teal) 50%, transparent);
+  outline-offset: 2px;
+}
+.drawer__back-icon {
+  flex-shrink: 0;
+  margin-left: -0.15rem;
+  opacity: 0.9;
 }
 
 .drawer-backdrop {
   position: fixed;
-  z-index: 25;
+  /* Below drawer (46), above dock (40) — same stacking when closing */
+  z-index: 43;
   top: var(--header-h);
   inset-inline: 0;
   bottom: 0;
@@ -397,6 +426,9 @@ body.drawer-open .drawer-backdrop {
   .drawer-backdrop,
   .header__menu-bars > span {
     transition: none;
+  }
+  .drawer__back:active {
+    transform: none;
   }
 }
 
@@ -533,68 +565,132 @@ body.drawer-open .drawer-backdrop {
 }
 .footer__top:hover { border-color: var(--c-teal); color: var(--c-teal); text-decoration: none; }
 
-/* ───────── Mobile dock ───────── */
+/* ───────── Mobile dock — 5-item nav with center FAB ───────── */
 .dock {
-  display: flex;
   position: fixed;
   z-index: 40;
   inset: auto 0 0 0;
-  gap: 0.5rem;
-  padding: 0.4rem 0.5rem max(0.45rem, var(--safe-bottom));
-  background: var(--surface-glass-bright);
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 0;
+  width: 100%;
+  max-width: var(--shell-max-w);
+  margin: 0 auto;
+  padding: 0.5rem 0.65rem max(0.5rem, var(--safe-bottom));
+  background: var(--surface);
   border-top: 1px solid var(--rule-soft);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  box-shadow: 0 -6px 24px rgba(18, 72, 76, 0.08);
+  box-shadow: 0 -4px 16px rgba(15, 23, 42, 0.06);
+  /* room for the center FAB to overflow above the bar */
+  overflow: visible;
 }
-.dock__btn {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-  min-width: 0;
-  padding: 0.45rem 0.5rem;
-  border-radius: var(--r-md);
-  color: var(--ink);
-  font-weight: 700;
-  font-size: 0.78rem;
-  letter-spacing: 0.02em;
-  background: #fff;
-  box-shadow: var(--shadow-sm);
-  transition: box-shadow 0.18s ease, transform 0.15s ease;
-}
-.dock__btn:hover { text-decoration: none; box-shadow: var(--shadow-md); }
-.dock__btn:active { transform: scale(0.99); }
-.dock__btn--solo { background: linear-gradient(168deg, #ecfbfb 0%, #d4f6fb 100%); }
-.dock__btn--duo { background: linear-gradient(168deg, #d4f6fb 0%, #b8e9e3 100%); }
 
-.dock__icon {
-  display: flex;
+.dock__btn {
+  flex: 1 1 0;
+  min-width: 0;
+  display: inline-flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 1.85rem;
-  height: 1.85rem;
-  flex-shrink: 0;
+  gap: 0.18rem;
+  padding: 0.45rem 0.2rem;
+  border-radius: var(--r-md);
+  color: var(--ink-muted);
+  font-weight: 600;
+  font-size: 0.72rem;
+  line-height: 1.1;
+  letter-spacing: 0.005em;
+  background: transparent;
+  text-decoration: none;
+  transition: color 0.18s ease, transform 0.15s ease;
+}
+.dock__btn:hover { text-decoration: none; color: var(--ink); }
+.dock__btn:active { transform: scale(0.96); }
+.dock__btn:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--c-teal) 55%, transparent);
+  outline-offset: 2px;
+}
+.dock__btn[aria-current="page"] {
   color: var(--c-teal-deep);
 }
-.dock__label { flex: 1; min-width: 0; text-align: left; }
-.dock__go {
-  display: flex;
+.dock__btn[aria-current="page"] .dock__icon {
+  color: var(--c-teal-deep);
+}
+
+.dock__icon {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 1.65rem;
   height: 1.65rem;
-  border-radius: 50%;
-  color: var(--c-teal-deep);
-  background: #fff;
-  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+  color: currentColor;
 }
 
-/* Home: single-screen shell — no dock, no footer, no page scroll */
+.dock__label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+/* Center floating action button — lifts above the bar */
+.dock__btn--fab {
+  flex: 0 0 auto;
+  min-width: auto;
+  align-self: center;
+  position: relative;
+  width: 3.6rem;
+  height: 3.6rem;
+  margin: -1.2rem 0.35rem 0;
+  padding: 0;
+  border-radius: 50%;
+  color: #fff;
+  background: var(--grad-cta);
+  box-shadow: var(--shadow-cta);
+  font-size: 0;
+  gap: 0;
+}
+.dock__btn--fab .dock__icon {
+  width: 1.6rem;
+  height: 1.6rem;
+  color: #fff;
+}
+.dock__btn--fab:hover {
+  color: #fff;
+  box-shadow: 0 8px 22px rgba(13, 148, 136, 0.40), 0 3px 8px rgba(13, 148, 136, 0.24);
+}
+
+.dock__btn--fab .dock__label {
+  position: absolute;
+  bottom: -1.05rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--ink-muted);
+}
+
+/* MORE button — vertical-dots icon */
+.dock__more-dots {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  width: 1.65rem;
+  height: 1.65rem;
+}
+.dock__more-dots > span {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* Home: single-screen shell — flat cream, main + dock */
 body.page--home {
-  /* One horizontal rhythm for header + main (matches .home below; avoids logo vs cards misalignment) */
-  --home-pad-inline: max(env(safe-area-inset-left, 0px), clamp(1rem, 4.25vw, 1.35rem));
-  --home-pad-inline-end: max(env(safe-area-inset-right, 0px), clamp(1rem, 4.25vw, 1.35rem));
+  --home-pad-inline: var(--header-pad-inline);
+  --home-pad-inline-end: var(--header-pad-inline-end);
   display: flex;
   flex-direction: column;
   height: 100dvh;
@@ -602,88 +698,17 @@ body.page--home {
   min-height: 100dvh;
   overflow: hidden;
   overscroll-behavior: none;
-  padding-bottom: env(safe-area-inset-bottom, 0px);
+  padding-bottom: 0;
 }
 
 body.page--home #j-header {
   flex-shrink: 0;
 }
 
-/* Home header: airier bar + round frosted glass icon buttons */
-body.page--home .header {
-  padding-top: calc(0.55rem + env(safe-area-inset-top, 0px));
-  padding-bottom: 0.7rem;
-  padding-left: var(--home-pad-inline);
-  padding-right: var(--home-pad-inline-end);
-  background: color-mix(in srgb, var(--surface-glass-strong) 82%, transparent);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  border-bottom: 1px solid color-mix(in srgb, var(--glass-border-mid) 55%, var(--rule-soft));
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.75) inset,
-    0 10px 32px rgba(18, 72, 76, 0.06);
-}
-
-body.page--home .brand__text {
-  gap: 0.12rem;
-}
-
-body.page--home .brand__name {
-  font-size: 1.02rem;
-  letter-spacing: -0.02em;
-}
-
-body.page--home .brand__tagline {
-  font-size: 0.76rem;
-  font-weight: 500;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-}
-
-/* Strong scale made the mark read as “flush left” vs padded cards — keep a little lift without overflowing gutter */
-body.page--home .brand__mark {
-  margin-inline: 0;
-}
-
-body.page--home .brand__logo {
-  transform: scale(1.12);
-}
-
-body.page--home .header__lang-btn,
-body.page--home .header__menu {
-  width: 2.75rem;
-  height: 2.75rem;
-  border-radius: 50%;
-  border: 1px solid var(--glass-border-mid);
-  box-shadow: var(--shadow-glass-card);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-}
-
-body.page--home .header__menu {
-  color: var(--ink);
-  background-color: var(--surface-glass-card);
-}
-
-body.page--home .header__lang-btn {
-  color: var(--c-teal-deep);
-  background-color: var(--surface-glass-card);
-}
-
-body.page--home .header__lang-chevron {
-  color: var(--ink-muted);
-}
-
-body.page--home .header__lang-btn:hover,
-body.page--home .header__menu:hover {
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.88) inset,
-    0 4px 14px rgba(18, 72, 76, 0.1);
-  border-color: color-mix(in srgb, var(--c-cyan) 25%, var(--glass-border-mid));
-}
-
-body.page--home .header__lang-btn:active,
-body.page--home .header__menu:active {
-  transform: scale(0.96);
+/* Dock fits inside the home shell (max-width clamp), and pushes content above */
+body.page--home .dock {
+  position: fixed;
+  inset: auto 0 0 0;
+  margin-inline: auto;
+  border-radius: 0;
 }

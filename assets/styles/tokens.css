@@ -1,82 +1,111 @@
 /**
  * JusticeApp design tokens — single source of truth.
- * One palette: white canvas + cyan/teal accent + Inter typography.
+ *
+ * Aligned with the Home reference screenshot:
+ *   - light neutral canvas (#f8f9fa) + white surfaces
+ *   - modern teal (#14B8A6 / #0D9488) accent
+ *   - near-black ink, neutral grays
+ *   - large soft card radii (24px), gentle drop shadows
  *
  * IMPORTANT: keep --bp-desktop-min in sync with VIEWPORT_DESKTOP_MIN_PX in assets/js/config.js.
  */
 
 :root {
-  /* —— Brand —— */
+  /* ────────────────────── Brand ────────────────────── */
+  --c-teal: #14b8a6;
+  --c-teal-deep: #0d9488;
+  --c-teal-darker: #0f766e;
+  --c-teal-bright: #2dd4bf;
+
+  /* Soft mint surfaces (icon plates, the TODAY card, hover states) */
+  --c-mint: #d2f1ec;
+  --c-mint-soft: #e6f6f2;
+  --c-mint-strong: #b9e6dd;
+
+  /* Legacy cyan tokens kept for non-home pages */
   --c-cyan: #5de2eb;
   --c-cyan-soft: #d2eef8;
-  --c-teal: #2a9d8c;
-  --c-teal-deep: #1f7a6d;
 
-  /* Schedule pill accents (semantic intensity tags from group-schedule.json) */
+  /* Schedule pill accents (semantic tags from group-schedule.json; bars map to ref teal/pink/orange) */
   --c-accent-wine: #c8506e;
   --c-accent-coral: #f08b7a;
   --c-accent-gold: #e4b042;
   --c-accent-lavender: #a06bee;
 
-  /* —— Surfaces —— */
-  --bg-canvas: #ffffff;
-  --bg-app-gradient: linear-gradient(180deg, #d2eef8 0%, #d8f4f6 52%, #c8f0ee 78%, #beece8 100%);
+  /* Group Classes UI accents (schedule page cards / strip) */
+  --c-schedule-teal: #14a098;
+  --c-schedule-teal-soft: #d8f4f1;
+  --c-schedule-pink: #e91e63;
+  --c-schedule-orange: #ff7043;
+  --shadow-schedule-float: 0 4px 12px rgba(15, 23, 42, 0.06);
+  --shadow-schedule-card: 0 2px 10px rgba(15, 23, 42, 0.05), 0 6px 20px rgba(15, 23, 42, 0.04);
+  --r-schedule-card: 20px;
+  --r-schedule-shell: 22px;
+
+  /* ────────────────────── Surfaces ─────────────────── */
+  --bg-canvas: #f8f9fa;
+  --bg-app-gradient: var(--bg-canvas);
+  --bg-schedule-page: var(--bg-canvas);
   --surface: #ffffff;
-  --surface-glass: rgba(255, 255, 255, 0.72);
-  --surface-glass-bright: rgba(255, 255, 255, 0.94);
-  --surface-glass-card: rgba(255, 255, 255, 0.58);
-  --surface-glass-strong: rgba(255, 255, 255, 0.82);
-  --glass-border: rgba(255, 255, 255, 0.72);
-  --glass-border-mid: color-mix(in srgb, var(--c-cyan) 22%, rgba(255, 255, 255, 0.55));
-  --glass-blur: 18px;
+  --surface-mint: linear-gradient(135deg, #e8f6f2 0%, #d6efe9 60%, #c9ebe3 100%);
+  --surface-elevated: #ffffff;
 
-  /* —— Ink —— */
-  --ink: #1a4549;
-  --ink-muted: rgba(26, 69, 73, 0.72);
-  --ink-faint: rgba(26, 69, 73, 0.5);
+  /* Glass aliases — kept so legacy components don't break */
+  --surface-glass: rgba(255, 255, 255, 0.78);
+  --surface-glass-bright: #ffffff;
+  --surface-glass-card: #ffffff;
+  --surface-glass-strong: rgba(255, 255, 255, 0.92);
+  --glass-border: rgba(17, 24, 39, 0.06);
+  --glass-border-mid: rgba(17, 24, 39, 0.06);
+  --glass-blur: 14px;
 
-  /* —— Lines & shadows —— */
-  --rule: rgba(26, 69, 73, 0.12);
-  --rule-soft: rgba(26, 69, 73, 0.08);
-  --shadow-sm: 0 2px 8px rgba(18, 72, 76, 0.06);
-  --shadow-md: 0 8px 20px rgba(18, 72, 76, 0.1);
-  --shadow-lg: 0 12px 28px rgba(18, 72, 76, 0.16);
-  --shadow-glass-card:
-    0 1px 0 rgba(255, 255, 255, 0.88) inset,
-    0 0 0 1px rgba(26, 69, 73, 0.06) inset,
-    0 4px 16px rgba(18, 72, 76, 0.08),
-    0 16px 40px rgba(18, 72, 76, 0.07);
-  --shadow-primary-cta:
-    0 1px 0 rgba(255, 255, 255, 0.35) inset,
-    0 6px 20px rgba(42, 157, 140, 0.28),
-    0 14px 36px rgba(18, 72, 76, 0.12);
-  --shadow-glass-inset: inset 1px 2px 4px rgba(18, 70, 72, 0.12);
-  --shadow-neu-inset:
-    inset -2px -2px 5px rgba(200, 236, 238, 0.85),
-    inset 2px 2px 5px rgba(32, 88, 86, 0.16);
+  /* ────────────────────── Ink ──────────────────────── */
+  --ink: #0f172a;
+  --ink-muted: #6b7280;
+  --ink-faint: #9ca3af;
 
-  /* —— Brand-tinted gradients —— */
-  --grad-cta: linear-gradient(135deg, #7eeaed 0%, #4dc9c4 48%, #2a9d8c 100%);
-  --grad-tile: linear-gradient(92deg, #d4f6fb 0%, #e8fbfc 52%, #d2eef3 100%);
-  --grad-primary-card: linear-gradient(155deg, rgba(255, 255, 255, 0.92) 0%, rgba(236, 251, 252, 0.88) 42%, rgba(212, 246, 251, 0.55) 100%);
-  --grad-secondary-card: linear-gradient(168deg, rgba(255, 255, 255, 0.75) 0%, rgba(245, 252, 252, 0.82) 100%);
+  /* ────────────────────── Lines & shadows ──────────── */
+  --rule: rgba(15, 23, 42, 0.08);
+  --rule-soft: rgba(15, 23, 42, 0.06);
 
-  /* —— Geometry —— */
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05);
+  --shadow-md: 0 4px 14px rgba(15, 23, 42, 0.06);
+  --shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.10);
+  --shadow-card: 0 2px 10px rgba(15, 23, 42, 0.05), 0 8px 24px rgba(15, 23, 42, 0.04);
+  --shadow-cta: 0 6px 18px rgba(13, 148, 136, 0.32), 0 2px 6px rgba(13, 148, 136, 0.20);
+
+  /* Legacy alias names (used by other pages / older blocks) */
+  --shadow-glass-card: var(--shadow-card);
+  --shadow-primary-cta: var(--shadow-cta);
+  --shadow-glass-inset: inset 0 1px 0 rgba(255, 255, 255, 0.65);
+  --shadow-neu-inset: inset 0 1px 0 rgba(255, 255, 255, 0.45);
+
+  /* ────────────────────── Brand-tinted gradients ───── */
+  --grad-cta: linear-gradient(120deg, #2dd4bf 0%, #14b8a6 55%, #0d9488 100%);
+  --grad-tile: linear-gradient(135deg, #ecf8f5 0%, #d6efe9 100%);
+  --grad-primary-card: var(--grad-cta);
+  --grad-secondary-card: linear-gradient(180deg, #ffffff 0%, #f8faf9 100%);
+
+  /* ────────────────────── Geometry ─────────────────── */
+  --r-xs: 8px;
   --r-sm: 12px;
   --r-md: 16px;
   --r-lg: 20px;
-  --r-xl: 28px;
+  --r-xl: 24px;
+  --r-2xl: 28px;
   --r-pill: 9999px;
 
-  /* —— Type —— */
+  /* ────────────────────── Type ─────────────────────── */
   --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
 
-  /* —— Layout —— */
+  /* ────────────────────── Layout ───────────────────── */
   --bp-desktop-min: 900px;
   --shell-max-w: 28rem;
-  --dock-h: 3.35rem;
-  /* Sticky bar: logo row + vertical padding + notch / Dynamic Island inset */
-  --header-h: calc(4.35rem + env(safe-area-inset-top, 0px));
+  --dock-h: 4.4rem;
+  --header-h: calc(4.4rem + env(safe-area-inset-top, 0px));
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   --safe-top: env(safe-area-inset-top, 0px);
+  /* Shared horizontal gutter — header bar and main columns use the same insets (safe area + clamp). */
+  --header-pad-inline: max(env(safe-area-inset-left, 0px), clamp(0.75rem, 4vw, 1.25rem));
+  --header-pad-inline-end: max(env(safe-area-inset-right, 0px), clamp(0.75rem, 4vw, 1.25rem));
 }

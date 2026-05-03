@@ -1,5 +1,5 @@
 /**
- * Schedule page: calendar week (Mon–Sun) with real dates, day strip, timeline cards.
+ * Schedule page: Group Classes — week strip (Mon–Sun), class cards, filter sheet.
  */
 import {
   loadGroupSchedule,
@@ -9,6 +9,14 @@ import {
   parseScheduleMetaTimes,
 } from '../data/schedule.js';
 import { getStrings, applyLang, normalizeLang } from '../i18n/apply.js';
+
+const BANNER_DISMISS_KEY = 'justice-schedule-banner-dismissed';
+
+const ICON_CLOCK =
+  '<svg class="schedule-card__clock" width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.75"/><path d="M12 7v6l4 2" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>';
+
+const ICON_PIN =
+  '<svg class="schedule-card__pin" width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s7-4.35 7-11a7 7 0 1 0-14 0c0 6.65 7 11 7 11Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.2" fill="currentColor"/></svg>';
 
 function scheduleLocale(lang) {
   const L = normalizeLang(lang);
@@ -29,31 +37,6 @@ function addDays(base, n) {
   return new Date(base.getFullYear(), base.getMonth(), base.getDate() + n);
 }
 
-function parseTimeToMinutes(hm) {
-  const m = String(hm || '').match(/^(\d{1,2}):(\d{2})$/);
-  if (!m) return null;
-  return Number(m[1]) * 60 + Number(m[2]);
-}
-
-/** Index of class “in progress” or next upcoming today; otherwise -1. */
-function activeEventIndexForToday(events, now, selectedDate) {
-  if (!sameLocalDate(selectedDate, now)) return -1;
-  const minutesNow = now.getHours() * 60 + now.getMinutes();
-  for (let i = 0; i < events.length; i++) {
-    const { start, end } = parseScheduleMetaTimes(events[i].meta);
-    const sm = parseTimeToMinutes(start);
-    if (sm === null) continue;
-    let em = parseTimeToMinutes(end);
-    if (em === null) em = sm + 60;
-    if (minutesNow >= sm && minutesNow < em) return i;
-  }
-  for (let i = 0; i < events.length; i++) {
-    const sm = parseTimeToMinutes(parseScheduleMetaTimes(events[i].meta).start);
-    if (sm !== null && minutesNow < sm) return i;
-  }
-  return -1;
-}
-
 function coachInitials(name) {
   const parts = String(name || '')
     .trim()
@@ -72,6 +55,11 @@ function escapeHtml(s) {
     .replace(/"/g, '&quot;');
 }
 
+function weekdayAbbr(locale, day) {
+  const short = new Intl.DateTimeFormat(locale, { weekday: 'short' }).format(day);
+  return short.replace(/\.$/, '').slice(0, 3).toUpperCase();
+}
+
 function defaultSelectedStripIndex(weekStart, now = new Date()) {
   const target = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   for (let i = 0; i < 7; i++) {
@@ -80,21 +68,28 @@ function defaultSelectedStripIndex(weekStart, now = new Date()) {
   return 0;
 }
 
-function renderHero(locale, date) {
-  const dd = document.getElementById('j-schedule-hero-dd');
-  const wd = document.getElementById('j-schedule-hero-weekday');
-  const my = document.getElementById('j-schedule-hero-my');
-  if (!dd || !wd || !my) return;
-  dd.textContent = String(date.getDate());
-  wd.textContent = new Intl.DateTimeFormat(locale, { weekday: 'short' }).format(date);
-  my.textContent = new Intl.DateTimeFormat(locale, { month: 'short', year: 'numeric' }).format(date);
+function dayHasEvents(data, stripIndex, weekStart) {
+  const calDate = addDays(weekStart, stripIndex);
+  const dataIx = scheduleDataIndexFromJsWeekday(calDate.getDay());
+  if (dataIx === null) return false;
+  return (data.days[dataIx]?.events ?? []).length > 0;
 }
 
-function buildStrip(container, weekStart, locale, selectedIndex) {
+function weekHasEventsFlags(data, weekStart) {
+  return Array.from({ length: 7 }, (_, i) => dayHasEvents(data, i, weekStart));
+}
+
+function renderMonthYear(locale, date) {
+  const el = document.getElementById('j-schedule-month-year');
+  if (!el) return;
+  el.textContent = new Intl.DateTimeFormat(locale, { month: 'long', year: 'numeric' }).format(date);
+}
+
+function buildStrip(container, weekStart, locale, selectedIndex, hasEventsFlags) {
   const frag = document.createDocumentFragment();
   for (let i = 0; i < 7; i++) {
     const day = addDays(weekStart, i);
-    const letter = new Intl.DateTimeFormat(locale, { weekday: 'narrow' }).format(day);
+    const abbr = weekdayAbbr(locale, day);
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'week__strip-cell';
@@ -107,14 +102,22 @@ function buildStrip(container, weekStart, locale, selectedIndex) {
       'aria-label',
       new Intl.DateTimeFormat(locale, { weekday: 'long', day: 'numeric', month: 'long' }).format(day)
     );
-    btn.innerHTML = `<span class="week__strip-letter">${escapeHtml(letter)}</span><span class="week__strip-num">${day.getDate()}</span>`;
+
+    const has = hasEventsFlags[i];
+    if (i === selectedIndex) {
+      const monthShort = new Intl.DateTimeFormat(locale, { month: 'short' }).format(day);
+      btn.innerHTML = `<span class="week__strip-letter">${escapeHtml(abbr)}</span><span class="week__strip-num">${day.getDate()}</span><span class="week__strip-month">${escapeHtml(monthShort)}</span>`;
+      btn.classList.add('week__strip-cell--on');
+    } else {
+      const dotClass = has ? 'week__strip-dot week__strip-dot--on' : 'week__strip-dot';
+      btn.innerHTML = `<span class="week__strip-letter">${escapeHtml(abbr)}</span><span class="week__strip-num">${day.getDate()}</span><span class="${dotClass}" aria-hidden="true"></span>`;
+    }
     frag.append(btn);
   }
   container.replaceChildren(frag);
 }
 
 function buildPanels(container, data, weekStart, s, lang) {
-  const now = new Date();
   const frag = document.createDocumentFragment();
 
   for (let stripIx = 0; stripIx < 7; stripIx++) {
@@ -146,38 +149,39 @@ function buildPanels(container, data, weekStart, s, lang) {
         p.textContent = s.home_preview_empty ?? '';
         list.append(p);
       } else {
-        const activeIx = activeEventIndexForToday(events, now, calDate);
-        events.forEach((ev, evIx) => {
+        events.forEach((ev) => {
           const accent = safeAccent(ev.accent);
           const { start, end } = parseScheduleMetaTimes(ev.meta);
-          const isLive = activeIx === evIx;
           const coachLabel = s[ev.coachKey] ?? ev.coachKey;
           const initials = coachInitials(coachLabel);
-          const slot = document.createElement('div');
-          slot.className = 'schedule-slot';
-
-          const rail = document.createElement('div');
-          rail.className = 'schedule-slot__rail';
-          rail.setAttribute('aria-hidden', 'true');
-          const timeWrap = document.createElement('div');
-          timeWrap.className = 'schedule-slot__time';
-          const startEl = document.createElement('span');
-          startEl.className = 'schedule-slot__start';
-          startEl.textContent = start;
-          const endEl = document.createElement('span');
-          endEl.className = 'schedule-slot__end';
-          endEl.textContent = end;
-          timeWrap.append(startEl, endEl);
-          rail.append(timeWrap);
 
           const art = document.createElement('article');
-          art.className = `schedule-card schedule-card--accent-${accent}${isLive ? ' schedule-card--live' : ' schedule-card--muted'}`;
+          art.className = `schedule-card schedule-card--accent-${accent}`;
+
+          const timeCol = document.createElement('div');
+          timeCol.className = 'schedule-card__time';
+          timeCol.insertAdjacentHTML('afterbegin', ICON_CLOCK);
+          const startEl = document.createElement('span');
+          startEl.className = 'schedule-card__time-start';
+          startEl.textContent = start;
+          const endEl = document.createElement('span');
+          endEl.className = 'schedule-card__time-end';
+          endEl.textContent = end;
+          timeCol.append(startEl, endEl);
+
+          const divider = document.createElement('span');
+          divider.className = 'schedule-card__divider';
+          divider.setAttribute('aria-hidden', 'true');
+
+          const main = document.createElement('div');
+          main.className = 'schedule-card__main';
 
           const menu = document.createElement('button');
           menu.type = 'button';
           menu.className = 'schedule-card__menu';
           menu.setAttribute('aria-label', s.schedule_card_menu_aria ?? 'Menu');
           menu.tabIndex = -1;
+          menu.innerHTML = '<span aria-hidden="true">⋯</span>';
 
           const title = document.createElement('p');
           title.className = 'schedule-card__title';
@@ -188,18 +192,23 @@ function buildPanels(container, data, weekStart, s, lang) {
           sub.dataset.i18n = 'schedule_track_group';
           sub.textContent = s.schedule_track_group ?? '';
 
-          const rowPlace = document.createElement('div');
-          rowPlace.className = 'schedule-card__row schedule-card__row--place';
-          const pin = document.createElement('span');
-          pin.className = 'schedule-card__pin';
-          pin.setAttribute('aria-hidden', 'true');
+          const footer = document.createElement('div');
+          footer.className = 'schedule-card__footer';
+
+          const placeWrap = document.createElement('div');
+          placeWrap.className = 'schedule-card__footer-place';
+          placeWrap.insertAdjacentHTML('afterbegin', ICON_PIN);
           const placeTxt = document.createElement('span');
           placeTxt.dataset.i18n = 'schedule_room_studio';
           placeTxt.textContent = s.schedule_room_studio ?? '';
-          rowPlace.append(pin, placeTxt);
+          placeWrap.append(placeTxt);
 
-          const rowCoach = document.createElement('div');
-          rowCoach.className = 'schedule-card__row schedule-card__row--coach';
+          const sep = document.createElement('span');
+          sep.className = 'schedule-card__footer-sep';
+          sep.setAttribute('aria-hidden', 'true');
+
+          const coachWrap = document.createElement('div');
+          coachWrap.className = 'schedule-card__footer-coach';
           const av = document.createElement('span');
           av.className = 'schedule-card__avatar';
           av.setAttribute('aria-hidden', 'true');
@@ -207,11 +216,13 @@ function buildPanels(container, data, weekStart, s, lang) {
           const coachSpan = document.createElement('span');
           coachSpan.dataset.i18n = ev.coachKey;
           coachSpan.textContent = coachLabel;
-          rowCoach.append(av, coachSpan);
+          coachWrap.append(av, coachSpan);
 
-          art.append(menu, title, sub, rowPlace, rowCoach);
-          slot.append(rail, art);
-          list.append(slot);
+          footer.append(placeWrap, sep, coachWrap);
+
+          main.append(title, sub, footer);
+          art.append(timeCol, divider, main, menu);
+          list.append(art);
         });
       }
     }
@@ -229,22 +240,73 @@ function showError(container, err) {
   container.replaceChildren(p);
 }
 
-function prefersReducedMotion() {
-  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function wireFilterSheet(root) {
+  const sheet = document.getElementById('j-schedule-sheet');
+  const openBtn = document.getElementById('j-schedule-filter');
+  const backdrop = document.getElementById('j-schedule-sheet-backdrop');
+  const done = document.getElementById('j-schedule-sheet-done');
+  if (!sheet || !openBtn) return;
+
+  function close() {
+    sheet.classList.remove('is-open');
+    sheet.setAttribute('aria-hidden', 'true');
+    openBtn.focus();
+  }
+
+  function open() {
+    sheet.classList.add('is-open');
+    sheet.setAttribute('aria-hidden', 'false');
+    done?.focus();
+  }
+
+  openBtn.addEventListener('click', open);
+  backdrop?.addEventListener('click', close);
+  done?.addEventListener('click', close);
+
+  sheet.querySelectorAll('.schedule-chip').forEach((chip) => {
+    chip.addEventListener('click', () => {
+      sheet.querySelectorAll('.schedule-chip').forEach((c) => c.classList.remove('is-active'));
+      chip.classList.add('is-active');
+    });
+  });
+
+  root.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && sheet.classList.contains('is-open')) {
+      e.preventDefault();
+      close();
+    }
+  });
+}
+
+function wireBanner() {
+  const banner = document.getElementById('j-schedule-banner');
+  const closeBtn = document.getElementById('j-schedule-banner-close');
+  if (!banner || !closeBtn) return;
+  try {
+    if (!localStorage.getItem(BANNER_DISMISS_KEY)) banner.hidden = false;
+  } catch (_) {
+    banner.hidden = false;
+  }
+  closeBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    try {
+      localStorage.setItem(BANNER_DISMISS_KEY, '1');
+    } catch (_) {}
+    banner.hidden = true;
+  });
 }
 
 export async function initSchedulePage() {
   const container = document.getElementById('j-week-panels');
   const strip = document.getElementById('j-week-strip');
-  const pane = document.getElementById('j-week-slider-pane');
-  const heroSlide = document.getElementById('j-week-hero-slide');
-  const slidePanes = [pane, heroSlide].filter((el) => el instanceof HTMLElement);
   if (!container || !strip) return;
+
+  wireBanner();
+  wireFilterSheet(document);
 
   const getLang = () => document.documentElement.getAttribute('data-lang') || 'en';
   let viewWeekStart = startOfWeekMonday(new Date());
   const state = { selected: defaultSelectedStripIndex(viewWeekStart) };
-  let weekAnimating = false;
 
   let data;
   try {
@@ -257,11 +319,26 @@ export async function initSchedulePage() {
   function updateShell() {
     const lang = getLang();
     const loc = scheduleLocale(lang);
-    renderHero(loc, addDays(viewWeekStart, state.selected));
+    const selectedDate = addDays(viewWeekStart, state.selected);
+    renderMonthYear(loc, selectedDate);
+
     strip.querySelectorAll('.week__strip-cell').forEach((btn, i) => {
       btn.setAttribute('aria-selected', i === state.selected ? 'true' : 'false');
       btn.classList.toggle('week__strip-cell--on', i === state.selected);
+
+      const day = addDays(viewWeekStart, i);
+      const abbr = weekdayAbbr(loc, day);
+      const has = dayHasEvents(data, i, viewWeekStart);
+
+      if (i === state.selected) {
+        const monthShort = new Intl.DateTimeFormat(loc, { month: 'short' }).format(day);
+        btn.innerHTML = `<span class="week__strip-letter">${escapeHtml(abbr)}</span><span class="week__strip-num">${day.getDate()}</span><span class="week__strip-month">${escapeHtml(monthShort)}</span>`;
+      } else {
+        const dotClass = has ? 'week__strip-dot week__strip-dot--on' : 'week__strip-dot';
+        btn.innerHTML = `<span class="week__strip-letter">${escapeHtml(abbr)}</span><span class="week__strip-num">${day.getDate()}</span><span class="${dotClass}" aria-hidden="true"></span>`;
+      }
     });
+
     container.querySelectorAll('.day').forEach((panel, i) => {
       const on = i === state.selected;
       panel.classList.toggle('day--active', on);
@@ -269,91 +346,20 @@ export async function initSchedulePage() {
     });
   }
 
-  function resetWeekPaneAnim() {
-    weekAnimating = false;
-    slidePanes.forEach((p) => {
-      p.classList.remove(
-        'week__slider-pane--exit-next',
-        'week__slider-pane--exit-prev',
-        'week__slider-pane--enter-next',
-        'week__slider-pane--enter-prev'
-      );
-      p.style.animation = '';
-    });
-  }
-
   function paintWeek() {
     const lang = getLang();
-    const s = getStrings(lang);
+    const s = getStrings(normalizeLang(lang));
     const loc = scheduleLocale(lang);
-    buildStrip(strip, viewWeekStart, loc, state.selected);
+    const flags = weekHasEventsFlags(data, viewWeekStart);
+    buildStrip(strip, viewWeekStart, loc, state.selected, flags);
     buildPanels(container, data, viewWeekStart, s, lang);
     applyLang(normalizeLang(lang));
     updateShell();
   }
 
   function goWeek(delta) {
-    if (weekAnimating) return;
-    if (!pane || prefersReducedMotion()) {
-      viewWeekStart = addDays(viewWeekStart, delta);
-      paintWeek();
-      return;
-    }
-
-    const dir = delta > 0 ? 'next' : 'prev';
-    const exitClass = dir === 'next' ? 'week__slider-pane--exit-next' : 'week__slider-pane--exit-prev';
-    const enterClass = dir === 'next' ? 'week__slider-pane--enter-next' : 'week__slider-pane--enter-prev';
-    const exitName = dir === 'next' ? 'week-exit-next' : 'week-exit-prev';
-    const enterName = dir === 'next' ? 'week-slide-enter-next' : 'week-slide-enter-prev';
-
-    weekAnimating = true;
-    slidePanes.forEach((p) => {
-      p.classList.remove(
-        'week__slider-pane--exit-next',
-        'week__slider-pane--exit-prev',
-        'week__slider-pane--enter-next',
-        'week__slider-pane--enter-prev'
-      );
-      p.style.animation = 'none';
-      void p.offsetWidth;
-      p.style.animation = '';
-    });
-
-    const failSafe = window.setTimeout(() => {
-      resetWeekPaneAnim();
-    }, 200);
-
-    requestAnimationFrame(() => {
-      slidePanes.forEach((p) => p.classList.add(exitClass));
-    });
-
-    const onExit = (ev) => {
-      if (ev.target !== pane || ev.animationName !== exitName) return;
-      pane.removeEventListener('animationend', onExit);
-      viewWeekStart = addDays(viewWeekStart, delta);
-      paintWeek();
-      slidePanes.forEach((p) => {
-        p.classList.remove(exitClass);
-        p.style.animation = 'none';
-        void p.offsetWidth;
-        p.style.animation = '';
-      });
-      void pane.offsetWidth;
-      slidePanes.forEach((p) => p.classList.add(enterClass));
-
-      const onEnter = (ev) => {
-        if (ev.target !== pane || ev.animationName !== enterName) return;
-        pane.removeEventListener('animationend', onEnter);
-        window.clearTimeout(failSafe);
-        slidePanes.forEach((p) => {
-          p.classList.remove(enterClass);
-          p.style.animation = '';
-        });
-        weekAnimating = false;
-      };
-      pane.addEventListener('animationend', onEnter);
-    };
-    pane.addEventListener('animationend', onExit);
+    viewWeekStart = addDays(viewWeekStart, delta);
+    paintWeek();
   }
 
   strip.addEventListener('click', (e) => {
@@ -368,7 +374,6 @@ export async function initSchedulePage() {
   const todayBtn = document.getElementById('j-schedule-today');
   if (todayBtn) {
     todayBtn.addEventListener('click', () => {
-      resetWeekPaneAnim();
       viewWeekStart = startOfWeekMonday(new Date());
       state.selected = defaultSelectedStripIndex(viewWeekStart, new Date());
       paintWeek();
@@ -383,8 +388,5 @@ export async function initSchedulePage() {
   });
 
   paintWeek();
-  document.addEventListener('justice:lang', () => {
-    resetWeekPaneAnim();
-    paintWeek();
-  });
+  document.addEventListener('justice:lang', paintWeek);
 }

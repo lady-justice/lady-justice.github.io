@@ -1,0 +1,14 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body style="background:#222;margin:0;padding:24px;display:flex;gap:16px;align-items:flex-start">
+<div><div style="color:#fff;font:11px monospace;margin-bottom:6px">390 × 844 (en)</div>
+<iframe src="http://localhost:8765/index.html" style="width:390px;height:844px;border:0;background:#fff"></iframe></div>
+<div><div style="color:#fff;font:11px monospace;margin-bottom:6px">320 × 720 (en, narrow)</div>
+<iframe src="http://localhost:8765/index.html" style="width:320px;height:720px;border:0;background:#fff"></iframe></div>
+<div><div style="color:#fff;font:11px monospace;margin-bottom:6px">390 × 844 (ru)</div>
+<iframe id="rui" src="http://localhost:8765/index.html" style="width:390px;height:844px;border:0;background:#fff"></iframe></div>
+<script>
+window.addEventListener('load', () => setTimeout(() => {
+  document.getElementById('rui').contentWindow.localStorage.setItem('ja:lang','ru');
+  document.getElementById('rui').contentWindow.location.reload();
+}, 600));
+</script>
+</body></html>

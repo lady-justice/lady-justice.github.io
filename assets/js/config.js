@@ -25,3 +25,12 @@ export const INSTAGRAM_ARTIST = 'https://www.instagram.com/__lady.justice_/';
 export const INSTAGRAM_STUDIO = 'https://www.instagram.com/justicefitnessanddance/';
 export const STUDIO_ADDRESS = 'Ilia Venezi 5, 1076 Nicosia, Cyprus';
 export const STUDIO_MAPS_QUERY = 'Ilia+Venezi+5%2C+Nicosia+1076%2C+Cyprus';
+
+/** Google Maps (external app / tab) */
+export const STUDIO_GOOGLE_MAPS_URL = `https://www.google.com/maps/search/?api=1&query=${STUDIO_MAPS_QUERY}`;
+
+/** WhatsApp deep link — digits only */
+export function studioWhatsAppUrl() {
+  const digits = PHONE_TEL.replace(/\D/g, '');
+  return digits ? `https://wa.me/${digits}` : '#';
+}

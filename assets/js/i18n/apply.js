@@ -38,7 +38,15 @@ function storeLang(lang) {
 
 function applyMeta(s) {
   const titleEl = document.querySelector('title');
-  if (titleEl) titleEl.textContent = s.meta_title;
+  if (titleEl) {
+    const body = document.body;
+    titleEl.textContent =
+      body?.classList.contains('page--studio') && s.studio_meta_title
+        ? s.studio_meta_title
+        : body?.classList.contains('page--schedule') && s.schedule_meta_title
+          ? s.schedule_meta_title
+          : s.meta_title;
+  }
   const desc = document.querySelector('meta[name="description"]');
   if (desc) desc.setAttribute('content', s.meta_description);
 }

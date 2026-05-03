@@ -67,7 +67,7 @@
   border-radius: var(--r-xl);
   overflow: hidden;
   background: #fff6f1;
-  /* Leave room for sticky header + compact intro; Calendly scrolls inside */
-  height: clamp(480px, calc(100dvh - var(--header-h) - 5.5rem), 720px) !important;
+  /* Room for sticky header + bottom dock + compact intro; Calendly scrolls inside */
+  height: clamp(480px, calc(100dvh - var(--header-h) - var(--dock-h) - 5.5rem), 720px) !important;
   min-height: 440px;
 }

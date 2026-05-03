@@ -1,6 +1,10 @@
 /**
- * Home dashboard preview: today's first 1–2 group classes.
- * Re-renders on `justice:lang` so translations are always current.
+ * Home dashboard:
+ *   1. Greeting line (data-i18n="home_greeting")
+ *   2. TODAY card    — "Saturday, 02 May" + "{n} classes today"
+ *   3. Schedule list — clock-circle | time + title + meta | chevron + see-all link
+ *
+ * Re-renders on `justice:lang` so translations always stay current.
  */
 import { loadGroupSchedule } from '../data/schedule.js';
 import { getStrings, normalizeLang } from '../i18n/apply.js';
@@ -12,27 +16,9 @@ function homeLocaleForLang(lang) {
   return 'en-GB';
 }
 
-/** Big glass date card — weekday caps + underline, serif DD.MM, • MONTH • */
-export function renderHomeDate() {
-  const weekdayEl = document.getElementById('j-home-date-weekday');
-  const numericEl = document.getElementById('j-home-date-numeric');
-  const monthEl = document.getElementById('j-home-date-month');
-  if (!weekdayEl || !numericEl || !monthEl) return;
-
-  const lang = document.documentElement.getAttribute('data-lang');
-  const locale = homeLocaleForLang(lang);
-  const now = new Date();
-
-  const weekdayRaw = new Intl.DateTimeFormat(locale, { weekday: 'long' }).format(now);
-  weekdayEl.textContent = weekdayRaw.toLocaleUpperCase(locale);
-
-  const dd = String(now.getDate()).padStart(2, '0');
-  const mm = String(now.getMonth() + 1).padStart(2, '0');
-  numericEl.textContent = `${dd}.${mm}`;
-
-  const monRaw = new Intl.DateTimeFormat(locale, { month: 'short' }).format(now);
-  const mon = monRaw.replace(/\./g, '').trim().toLocaleUpperCase(locale);
-  monthEl.textContent = `\u2022 ${mon} \u2022`;
+function capFirst(str, locale) {
+  if (!str) return str;
+  return str.charAt(0).toLocaleUpperCase(locale) + str.slice(1);
 }
 
 const escape = (s) =>
@@ -42,9 +28,7 @@ const escape = (s) =>
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
 
-/**
- * Index in `data.days` (Mon=0 … Sat=5). Sunday → `null` (no Sunday column in JSON).
- */
+/** Index in `data.days` (Mon=0 … Sat=5). Sunday → `null`. */
 function scheduleIndexForToday(now = new Date()) {
   const d = now.getDay();
   if (d === 0) return null;
@@ -57,29 +41,90 @@ function timeFromMeta(meta) {
   return (t.match(/^(\d{1,2}:\d{2})/) || [, t])[1];
 }
 
-function render(root, data) {
+/** "Saturday, 02 May" — weekday + day + month, 1:1 with reference. */
+function renderHomeDate() {
+  const titleEl = document.getElementById('j-home-date-title');
+  if (!titleEl) return;
+  const lang = document.documentElement.getAttribute('data-lang');
+  const locale = homeLocaleForLang(lang);
+  const now = new Date();
+
+  const weekdayRaw = new Intl.DateTimeFormat(locale, { weekday: 'long' }).format(now);
+  const weekday = capFirst(weekdayRaw, locale);
+  const dd = String(now.getDate()).padStart(2, '0');
+  const monRaw = new Intl.DateTimeFormat(locale, { month: 'long' }).format(now);
+  const month = capFirst(monRaw.replace(/\./g, '').trim(), locale);
+
+  titleEl.textContent = `${weekday}, ${dd} ${month}`;
+}
+
+/** "{n} classes today" — pulled from i18n; falls back to "No classes". */
+function renderHomeStatus(eventsCount) {
+  const el = document.getElementById('j-home-date-status');
+  if (!el) return;
+  const lang = document.documentElement.getAttribute('data-lang');
+  const s = getStrings(lang);
+  if (!eventsCount) {
+    el.textContent = s.home_no_classes_today ?? '';
+    return;
+  }
+  const tpl = s.home_preview_helper_count ?? '{n}';
+  el.textContent = tpl.replace(/\{n\}/g, String(eventsCount));
+}
+
+/** Greeting — picks "morning / afternoon / evening" based on the current hour. */
+function renderHomeGreeting() {
+  const el = document.querySelector('.home__greeting-text');
+  if (!el) return;
+  const lang = document.documentElement.getAttribute('data-lang');
+  const s = getStrings(lang);
+  const hr = new Date().getHours();
+  const key =
+    hr >= 5 && hr < 12 ? 'home_greeting_morning' :
+    hr >= 12 && hr < 18 ? 'home_greeting_afternoon' :
+    'home_greeting_evening';
+  el.textContent = s[key] ?? s.home_greeting ?? '';
+}
+
+const clockSvg = `
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.6"/>
+    <path d="M12 7.5V12l3 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>`;
+
+const chevronSvg = `
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>`;
+
+function renderSchedule(root, data) {
   const lang = document.documentElement.getAttribute('data-lang');
   const s = getStrings(lang);
   const dayIx = scheduleIndexForToday();
   const day = dayIx !== null ? data.days[dayIx] : null;
   const events = dayIx !== null ? (day?.events ?? []).slice() : [];
+
   root.setAttribute('aria-busy', 'false');
 
   if (dayIx === null || !data.days[dayIx]) {
-    root.innerHTML = `<div class="home-card__body"><p class="home-card__class-title">${escape(s.home_preview_weekend)}</p></div>`;
+    root.innerHTML = `
+      <div class="home-card__body">
+        <p class="home-card__placeholder" style="background:none;animation:none;color:var(--ink-muted);font-weight:500;display:flex;align-items:center;justify-content:center;text-align:center;padding:0 1rem;">${escape(s.home_preview_weekend)}</p>
+      </div>`;
+    renderHomeStatus(0);
     return;
   }
 
   if (!events.length) {
-    root.innerHTML = `<div class="home-card__body"><p class="home-card__class-title">${escape(s.home_preview_empty)}</p></div>`;
+    root.innerHTML = `
+      <div class="home-card__body">
+        <p class="home-card__placeholder" style="background:none;animation:none;color:var(--ink-muted);font-weight:500;display:flex;align-items:center;justify-content:center;text-align:center;padding:0 1rem;">${escape(s.home_preview_empty)}</p>
+      </div>`;
+    renderHomeStatus(0);
     return;
   }
 
-  const countTpl = s.home_preview_helper_count ?? '';
-  const helper =
-    events.length > 1 && countTpl
-      ? `<p class="home-card__helper">${escape(countTpl.replace(/\{n\}/g, String(events.length)))}</p>`
-      : '';
+  renderHomeStatus(events.length);
 
   const place = escape(s.home_preview_place);
   const rows = events
@@ -87,28 +132,34 @@ function render(root, data) {
       const time = escape(timeFromMeta(ev.meta));
       const coach = escape(s[ev.coachKey] ?? ev.coachKey);
       const title = escape(ev.title);
-      const timeClass = i === 0 ? 'home-card__time home-card__time--cyan' : 'home-card__time home-card__time--cyan-soft';
       const divider = i < events.length - 1 ? '<hr class="home-card__divider" />' : '';
       return `
-        <div class="home-card__slot">
-          <p class="${timeClass}">${time}</p>
-          <p class="home-card__class-title">${title}</p>
-          <p class="home-card__meta"><span>${place}</span><span class="home-card__meta-dot"></span><span>${coach}</span></p>
-        </div>${divider}`;
+        <a class="home-card__slot" href="schedule.html">
+          <span class="home-card__slot-icon">${clockSvg}</span>
+          <span class="home-card__slot-main">
+            <span class="home-card__time">${time}</span>
+            <span class="home-card__class-title">${title}</span>
+            <span class="home-card__meta">
+              <span>${place}</span>
+              <span class="home-card__meta-dot" aria-hidden="true"></span>
+              <span>${coach}</span>
+            </span>
+          </span>
+          <span class="home-card__chevron">${chevronSvg}</span>
+        </a>${divider}`;
     })
     .join('');
 
-  const seeLabel = escape(s.home_see_all_link ?? s.home_see_all_classes);
-  const seeAria = escape(s.home_see_all_classes);
+  const seeLabel = escape(s.home_see_all_classes);
 
   root.innerHTML = `
     <div class="home-card__body">
-      ${helper}
       <div class="home-card__slots">${rows}</div>
     </div>
-    <div class="home-card__footer">
-      <a class="home-card__see-link" href="schedule.html" aria-label="${seeAria}">${seeLabel}</a>
-    </div>`;
+    <a class="home-card__see-link" href="schedule.html" aria-label="${seeLabel}">
+      <span>${seeLabel}</span>
+      <span class="home-card__see-link-chevron">${chevronSvg}</span>
+    </a>`;
 }
 
 export async function initHomePreview() {
@@ -120,14 +171,26 @@ export async function initHomePreview() {
     data = await loadGroupSchedule();
   } catch {
     const s = getStrings(document.documentElement.getAttribute('data-lang'));
-    root.innerHTML = `<div class="home-card__body"><p class="home-card__class-title">${escape(s.home_preview_error)}</p></div>`;
+    root.innerHTML = `
+      <div class="home-card__body">
+        <p class="home-card__placeholder" style="background:none;animation:none;color:var(--ink-muted);font-weight:500;display:flex;align-items:center;justify-content:center;text-align:center;padding:0 1rem;">${escape(s.home_preview_error)}</p>
+      </div>`;
     root.setAttribute('aria-busy', 'false');
+    renderHomeGreeting();
+    renderHomeDate();
+    renderHomeStatus(0);
     return;
   }
-  render(root, data);
+  renderSchedule(root, data);
   renderHomeDate();
+  renderHomeGreeting();
+
   document.addEventListener('justice:lang', () => {
-    render(root, data);
+    renderSchedule(root, data);
     renderHomeDate();
+    renderHomeGreeting();
   });
 }
+
+// Re-export for backwards compatibility (older imports may still reference it)
+export { renderHomeDate };

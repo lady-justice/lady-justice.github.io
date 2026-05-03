@@ -1,7 +1,7 @@
 /**
  * Entry point. Loads on every page.
  * 1. Register service worker (no-op on file://).
- * 2. Mount layout chrome (header / footer / dock) + apply i18n.
+ * 2. Mount layout chrome (header / dock) + apply i18n.
  * 3. Run page-specific module based on body class.
  */
 import { initPwa } from './pwa.js';
@@ -19,6 +19,9 @@ async function init() {
   } else if (classList.contains('page--schedule')) {
     const { initSchedulePage } = await import('./ui/schedule.js');
     await initSchedulePage();
+  } else if (classList.contains('page--studio')) {
+    const { initStudioPage } = await import('./ui/studio.js');
+    initStudioPage();
   }
 }
 

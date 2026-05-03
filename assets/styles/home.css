@@ -1,8 +1,17 @@
 /**
- * Home: “today” schedule + Book Private + compact Studio | Group Schedule tiles.
+ * Home — 1:1 with the reference screenshot.
+ *
+ * Composition top → bottom:
+ *   1. Greeting line ("Good morning, Kristina! 👋")
+ *   2. TODAY card  (mint gradient, day+date + status row, round white calendar btn)
+ *   3. "TODAY AT THE STUDIO"  (uppercase eyebrow with short teal underline)
+ *      White card with class rows: clock-circle | time + title + meta | chevron
+ *      "See all upcoming classes" footer with chevron
+ *   4. Book Private  (solid teal gradient CTA, full width)
+ *   5. Two tiles: Book Studio / Group Schedule  (white, mint icon, mini chevron)
+ *
+ * The 5-item dock (Home / Schedule / + / Studio / More) lives in layout.css.
  */
-
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&display=swap");
 
 .home-main {
   position: relative;
@@ -17,8 +26,7 @@
 }
 
 .home {
-  /* One rhythm for vertical spacing between major blocks and inside the schedule card */
-  --home-gap: clamp(0.8rem, 2.5vw, 1.05rem);
+  --home-gap: clamp(0.85rem, 2.5vw, 1.05rem);
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
@@ -27,447 +35,184 @@
   max-width: 100%;
   margin: 0 auto;
   gap: var(--home-gap);
-  /* Top: no safe-area here — header already clears the notch */
   padding:
     0.35rem
     max(1rem, env(safe-area-inset-right, 0px))
-    max(calc(1rem + env(safe-area-inset-bottom, 0px)), 1.35rem)
+    1rem
     max(1rem, env(safe-area-inset-left, 0px));
 }
 
-/* Date card — ref: light #E0F2F1 field, waves right, short thick rule, Playfair numerals, #4DB6AC labels */
+/* ──────────────────────────── 1. Greeting ──────────────────────────── */
+.home__greeting {
+  flex-shrink: 0;
+  margin: 0.1rem 0 0.05rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: -0.005em;
+}
+
+.home__greeting-emoji {
+  display: inline-block;
+  font-size: 1rem;
+  line-height: 1;
+  transform: translateY(-1px);
+}
+
+/* ──────────────────────────── 2. TODAY card ────────────────────────── */
 .home__date {
   flex-shrink: 0;
-  --date-ink: #062a2c;
-  --date-label: #3d9d91;
-  --date-rule: #4db6ac;
-  --date-serif: "Playfair Display", ui-serif, Georgia, "Times New Roman", serif;
-  align-self: stretch;
-  width: 100%;
-  margin: 0;
-  padding: 0;
   position: relative;
-  border-radius: clamp(1.5rem, 6.5vw, 2.15rem);
-  isolation: isolate;
-  overflow: hidden;
-  line-height: 1;
-  border: 1px solid rgb(255 255 255 / 0.65);
-  background: linear-gradient(165deg, #ecf9f7 0%, #e0f2f1 42%, #d4ebe9 100%);
-  box-shadow:
-    0 1px 0 rgb(255 255 255 / 0.85) inset,
-    0 10px 26px rgb(15 55 58 / 0.07),
-    0 26px 48px rgb(15 55 58 / 0.05);
-}
-
-.home__date::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse 95% 80% at 0% 50%, rgb(255 255 255 / 0.55) 0%, transparent 52%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.home__date-waves {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  border-radius: inherit;
-  overflow: hidden;
-}
-
-.home__date-waves-svg {
-  display: block;
-  height: 100%;
-  width: min(72%, 13.5rem);
-  margin-left: auto;
-}
-
-.home__date-dots {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 58%;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.2;
-  background-image: radial-gradient(circle at center, rgb(13 59 63 / 0.35) 1px, transparent 1.15px);
-  background-size: 8px 8px;
-  mask-image: linear-gradient(90deg, transparent 0%, #000 22%, #000 100%);
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 22%, #000 100%);
-}
-
-.home__date-inner {
-  position: relative;
-  z-index: 2;
-  padding: clamp(1.1rem, 3.5vw, 1.45rem) clamp(1.15rem, 3.8vw, 1.55rem);
-  min-height: clamp(6.35rem, 26vw, 7.85rem);
-}
-
-.home__date-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: clamp(0.65rem, 2.8vw, 1.1rem);
+  gap: 1rem;
   width: 100%;
+  margin: 0;
+  padding: 1.15rem 1.15rem 1.15rem 1.25rem;
+  border-radius: var(--r-2xl);
+  background: var(--surface-mint);
+  border: 1px solid color-mix(in srgb, var(--c-mint-strong) 38%, transparent);
+  overflow: hidden;
+  isolation: isolate;
+  box-shadow: var(--shadow-sm);
 }
 
-.home__date-copy {
-  flex: 1 1 auto;
-  min-width: 0;
+/* Subtle top-right highlight, like the reference */
+.home__date::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 65%;
+  height: 100%;
+  background: radial-gradient(120% 90% at 100% 0%, rgba(255, 255, 255, 0.55) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.home__date-body {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  gap: 0.42rem;
+  min-width: 0;
 }
 
-.home__date-copy .home__date-month {
-  align-self: stretch;
-  text-align: center;
-}
-
-.home__date-weekday {
-  display: inline-block;
-  margin: 0;
-  padding: 0;
-  max-width: 100%;
-  font-family: var(--font-sans);
-  font-size: clamp(0.54rem, 1.55vw, 0.64rem);
+.home__date-eyebrow {
+  font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.26em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--date-label);
+  color: var(--c-teal-deep);
 }
 
-/* short thick bar under weekday (mock) */
-.home__date-weekday::after {
-  content: "";
-  display: block;
-  margin-top: 0.3rem;
-  width: 2.15rem;
-  height: 3px;
-  background: var(--date-rule);
-  border-radius: 2px;
-  box-shadow: 0 1px 0 rgb(255 255 255 / 0.35);
-}
-
-.home__date-numeric {
-  margin: 0.38rem 0 0;
-  font-family: var(--date-serif);
-  font-size: clamp(2.85rem, 14vw, 3.85rem);
+.home__date-title {
+  margin: 0;
+  font-size: clamp(1.4rem, 6.4vw, 1.75rem);
   font-weight: 800;
-  letter-spacing: 0.035em;
-  line-height: 1;
-  color: var(--date-ink);
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  color: var(--ink);
   font-feature-settings: "lnum" 1, "pnum" 1;
 }
 
-.home__date-month {
-  margin: 0.26rem 0 0;
-  width: 100%;
-  font-family: var(--font-sans);
-  font-size: clamp(0.62rem, 1.85vw, 0.74rem);
-  font-weight: 700;
-  letter-spacing: 0.34em;
-  text-transform: uppercase;
-  color: var(--date-label);
+.home__date-status {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--ink-muted);
 }
 
-.home__date-icon {
+.home__date-status-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1rem;
+  height: 1rem;
+  color: var(--c-teal-deep);
   flex-shrink: 0;
-  display: grid;
-  place-items: center;
-  width: clamp(3.15rem, 13vw, 3.75rem);
-  height: clamp(3.15rem, 13vw, 3.75rem);
+}
+
+.home__date-cta {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.1rem;
+  height: 3.1rem;
   border-radius: 50%;
-  color: var(--date-label);
-  background: #fff;
-  border: 1px solid rgb(255 255 255 / 0.95);
-  box-shadow:
-    inset 0 2px 5px rgb(15 55 58 / 0.07),
-    inset 0 -2px 6px rgb(255 255 255 / 0.88),
-    2px 5px 14px rgb(15 55 58 / 0.1),
-    0 12px 28px rgb(15 55 58 / 0.05);
+  color: var(--c-teal-deep);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm), 0 0 0 1px rgba(255, 255, 255, 0.6) inset;
 }
 
-.home__date-icon-svg {
-  display: block;
-}
-
-/* Today block — full content width (same as booking row), like mock */
+/* ──────────────────────────── 3. Today at the studio ───────────────── */
 .home__today {
-  align-self: stretch;
-  width: 100%;
-  max-width: 100%;
-  margin-inline: 0;
-  display: flex;
-  flex-direction: column;
   flex: 1 1 auto;
   min-height: 0;
-  /* Air between “Today at the studio” and the schedule card */
-  gap: clamp(1.05rem, 3.2vw, 1.5rem);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 0.35rem;
+  gap: 0.65rem;
 }
 
 .home__intro {
   flex-shrink: 0;
   display: flex;
-  align-items: center;
-  gap: var(--home-gap);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.28rem;
   width: 100%;
   margin: 0;
   padding: 0;
 }
 
 .home__heading {
-  flex-shrink: 0;
   margin: 0;
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  line-height: 1.35;
-  color: var(--ink-muted);
+  line-height: 1.25;
+  color: var(--ink);
 }
 
-/* Decorative rule after section title (mock) */
+/* Short teal underline under the section title */
 .home__intro::after {
   content: "";
-  flex: 1 1 auto;
-  min-width: 0;
-  height: 1px;
-  margin-top: 0.12em;
-  background: linear-gradient(90deg, var(--rule) 0%, color-mix(in srgb, var(--c-cyan) 18%, transparent) 55%, transparent 100%);
-  opacity: 0.85;
+  width: 2.25rem;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--c-teal);
 }
 
-/* Booking: fixed block at bottom of home; “today” flex area scrolls above when needed */
-.home__booking {
-  flex: 0 0 auto;
-  width: 100%;
-  max-width: none;
-  margin-inline: 0;
-  margin-top: 0;
-  padding-top: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--home-gap);
-}
-
-/* Full-width Book Private (primary row) */
-.home__book-private {
-  flex: 0 0 auto;
-  display: flex;
-  align-items: center;
-  gap: var(--home-gap);
-  min-height: 5.35rem;
-  padding: 1.05rem 1.1rem 1.05rem 1.2rem;
-  border-radius: var(--r-xl);
-  text-decoration: none;
-  color: inherit;
-  border: 1px solid color-mix(in srgb, var(--c-cyan) 32%, var(--glass-border-mid));
-  background: var(--grad-primary-card);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: var(--shadow-primary-cta);
-  transition: box-shadow 0.2s ease, transform 0.15s ease;
-}
-
-.home__book-private:hover {
-  text-decoration: none;
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.4) inset,
-    0 8px 26px rgba(42, 157, 140, 0.3),
-    0 18px 40px rgba(18, 72, 76, 0.12);
-}
-
-.home__book-private:active {
-  transform: scale(0.993);
-}
-
-.home__book-private:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--c-cyan) 55%, var(--c-teal));
-  outline-offset: 3px;
-}
-
-.home__book-private-text {
-  flex: 1 1 auto;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-}
-
-.home__book-private-title {
-  font-size: 1.22rem;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1.15;
-  color: var(--ink);
-}
-
-.home__book-private-sub {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--ink-muted);
-}
-
-.home__book-private-arrow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 3.1rem;
-  height: 3.1rem;
-  flex-shrink: 0;
-  border-radius: 50%;
-  color: #fff;
-  background: var(--grad-cta);
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.35) inset,
-    0 4px 12px rgba(42, 157, 140, 0.35);
-}
-
-/* Two tiles: compact height (content + small arrow), not stretched */
-.home__book-row {
-  flex: 0 0 auto;
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  gap: var(--home-gap);
-  width: 100%;
-}
-
-.home__book-tile {
-  flex: 1 1 0;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  min-height: auto;
-  padding: 0.72rem 0.75rem 0.62rem;
-  border-radius: var(--r-lg);
-  text-decoration: none;
-  color: inherit;
-  border: 1px solid color-mix(in srgb, var(--glass-border-mid) 88%, var(--rule-soft));
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.88) inset,
-    0 4px 14px rgba(18, 72, 76, 0.07);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
-}
-
-.home__book-tile:hover {
-  text-decoration: none;
-  border-color: color-mix(in srgb, var(--c-cyan) 22%, var(--glass-border-mid));
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.92) inset,
-    0 6px 18px rgba(18, 72, 76, 0.09);
-}
-
-.home__book-tile:active {
-  transform: scale(0.99);
-}
-
-.home__book-tile:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--c-cyan) 48%, transparent);
-  outline-offset: 3px;
-}
-
-.home__book-tile--studio {
-  background: linear-gradient(
-    168deg,
-    color-mix(in srgb, var(--c-cyan-soft) 55%, #fff) 0%,
-    color-mix(in srgb, var(--c-cyan) 12%, #fff) 100%
-  );
-}
-
-.home__book-tile--group {
-  background: linear-gradient(
-    168deg,
-    color-mix(in srgb, var(--c-accent-lavender) 8%, #fff) 0%,
-    color-mix(in srgb, var(--c-cyan-soft) 45%, #fff) 100%
-  );
-}
-
-.home__book-tile-text {
-  flex: 0 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-  min-width: 0;
-  padding-right: 0.15rem;
-}
-
-.home__book-tile-title {
-  font-size: 0.98rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-  color: var(--ink);
-}
-
-.home__book-tile-desc {
-  font-size: 0.76rem;
-  font-weight: 500;
-  line-height: 1.3;
-  color: var(--ink-muted);
-}
-
-.home__book-tile-go {
-  align-self: flex-end;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.2rem;
-  height: 2.2rem;
-  margin-top: 0.45rem;
-  border-radius: 50%;
-  color: var(--c-teal-deep);
-  background: color-mix(in srgb, #fff 88%, var(--c-cyan-soft));
-  border: 1px solid color-mix(in srgb, var(--c-cyan) 14%, var(--rule-soft));
-  box-shadow: var(--shadow-sm);
-  transition: color 0.18s ease, background 0.18s ease, transform 0.18s ease;
-}
-
-.home__book-tile:hover .home__book-tile-go {
-  color: #fff;
-  background: var(--grad-cta);
-  border-color: transparent;
-  transform: translateX(2px);
-}
-
-/* —— Today: frosted glass card —— */
+/* ──────────────────────────── Schedule card ────────────────────────── */
 .home-card--schedule {
-  display: flex;
-  flex-direction: column;
-  gap: var(--home-gap);
   flex: 1 1 auto;
   min-height: 0;
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  padding: clamp(1.1rem, 3.6vw, 1.45rem) clamp(1.05rem, 3.4vw, 1.35rem);
+  padding: 0.45rem 0;
   border-radius: var(--r-xl);
-  background:
-    linear-gradient(165deg, rgba(255, 255, 255, 0.72) 0%, rgba(248, 252, 252, 0.55) 45%, rgba(232, 251, 250, 0.42) 100%),
-    var(--surface-glass-card);
-  border: 1px solid var(--glass-border-mid);
-  box-shadow: var(--shadow-glass-card);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
+  background: var(--surface);
+  border: 1px solid var(--rule-soft);
+  box-shadow: var(--shadow-card);
   color: var(--ink);
-  transition: box-shadow 0.22s ease, border-color 0.22s ease, transform 0.18s ease;
+  overflow: hidden;
 }
 
-.home-card--schedule:hover {
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.92) inset,
-    0 0 0 1px color-mix(in srgb, var(--c-cyan) 18%, rgba(26, 69, 73, 0.05)) inset,
-    0 6px 22px rgba(18, 72, 76, 0.1),
-    0 18px 44px rgba(18, 72, 76, 0.08);
-  border-color: color-mix(in srgb, var(--c-cyan) 28%, var(--glass-border-mid));
-}
-
-/* Scrollable list / messages; footer (see-all link) stays pinned in the card */
 .home-card__body {
   flex: 1 1 auto;
   min-height: 0;
@@ -477,14 +222,14 @@
 }
 
 .home-card__placeholder {
-  margin: 0;
+  margin: 0.85rem 1.1rem;
   min-height: 4.5rem;
   border-radius: var(--r-md);
   background: linear-gradient(
     90deg,
-    color-mix(in srgb, var(--c-cyan-soft) 35%, transparent) 0%,
+    color-mix(in srgb, var(--c-mint) 38%, transparent) 0%,
     rgba(255, 255, 255, 0.5) 50%,
-    color-mix(in srgb, var(--c-cyan-soft) 35%, transparent) 100%
+    color-mix(in srgb, var(--c-mint) 38%, transparent) 100%
   );
   background-size: 200% 100%;
   animation: home-shimmer 1.2s ease-in-out infinite;
@@ -496,66 +241,91 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .home-card__placeholder {
-    animation: none;
-  }
-}
-
-.home-card__helper {
-  margin: 0;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
+  .home-card__placeholder { animation: none; }
 }
 
 .home-card__slots {
   display: flex;
   flex-direction: column;
-  gap: 0;
 }
 
+/* Each row in the schedule list */
 .home-card__slot {
   display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  padding-block: 0.2rem;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.8rem 0.85rem;
+  text-decoration: none;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  text-align: left;
+  transition: background 0.15s ease;
+  cursor: pointer;
+  font: inherit;
+  width: 100%;
+}
+
+.home-card__slot:hover { background: color-mix(in srgb, var(--c-mint) 22%, transparent); text-decoration: none; }
+.home-card__slot:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--c-teal) 55%, transparent);
+  outline-offset: -3px;
+}
+
+.home-card__slot-icon {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  background: var(--c-mint-soft);
+  color: var(--c-teal-deep);
+}
+
+.home-card__slot-main {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: 0.5rem;
+  row-gap: 0.1rem;
+  align-items: baseline;
 }
 
 .home-card__time {
   margin: 0;
-  font-size: 0.95rem;
-  font-weight: 600;
+  font-size: 0.92rem;
+  font-weight: 700;
   font-variant-numeric: tabular-nums;
-  letter-spacing: 0.02em;
-}
-
-.home-card__time--cyan {
-  color: color-mix(in srgb, var(--c-teal) 35%, var(--c-cyan));
-}
-
-.home-card__time--cyan-soft {
-  color: color-mix(in srgb, var(--c-teal) 55%, var(--c-cyan));
-  opacity: 0.92;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  white-space: nowrap;
 }
 
 .home-card__class-title {
   margin: 0;
-  font-size: 1.12rem;
+  font-size: 0.92rem;
   font-weight: 700;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.02em;
   line-height: 1.2;
   color: var(--ink);
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .home-card__meta {
-  display: flex;
+  grid-column: 1 / -1;
+  display: inline-flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 0.35rem 0.45rem;
-  margin: 0;
-  font-size: 0.78rem;
+  gap: 0.3rem 0.4rem;
+  margin: 0.18rem 0 0;
+  font-size: 0.76rem;
   font-weight: 500;
   color: var(--ink-muted);
 }
@@ -564,90 +334,251 @@
   width: 3px;
   height: 3px;
   border-radius: 50%;
-  background: color-mix(in srgb, var(--c-cyan) 70%, var(--c-teal));
-  opacity: 0.65;
+  background: currentColor;
+  opacity: 0.55;
+}
+
+.home-card__chevron {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1rem;
+  height: 1rem;
+  color: var(--c-teal-deep);
+  opacity: 0.85;
 }
 
 .home-card__divider {
-  width: 100%;
-  margin: var(--home-gap) 0;
+  width: calc(100% - 1.7rem);
+  margin: 0 0.85rem;
   border: 0;
   border-top: 1px solid var(--rule-soft);
 }
 
-.home-card__footer {
+/* Bottom "See all upcoming classes" link */
+.home-card__see-link {
   flex-shrink: 0;
   display: flex;
-  justify-content: flex-start;
-  padding-top: 0.15rem;
-  margin-top: 0;
-}
-
-.home-card__see-link {
-  font-size: 0.82rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.95rem 1rem;
+  font-size: 0.92rem;
   font-weight: 600;
   color: var(--c-teal-deep);
   text-decoration: none;
-  text-underline-offset: 3px;
-  transition: color 0.18s ease, opacity 0.18s ease;
+  border-top: 1px solid var(--rule-soft);
+  background: transparent;
+  transition: background 0.15s ease;
 }
-
-.home-card__see-link:hover {
-  color: var(--c-teal);
-  text-decoration: underline;
-}
-
-.home-card__see-link:active {
-  opacity: 0.88;
-}
-
+.home-card__see-link:hover { background: color-mix(in srgb, var(--c-mint) 22%, transparent); text-decoration: none; }
+.home-card__see-link:active { opacity: 0.88; }
 .home-card__see-link:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--c-cyan) 45%, var(--c-teal));
+  outline: 2px solid color-mix(in srgb, var(--c-teal) 55%, transparent);
+  outline-offset: -3px;
+}
+
+.home-card__see-link-chevron {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* ──────────────────────────── 4. Book Private ──────────────────────── */
+.home__booking {
+  flex: 0 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--home-gap);
+  margin-top: 0.25rem;
+}
+
+.home__book-private {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  min-height: 4.6rem;
+  padding: 0.95rem 0.95rem 0.95rem 1.1rem;
+  border-radius: var(--r-xl);
+  text-decoration: none;
+  color: #fff;
+  background: var(--grad-cta);
+  box-shadow: var(--shadow-cta);
+  transition: box-shadow 0.18s ease, transform 0.15s ease;
+}
+.home__book-private:hover { text-decoration: none; box-shadow: 0 8px 22px rgba(13, 148, 136, 0.40), 0 3px 8px rgba(13, 148, 136, 0.24); }
+.home__book-private:active { transform: scale(0.99); }
+.home__book-private:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--c-teal-bright) 65%, #fff);
+  outline-offset: 3px;
+}
+
+.home__book-private-icon {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.85rem;
+  height: 2.85rem;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.9);
+  background: transparent;
+  color: #fff;
+}
+
+.home__book-private-text {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.home__book-private-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  color: #fff;
+}
+
+.home__book-private-sub {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.home__book-private-arrow {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  color: var(--c-teal-deep);
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.15);
+}
+
+/* ──────────────────────────── 5. Tile row ──────────────────────────── */
+.home__book-row {
+  display: flex;
+  flex-direction: row;
+  gap: var(--home-gap);
+  width: 100%;
+}
+
+.home__book-tile {
+  flex: 1 1 0;
+  min-width: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.55rem;
+  padding: 0.85rem 0.9rem 1rem;
+  border-radius: var(--r-lg);
+  text-decoration: none;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--rule-soft);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.18s ease, border-color 0.18s ease, transform 0.15s ease;
+}
+
+.home__book-tile:hover {
+  text-decoration: none;
+  border-color: color-mix(in srgb, var(--c-teal) 18%, var(--rule));
+  box-shadow: var(--shadow-md);
+}
+.home__book-tile:active { transform: scale(0.99); }
+.home__book-tile:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--c-teal) 55%, transparent);
   outline-offset: 2px;
-  border-radius: var(--r-sm);
+}
+
+.home__book-tile-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  background: var(--c-mint-soft);
+  color: var(--c-teal-deep);
+  flex-shrink: 0;
+}
+
+.home__book-tile-text {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.18rem;
+  min-width: 0;
+  padding-right: 0.15rem;
+}
+
+.home__book-tile-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+.home__book-tile-desc {
+  font-size: 0.74rem;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--ink-muted);
+}
+
+.home__book-tile-go {
+  align-self: flex-end;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.65rem;
+  height: 1.65rem;
+  border-radius: 50%;
+  color: var(--c-teal-deep);
+  background: var(--c-mint-soft);
+  flex-shrink: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .home-card--schedule,
   .home__book-private,
   .home__book-tile,
-  .home__book-tile-go {
-    transition: none;
-  }
+  .home-card__slot,
+  .home-card__see-link { transition: none; }
   .home__book-private:active,
-  .home__book-tile:active {
-    transform: none;
-  }
-  .home__book-tile:hover .home__book-tile-go {
-    transform: none;
-  }
+  .home__book-tile:active { transform: none; }
 }
 
-/* Home PWA: one screen, no document scroll */
+/* ─────────── Home single-screen shell tweaks ─────────── */
 body.page--home .home-main {
   overflow: hidden;
+  /* Reserve space for the fixed dock at the bottom */
+  padding-bottom: calc(var(--dock-h) + var(--safe-bottom) + 0.4rem);
 }
 
-/* Match header: inherits --home-pad-inline* from body.page--home (layout.css) */
 body.page--home .home {
-  --home-gap: clamp(0.8rem, 2.5vw, 1.05rem);
+  --home-gap: clamp(0.7rem, 2.2vw, 0.95rem);
   padding:
-    clamp(0.45rem, 1.8vw, 0.85rem)
+    clamp(0.3rem, 1.4vw, 0.55rem)
     var(--home-pad-inline-end)
-    max(1.35rem, calc(1.05rem + env(safe-area-inset-bottom, 0px)))
+    clamp(0.45rem, 1.5vw, 0.75rem)
     var(--home-pad-inline);
 }
 
-body.page--home .home__today {
-  width: 100%;
-  /* Extra space under the date card, before “Today at the studio” */
-  margin-top: clamp(0.7rem, 2.6vw, 1.2rem);
-  padding-top: 0;
-}
-
+/* The schedule card is the only thing that scrolls inside the home shell */
 body.page--home .home-card--schedule {
-  gap: var(--home-gap);
-  padding: clamp(1.05rem, 3.4vw, 1.35rem) clamp(1rem, 3.2vw, 1.25rem);
   overflow: hidden;
 }
 
@@ -657,57 +588,61 @@ body.page--home .home-card__body {
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
   touch-action: pan-y;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--ink-muted) 70%, transparent)
+    color-mix(in srgb, var(--ink) 6%, var(--surface));
 }
 
-body.page--home .home-card__placeholder {
-  min-height: 2.5rem;
+body.page--home .home-card__body::-webkit-scrollbar {
+  width: 8px;
 }
 
-body.page--home .home-card__time {
-  font-size: 0.9rem;
+body.page--home .home-card__body::-webkit-scrollbar-track {
+  background: color-mix(in srgb, var(--ink) 5%, var(--surface));
+  border-radius: 999px;
+  margin: 6px 0;
 }
 
-body.page--home .home-card__class-title {
-  font-size: 1.02rem;
+body.page--home .home-card__body::-webkit-scrollbar-thumb {
+  background-color: color-mix(in srgb, var(--ink-muted) 75%, transparent);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
 }
 
-body.page--home .home-card__meta {
-  font-size: 0.73rem;
+body.page--home .home-card__body::-webkit-scrollbar-thumb:hover {
+  background-color: color-mix(in srgb, var(--ink) 40%, transparent);
+  background-clip: padding-box;
 }
 
-body.page--home .home-card__divider {
-  margin: var(--home-gap) 0;
-}
-
-body.page--home .home-card__footer {
-  padding-top: 0;
-}
-
-body.page--home .home-card__see-link {
-  font-size: 0.78rem;
-}
-
-/* Short viewports: keep tiles usable without page scroll */
-@media (max-height: 700px) {
+/* Short viewports: keep the booking row usable above the dock */
+@media (max-height: 720px) {
+  body.page--home .home__date {
+    padding: 0.95rem 1rem 0.95rem 1.1rem;
+  }
+  body.page--home .home__date-cta {
+    width: 2.7rem;
+    height: 2.7rem;
+  }
   body.page--home .home__book-private {
-    min-height: 4.5rem;
-    padding: 0.75rem 0.9rem;
+    min-height: 3.85rem;
+    padding: 0.7rem 0.85rem 0.7rem 0.95rem;
   }
-
-  body.page--home .home__book-private-title {
-    font-size: 1.05rem;
+  body.page--home .home__book-private-icon {
+    width: 2.45rem;
+    height: 2.45rem;
   }
-
   body.page--home .home__book-private-arrow {
-    width: 2.65rem;
-    height: 2.65rem;
+    width: 2.1rem;
+    height: 2.1rem;
   }
-
   body.page--home .home__book-tile {
-    padding: 0.75rem 0.7rem 0.65rem;
+    padding: 0.7rem 0.8rem 0.85rem;
   }
+}
 
-  body.page--home .home__book-tile-title {
-    font-size: 0.95rem;
-  }
+@media (max-height: 640px) {
+  body.page--home .home__date-eyebrow { font-size: 0.66rem; }
+  body.page--home .home__date-title { font-size: 1.3rem; }
+  body.page--home .home-card__slot { padding-block: 0.7rem; }
 }
