@@ -4,6 +4,8 @@
 import {
   loadGroupSchedule,
   safeAccent,
+  scheduleTagI18nKey,
+  normalizeScheduleTag,
   startOfWeekMonday,
   scheduleDataIndexFromJsWeekday,
   parseScheduleMetaTimes,
@@ -13,10 +15,26 @@ import { getStrings, applyLang, normalizeLang } from '../i18n/apply.js';
 const BANNER_DISMISS_KEY = 'justice-schedule-banner-dismissed';
 
 const ICON_CLOCK =
-  '<svg class="schedule-card__clock" width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.75"/><path d="M12 7v6l4 2" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>';
+  '<svg class="schedule-card__clock" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M12 7.25v5.25l3.25 1.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>';
 
 const ICON_PIN =
-  '<svg class="schedule-card__pin" width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s7-4.35 7-11a7 7 0 1 0-14 0c0 6.65 7 11 7 11Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.2" fill="currentColor"/></svg>';
+  '<svg class="schedule-card__pin" width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s7-4.35 7-11a7 7 0 1 0-14 0c0 6.65 7 11 7 11Z" stroke="currentColor" stroke-width="1.45" stroke-linejoin="round"/><circle cx="12" cy="10" r="2" fill="currentColor"/></svg>';
+
+const ICON_CAT_FITNESS =
+  '<svg class="schedule-card__cat-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12c2.2-5 3.8-5 6 0s3.8 5 6 0 3.8-5 6 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+const ICON_CAT_DANCE =
+  '<svg class="schedule-card__cat-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 18V5l12-2v13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="6" cy="18" r="3" stroke="currentColor" stroke-width="1.5"/><circle cx="18" cy="16" r="3" stroke="currentColor" stroke-width="1.5"/></svg>';
+
+const ICON_CAT_KIDS =
+  '<svg class="schedule-card__cat-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3l1.2 3.2L16.5 7l-3.3 1.3L12 11.5 10.8 8.3 7.5 7l3.3-1.3L12 3Z" stroke="currentColor" stroke-width="1.35" stroke-linejoin="round"/><path d="M8 14.5c0 2.2 1.8 4 4 4s4-1.8 4-4" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/></svg>';
+
+function categoryChipIconHtml(tag) {
+  const t = normalizeScheduleTag(tag);
+  if (t === 'dance') return ICON_CAT_DANCE;
+  if (t === 'kids') return ICON_CAT_KIDS;
+  return ICON_CAT_FITNESS;
+}
 
 function scheduleLocale(lang) {
   const L = normalizeLang(lang);
@@ -154,74 +172,109 @@ function buildPanels(container, data, weekStart, s, lang) {
           const { start, end } = parseScheduleMetaTimes(ev.meta);
           const coachLabel = s[ev.coachKey] ?? ev.coachKey;
           const initials = coachInitials(coachLabel);
+          const tagKey = scheduleTagI18nKey(ev.tag);
+          const tagLabel = s[tagKey] ?? tagKey;
 
           const art = document.createElement('article');
           art.className = `schedule-card schedule-card--accent-${accent}`;
+          art.setAttribute('data-schedule-tag', normalizeScheduleTag(ev.tag));
 
-          const timeCol = document.createElement('div');
-          timeCol.className = 'schedule-card__time';
-          timeCol.insertAdjacentHTML('afterbegin', ICON_CLOCK);
+          const timeShell = document.createElement('div');
+          timeShell.className = 'schedule-card__time-shell';
+          const timeRail = document.createElement('span');
+          timeRail.className = 'schedule-card__time-rail';
+          timeRail.setAttribute('aria-hidden', 'true');
+          const timeInner = document.createElement('div');
+          timeInner.className = 'schedule-card__time-inner';
+          timeInner.insertAdjacentHTML('afterbegin', ICON_CLOCK);
+          const timeStack = document.createElement('div');
+          timeStack.className = 'schedule-card__time-stack';
           const startEl = document.createElement('span');
           startEl.className = 'schedule-card__time-start';
           startEl.textContent = start;
-          const endEl = document.createElement('span');
-          endEl.className = 'schedule-card__time-end';
-          endEl.textContent = end;
-          timeCol.append(startEl, endEl);
+          timeStack.append(startEl);
+          if (end) {
+            const connector = document.createElement('div');
+            connector.className = 'schedule-card__time-connector';
+            connector.setAttribute('aria-hidden', 'true');
+            const dot = document.createElement('span');
+            dot.className = 'schedule-card__time-connector-dot';
+            const line = document.createElement('span');
+            line.className = 'schedule-card__time-connector-line';
+            connector.append(dot, line);
+            const endEl = document.createElement('span');
+            endEl.className = 'schedule-card__time-end';
+            endEl.textContent = end;
+            timeStack.append(connector, endEl);
+          }
+          timeInner.append(timeStack);
+          timeShell.append(timeRail, timeInner);
 
-          const divider = document.createElement('span');
-          divider.className = 'schedule-card__divider';
-          divider.setAttribute('aria-hidden', 'true');
+          const content = document.createElement('div');
+          content.className = 'schedule-card__content';
 
-          const main = document.createElement('div');
-          main.className = 'schedule-card__main';
+          const top = document.createElement('div');
+          top.className = 'schedule-card__top';
+
+          const textCol = document.createElement('div');
+          textCol.className = 'schedule-card__text';
+
+          const title = document.createElement('p');
+          title.className = 'schedule-card__title';
+          title.textContent = ev.title;
+
+          const catChip = document.createElement('span');
+          catChip.className = 'schedule-card__category-chip';
+          const catIconWrap = document.createElement('span');
+          catIconWrap.className = 'schedule-card__category-icon';
+          catIconWrap.setAttribute('aria-hidden', 'true');
+          catIconWrap.innerHTML = categoryChipIconHtml(ev.tag);
+          const catLabel = document.createElement('span');
+          catLabel.className = 'schedule-card__category-label';
+          catLabel.dataset.i18n = tagKey;
+          catLabel.textContent = tagLabel;
+          catChip.append(catIconWrap, catLabel);
+
+          textCol.append(catChip, title);
 
           const menu = document.createElement('button');
           menu.type = 'button';
           menu.className = 'schedule-card__menu';
           menu.setAttribute('aria-label', s.schedule_card_menu_aria ?? 'Menu');
           menu.tabIndex = -1;
-          menu.innerHTML = '<span aria-hidden="true">⋯</span>';
+          menu.innerHTML = '<span class="schedule-card__menu-dots" aria-hidden="true"></span>';
 
-          const title = document.createElement('p');
-          title.className = 'schedule-card__title';
-          title.textContent = ev.title;
+          top.append(textCol, menu);
 
-          const sub = document.createElement('p');
-          sub.className = 'schedule-card__subtitle';
-          sub.dataset.i18n = 'schedule_track_group';
-          sub.textContent = s.schedule_track_group ?? '';
+          const chipsRow = document.createElement('div');
+          chipsRow.className = 'schedule-card__chips';
 
-          const footer = document.createElement('div');
-          footer.className = 'schedule-card__footer';
-
-          const placeWrap = document.createElement('div');
-          placeWrap.className = 'schedule-card__footer-place';
-          placeWrap.insertAdjacentHTML('afterbegin', ICON_PIN);
+          const placeChip = document.createElement('span');
+          placeChip.className = 'schedule-card__meta-chip schedule-card__meta-chip--place';
+          const pinIcon = document.createElement('span');
+          pinIcon.className = 'schedule-card__meta-chip-icon';
+          pinIcon.setAttribute('aria-hidden', 'true');
+          pinIcon.innerHTML = ICON_PIN;
           const placeTxt = document.createElement('span');
           placeTxt.dataset.i18n = 'schedule_room_studio';
           placeTxt.textContent = s.schedule_room_studio ?? '';
-          placeWrap.append(placeTxt);
+          placeChip.append(pinIcon, placeTxt);
 
-          const sep = document.createElement('span');
-          sep.className = 'schedule-card__footer-sep';
-          sep.setAttribute('aria-hidden', 'true');
-
-          const coachWrap = document.createElement('div');
-          coachWrap.className = 'schedule-card__footer-coach';
+          const coachChip = document.createElement('span');
+          coachChip.className = 'schedule-card__meta-chip schedule-card__meta-chip--coach';
           const av = document.createElement('span');
           av.className = 'schedule-card__avatar';
           av.setAttribute('aria-hidden', 'true');
           av.textContent = initials;
           const coachSpan = document.createElement('span');
+          coachSpan.className = 'schedule-card__coach-name';
           coachSpan.dataset.i18n = ev.coachKey;
           coachSpan.textContent = coachLabel;
-          coachWrap.append(av, coachSpan);
+          coachChip.append(av, coachSpan);
 
-          footer.append(placeWrap, sep, coachWrap);
-
-          main.append(title, sub, footer);
-          art.append(timeCol, divider, main, menu);
+          chipsRow.append(placeChip, coachChip);
+          content.append(top, chipsRow);
+          art.append(timeShell, content);
           list.append(art);
         });
       }

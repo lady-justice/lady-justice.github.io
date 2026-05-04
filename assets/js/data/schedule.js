@@ -1,6 +1,12 @@
 import { GROUP_SCHEDULE_URL } from '../config.js';
 
-const ACCENTS = new Set(['wine', 'teal', 'coral', 'gold', 'lavender']);
+/** Allowed `accent` in docs/group-schedule.json — same tokens as CSS `schedule-card--accent-*`. */
+export const SCHEDULE_ACCENTS = Object.freeze(['teal', 'berry', 'warm', 'violet']);
+const SCHEDULE_ACCENT_SET = new Set(SCHEDULE_ACCENTS);
+
+/** Canonical event category for JSON `tag`; maps to i18n `schedule_filter_chip_*`. */
+export const SCHEDULE_TAGS = Object.freeze(['fitness', 'kids', 'dance']);
+const SCHEDULE_TAG_SET = new Set(SCHEDULE_TAGS);
 
 /** Mon–Sat (index 0–5); Sunday has no tab in JSON. */
 export const SCHEDULE_DAY_COUNT = 6;
@@ -48,13 +54,37 @@ function validate(data) {
       if (typeof ev.title !== 'string' || typeof ev.meta !== 'string' || typeof ev.coachKey !== 'string') {
         throw new Error(`Invalid event at day ${i}, event ${j}`);
       }
+      if (!SCHEDULE_TAG_SET.has(String(ev.tag || '').toLowerCase())) {
+        throw new Error(`Invalid event tag at day ${i}, event ${j}: ${ev.tag}`);
+      }
+      const accentKey = String(ev.accent ?? 'teal').toLowerCase();
+      if (!SCHEDULE_ACCENT_SET.has(accentKey)) {
+        throw new Error(`Invalid event accent at day ${i}, event ${j}: ${ev.accent}`);
+      }
     });
   });
   return data;
 }
 
+/** Accent class suffix for cards — must match JSON `accent` and SCHEDULE_ACCENTS. */
 export function safeAccent(raw) {
-  return ACCENTS.has(raw) ? raw : 'teal';
+  const k = String(raw ?? 'teal').toLowerCase();
+  return SCHEDULE_ACCENT_SET.has(k) ? k : 'teal';
+}
+
+/** i18n key for localized category label (Fitness / Kids / Dance). */
+export function scheduleTagI18nKey(tag) {
+  const t = String(tag || '').toLowerCase();
+  if (t === 'kids') return 'schedule_filter_chip_kids';
+  if (t === 'dance') return 'schedule_filter_chip_dance';
+  if (t === 'fitness') return 'schedule_filter_chip_fitness';
+  return 'schedule_track_group';
+}
+
+/** `ev.tag` → `data-schedule-tag` / category chip styling. */
+export function normalizeScheduleTag(tag) {
+  const t = String(tag || '').toLowerCase();
+  return SCHEDULE_TAG_SET.has(t) ? t : 'fitness';
 }
 
 export async function loadGroupSchedule() {

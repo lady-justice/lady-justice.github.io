@@ -1,92 +1,186 @@
 /**
  * JusticeApp design tokens — single source of truth.
  *
- * Aligned with the Home reference screenshot:
- *   - light neutral canvas (#f8f9fa) + white surfaces
- *   - modern teal (#14B8A6 / #0D9488) accent
- *   - near-black ink, neutral grays
- *   - large soft card radii (24px), gentle drop shadows
+ * Layers:
+ *   1. --palette-*     Raw hues (hex only). Edit colors here.
+ *   2. --ink, --surface, --rule…   App-wide semantics → palette.
+ *   3. --c-*           Stable aliases used across CSS (avoid renaming callers).
+ *   4. Schedule       Week chrome; JSON `accent` ∈ teal|berry|warm|violet (`teal` = turquoise slot); chips.
  *
  * IMPORTANT: keep --bp-desktop-min in sync with VIEWPORT_DESKTOP_MIN_PX in assets/js/config.js.
  */
 
 :root {
-  /* ────────────────────── Brand ────────────────────── */
-  --c-teal: #14b8a6;
-  --c-teal-deep: #0d9488;
-  --c-teal-darker: #0f766e;
-  --c-teal-bright: #2dd4bf;
+  /* ═══════════════════════════════════════════════════════════════════════════
+     Palette — primitives (hex). Nothing outside this block should use raw #colors.
+     ═══════════════════════════════════════════════════════════════════════════ */
 
-  /* Soft mint surfaces (icon plates, the TODAY card, hover states) */
-  --c-mint: #d2f1ec;
-  --c-mint-soft: #e6f6f2;
-  --c-mint-strong: #b9e6dd;
+  /* Neutrals — warm stone (icon: cream tile + charcoal J; avoids cold blue-gray) */
+  --palette-slate-900: #1c1c1c;
+  --palette-slate-500: #57534e;
+  --palette-slate-400: #a39e93;
 
-  /* Legacy cyan tokens kept for non-home pages */
-  --c-cyan: #5de2eb;
-  --c-cyan-soft: #d2eef8;
+  /* Brand turquoise (primary UI — slightly more cyan than old teal) */
+  --palette-turquoise-300: #3bdfd7;
+  --palette-turquoise-400: #18bfb8;
+  --palette-turquoise-500: #14a9a8;
+  --palette-turquoise-600: #0f959c;
+  --palette-turquoise-700: #0c7580;
 
-  /* Schedule pill accents (semantic tags from group-schedule.json; bars map to ref teal/pink/orange) */
-  --c-accent-wine: #c8506e;
-  --c-accent-coral: #f08b7a;
-  --c-accent-gold: #e4b042;
-  --c-accent-lavender: #a06bee;
+  --palette-turquoise-schedule-soft: #d8f7f5;
 
-  /* Group Classes UI accents (schedule page cards / strip) */
-  --c-schedule-teal: #14a098;
-  --c-schedule-teal-soft: #d8f4f1;
-  --c-schedule-pink: #e91e63;
-  --c-schedule-orange: #ff7043;
-  --shadow-schedule-float: 0 4px 12px rgba(15, 23, 42, 0.06);
-  --shadow-schedule-card: 0 2px 10px rgba(15, 23, 42, 0.05), 0 6px 20px rgba(15, 23, 42, 0.04);
+  /* Mint surfaces (home, cards) — nudged warmer for beige canvas */
+  --palette-mint-200: #d5eee8;
+  --palette-mint-100: #e9f6f1;
+  --palette-mint-300: #bcdfd6;
+
+  /* Legacy cyan accents (dock / layout) */
+  --palette-cyan-400: #5de2eb;
+  --palette-cyan-100: #d2eef8;
+
+  /* Warm accent for schedule category chip — Kids */
+  --palette-amber-700: #b45309;
+  --palette-amber-50: #fff7e8;
+
+  /*
+   * Schedule class UI accents — four themes (see safeAccent() in data/schedule.js).
+   * berry | warm | violet | teal (slot name; uses turquoise palette)
+   */
+  --palette-class-berry: #c8506e;
+  --palette-class-berry-soft: #f7e8ec;
+  --palette-class-berry-deep: #9a3d55;
+
+  --palette-class-warm: #f08b7a;
+  --palette-class-warm-soft: #fdf0ed;
+  --palette-class-warm-deep: #c45d50;
+
+  --palette-class-violet: #a06bee;
+  --palette-class-violet-soft: #f3ebfc;
+  --palette-class-violet-deep: #6f48b8;
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     Foundations — text, surfaces, borders
+     ═══════════════════════════════════════════════════════════════════════════ */
+
+  --ink: var(--palette-slate-900);
+  --ink-muted: var(--palette-slate-500);
+  --ink-faint: var(--palette-slate-400);
+
+  --bg-canvas: #f5f3ee;
+  --bg-app-gradient: var(--bg-canvas);
+  --bg-schedule-page: var(--bg-canvas);
+
+  --surface: #fffcf8;
+  --surface-mint: linear-gradient(135deg, #eaf6f1 0%, #daecea 60%, #cee7df 100%);
+  --surface-elevated: #fffcf8;
+
+  --rule: rgba(38, 35, 30, 0.085);
+  --rule-soft: rgba(38, 35, 30, 0.055);
+
+  /* Glass aliases — legacy components */
+  --surface-glass: rgba(255, 252, 248, 0.82);
+  --surface-glass-bright: #fffcf8;
+  --surface-glass-card: #fffcf8;
+  --surface-glass-strong: rgba(255, 252, 248, 0.93);
+  --glass-border: rgba(42, 37, 32, 0.065);
+  --glass-border-mid: rgba(42, 37, 32, 0.06);
+  --glass-blur: 14px;
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     Brand aliases — use these names in feature CSS (stable API)
+     ═══════════════════════════════════════════════════════════════════════════ */
+
+  --c-turquoise: var(--palette-turquoise-400);
+  --c-turquoise-deep: var(--palette-turquoise-600);
+  --c-turquoise-darker: var(--palette-turquoise-700);
+  --c-turquoise-bright: var(--palette-turquoise-300);
+
+  --c-mint: var(--palette-mint-200);
+  --c-mint-soft: var(--palette-mint-100);
+  --c-mint-strong: var(--palette-mint-300);
+
+  --c-cyan: var(--palette-cyan-400);
+  --c-cyan-soft: var(--palette-cyan-100);
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     Schedule — week chrome + training cards
+     ═══════════════════════════════════════════════════════════════════════════ */
+
+  --c-schedule-turquoise: var(--palette-turquoise-500);
+  --c-schedule-turquoise-soft: var(--palette-turquoise-schedule-soft);
+
+  /* Card rail / avatar — JSON accent key `teal` uses schedule turquoise */
+  --c-accent-teal: var(--c-schedule-turquoise);
+  --c-accent-teal-soft: var(--c-schedule-turquoise-soft);
+  --c-accent-teal-deep: var(--c-turquoise-deep);
+
+  --c-accent-berry: var(--palette-class-berry);
+  --c-accent-berry-soft: var(--palette-class-berry-soft);
+  --c-accent-berry-deep: var(--palette-class-berry-deep);
+
+  --c-accent-warm: var(--palette-class-warm);
+  --c-accent-warm-soft: var(--palette-class-warm-soft);
+  --c-accent-warm-deep: var(--palette-class-warm-deep);
+
+  --c-accent-violet: var(--palette-class-violet);
+  --c-accent-violet-soft: var(--palette-class-violet-soft);
+  --c-accent-violet-deep: var(--palette-class-violet-deep);
+
+  /* Category chip on card (`data-schedule-tag`) — reuse brand + violet theme */
+  --schedule-chip-cat-fitness-fg: var(--c-turquoise-deep);
+  --schedule-chip-cat-fitness-bg: var(--c-schedule-turquoise-soft);
+  --schedule-chip-cat-dance-fg: var(--c-accent-violet-deep);
+  --schedule-chip-cat-dance-bg: var(--c-accent-violet-soft);
+  --schedule-chip-cat-kids-fg: var(--palette-amber-700);
+  --schedule-chip-cat-kids-bg: var(--palette-amber-50);
+
+  /* Schedule-only shadows & radii */
+  --shadow-schedule-float: 0 4px 12px rgba(38, 32, 28, 0.065);
+  --shadow-schedule-card: var(--shadow-card);
   --r-schedule-card: 20px;
   --r-schedule-shell: 22px;
 
-  /* ────────────────────── Surfaces ─────────────────── */
-  --bg-canvas: #f8f9fa;
-  --bg-app-gradient: var(--bg-canvas);
-  --bg-schedule-page: var(--bg-canvas);
-  --surface: #ffffff;
-  --surface-mint: linear-gradient(135deg, #e8f6f2 0%, #d6efe9 60%, #c9ebe3 100%);
-  --surface-elevated: #ffffff;
+  --r-schedule-training: clamp(22px, 5.2vw, 30px);
+  --schedule-training-border: rgba(38, 32, 28, 0.07);
+  --shadow-schedule-training:
+    inset 0 1px 0 rgba(255, 252, 248, 0.94),
+    0 1px 2px rgba(38, 32, 28, 0.038),
+    0 10px 28px rgba(38, 32, 28, 0.065),
+    0 22px 48px rgba(38, 32, 28, 0.048);
 
-  /* Glass aliases — kept so legacy components don't break */
-  --surface-glass: rgba(255, 255, 255, 0.78);
-  --surface-glass-bright: #ffffff;
-  --surface-glass-card: #ffffff;
-  --surface-glass-strong: rgba(255, 255, 255, 0.92);
-  --glass-border: rgba(17, 24, 39, 0.06);
-  --glass-border-mid: rgba(17, 24, 39, 0.06);
-  --glass-blur: 14px;
+  /* ═══════════════════════════════════════════════════════════════════════════
+     Shadows — global
+     ═══════════════════════════════════════════════════════════════════════════ */
 
-  /* ────────────────────── Ink ──────────────────────── */
-  --ink: #0f172a;
-  --ink-muted: #6b7280;
-  --ink-faint: #9ca3af;
+  --shadow-sm: 0 1px 2px rgba(38, 32, 28, 0.045);
+  --shadow-md: 0 4px 14px rgba(38, 32, 28, 0.058);
+  --shadow-lg: 0 12px 32px rgba(38, 32, 28, 0.095);
+  --shadow-card: 0 2px 10px rgba(38, 32, 28, 0.048), 0 8px 24px rgba(38, 32, 28, 0.04);
+  --shadow-cta: 0 6px 18px rgba(15, 149, 156, 0.32), 0 2px 6px rgba(15, 149, 156, 0.2);
 
-  /* ────────────────────── Lines & shadows ──────────── */
-  --rule: rgba(15, 23, 42, 0.08);
-  --rule-soft: rgba(15, 23, 42, 0.06);
-
-  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05);
-  --shadow-md: 0 4px 14px rgba(15, 23, 42, 0.06);
-  --shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.10);
-  --shadow-card: 0 2px 10px rgba(15, 23, 42, 0.05), 0 8px 24px rgba(15, 23, 42, 0.04);
-  --shadow-cta: 0 6px 18px rgba(13, 148, 136, 0.32), 0 2px 6px rgba(13, 148, 136, 0.20);
-
-  /* Legacy alias names (used by other pages / older blocks) */
   --shadow-glass-card: var(--shadow-card);
   --shadow-primary-cta: var(--shadow-cta);
   --shadow-glass-inset: inset 0 1px 0 rgba(255, 255, 255, 0.65);
-  --shadow-neu-inset: inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  --shadow-neu-inset: inset 0 1px 0 rgba(255, 252, 248, 0.52);
 
-  /* ────────────────────── Brand-tinted gradients ───── */
-  --grad-cta: linear-gradient(120deg, #2dd4bf 0%, #14b8a6 55%, #0d9488 100%);
-  --grad-tile: linear-gradient(135deg, #ecf8f5 0%, #d6efe9 100%);
+  /* ═══════════════════════════════════════════════════════════════════════════
+     Gradients — brand turquoise
+     ═══════════════════════════════════════════════════════════════════════════ */
+
+  --grad-cta: linear-gradient(
+    120deg,
+    var(--palette-turquoise-300) 0%,
+    var(--palette-turquoise-400) 55%,
+    var(--palette-turquoise-600) 100%
+  );
+  --grad-tile: linear-gradient(135deg, #eef7f3 0%, #dfecea 100%);
   --grad-primary-card: var(--grad-cta);
-  --grad-secondary-card: linear-gradient(180deg, #ffffff 0%, #f8faf9 100%);
+  --grad-secondary-card: linear-gradient(180deg, #fffcf8 0%, #f5f1ea 100%);
 
-  /* ────────────────────── Geometry ─────────────────── */
+  /* ═══════════════════════════════════════════════════════════════════════════
+     Geometry
+     ═══════════════════════════════════════════════════════════════════════════ */
+
   --r-xs: 8px;
   --r-sm: 12px;
   --r-md: 16px;
@@ -95,17 +189,23 @@
   --r-2xl: 28px;
   --r-pill: 9999px;
 
-  /* ────────────────────── Type ─────────────────────── */
-  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /* ═══════════════════════════════════════════════════════════════════════════
+     Type
+     ═══════════════════════════════════════════════════════════════════════════ */
 
-  /* ────────────────────── Layout ───────────────────── */
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Helvetica,
+    Arial, sans-serif;
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     Layout
+     ═══════════════════════════════════════════════════════════════════════════ */
+
   --bp-desktop-min: 900px;
   --shell-max-w: 28rem;
   --dock-h: 4.4rem;
   --header-h: calc(4.4rem + env(safe-area-inset-top, 0px));
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   --safe-top: env(safe-area-inset-top, 0px);
-  /* Shared horizontal gutter — header bar and main columns use the same insets (safe area + clamp). */
   --header-pad-inline: max(env(safe-area-inset-left, 0px), clamp(0.75rem, 4vw, 1.25rem));
   --header-pad-inline-end: max(env(safe-area-inset-right, 0px), clamp(0.75rem, 4vw, 1.25rem));
 }

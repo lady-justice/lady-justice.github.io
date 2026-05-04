@@ -1,63 +1,53 @@
 {
-  "version": 3,
+  "version": 7,
   "days": [
     {
       "headingId": "sch-day-mon",
       "dayNameKey": "schedule_day_mon",
       "events": [
-        { "accent": "coral", "title": "Acrobatics & Dance (5–6 yo)", "coachKey": "schedule_coach_themida", "meta": "10:00–11:00" },
-        { "accent": "wine", "title": "Band Dance", "coachKey": "schedule_coach_themida", "meta": "16:30" },
-        { "accent": "teal", "title": "Stretching", "coachKey": "schedule_coach_themida", "meta": "17:15–18:00" },
-        { "accent": "coral", "title": "Core Burnout Workout", "coachKey": "schedule_coach_themida", "meta": "18:15–19:00" }
+        { "accent": "berry", "title": "Band Dance", "coachKey": "schedule_coach_themida", "meta": "16:30–17:00", "tag": "fitness" },
+        { "accent": "teal", "title": "Stretching", "coachKey": "schedule_coach_themida", "meta": "17:15–18:00", "tag": "fitness" },
+        { "accent": "warm", "title": "Core Burn", "coachKey": "schedule_coach_themida", "meta": "18:15–19:00", "tag": "fitness" }
       ]
     },
     {
       "headingId": "sch-day-tue",
       "dayNameKey": "schedule_day_tue",
       "events": [
-        { "accent": "teal", "title": "Babies MIX Gymnastics & Dance", "coachKey": "schedule_coach_kristina", "meta": "15:00–16:00" },
-        { "accent": "gold", "title": "Commercial Dance Kids", "coachKey": "schedule_coach_kristina", "meta": "16:30–17:30" },
-        { "accent": "lavender", "title": "LATIN Dance", "coachKey": "schedule_coach_julia", "meta": "18:00–19:00" },
-        { "accent": "wine", "title": "Greek Dances", "coachKey": "schedule_coach_julia", "meta": "19:00–20:00" }
+        { "accent": "violet", "title": "Latin", "coachKey": "schedule_coach_dinos", "meta": "18:00–19:00", "tag": "dance" },
+        { "accent": "warm", "title": "Booty Pump", "coachKey": "schedule_coach_christina", "meta": "20:15–21:00", "tag": "fitness" }
       ]
     },
     {
       "headingId": "sch-day-wed",
       "dayNameKey": "schedule_day_wed",
       "events": [
-        { "accent": "coral", "title": "Acrobatics & Dance (5–6 yo)", "coachKey": "schedule_coach_kristina", "meta": "16:00–17:00" },
-        { "accent": "teal", "title": "Acrobatics & Dance (7–10 yo)", "coachKey": "schedule_coach_kristina", "meta": "17:15–18:15" },
-        { "accent": "gold", "title": "Acrobatics & Dance", "coachKey": "schedule_coach_kristina", "meta": "18:30–20:00" },
-        { "accent": "wine", "title": "Band Dance", "coachKey": "schedule_coach_kristina", "meta": "20:15–20:45" }
+        { "accent": "teal", "title": "Kids Acro", "coachKey": "schedule_coach_sofia", "meta": "17:15–18:15", "tag": "kids" },
+        { "accent": "berry", "title": "Band Dance", "coachKey": "schedule_coach_themida", "meta": "20:15–20:45", "tag": "fitness" },
+        { "accent": "teal", "title": "Stretching", "coachKey": "schedule_coach_themida", "meta": "21:00–21:45", "tag": "fitness" }
       ]
     },
     {
       "headingId": "sch-day-thu",
       "dayNameKey": "schedule_day_thu",
       "events": [
-        { "accent": "teal", "title": "Babies MIX Gymnastics & Dance", "coachKey": "schedule_coach_themida", "meta": "15:00–16:00" },
-        { "accent": "gold", "title": "Commercial Dance Kids", "coachKey": "schedule_coach_kristina", "meta": "16:30–17:30" },
-        { "accent": "lavender", "title": "LATIN Dance", "coachKey": "schedule_coach_julia", "meta": "18:00–19:00" },
-        { "accent": "wine", "title": "Greek Dances", "coachKey": "schedule_coach_julia", "meta": "19:00–20:00" }
+        { "accent": "violet", "title": "Greek Beginners", "coachKey": "schedule_coach_dinos", "meta": "18:00–19:00", "tag": "dance" },
+        { "accent": "warm", "title": "Core Burn", "coachKey": "schedule_coach_themida", "meta": "20:15–21:00", "tag": "fitness" },
+        { "accent": "berry", "title": "FrameUp/Heels", "coachKey": "schedule_coach_julia", "meta": "21:00–22:00", "tag": "dance" }
       ]
     },
     {
       "headingId": "sch-day-fri",
       "dayNameKey": "schedule_day_fri",
       "events": [
-        { "accent": "gold", "title": "Booty Pump", "coachKey": "schedule_coach_themida", "meta": "17:15–18:00" },
-        { "accent": "lavender", "title": "LATIN Dance", "coachKey": "schedule_coach_julia", "meta": "18:15–19:00" },
-        { "accent": "wine", "title": "Greek Dances", "coachKey": "schedule_coach_julia", "meta": "19:15–20:15" },
-        { "accent": "teal", "title": "Stretching", "coachKey": "schedule_coach_themida", "meta": "20:30–21:15" }
+        { "accent": "warm", "title": "Booty Pump", "coachKey": "schedule_coach_themida", "meta": "17:15–18:00", "tag": "fitness" }
       ]
     },
     {
       "headingId": "sch-day-sat",
       "dayNameKey": "schedule_day_sat",
       "events": [
-        { "accent": "coral", "title": "Acrobatics & Dance (5–6 yo)", "coachKey": "schedule_coach_kristina", "meta": "09:00–10:00" },
-        { "accent": "teal", "title": "Acrobatics & Dance (7–10 yo)", "coachKey": "schedule_coach_kristina", "meta": "10:15–11:15" },
-        { "accent": "gold", "title": "Acrobatics & Dance", "coachKey": "schedule_coach_kristina", "meta": "11:30–12:30" }
+        { "accent": "teal", "title": "Kids Acro", "coachKey": "schedule_coach_sofia_christina", "meta": "10:30–11:30", "tag": "kids" }
       ]
     }
   ]
