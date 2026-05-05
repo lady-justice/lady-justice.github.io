@@ -1,9 +1,10 @@
 import {
   DEFAULT_LANG,
-  LANG_STORAGE_KEY,
   LANG_LEGACY_KEYS,
+  LANG_STORAGE_KEY,
   SUPPORTED_LANGS,
-} from '../config.js';
+} from '../core/config.js';
+import { getStoredValue, removeStoredValue, setStoredValue } from '../core/storage.js';
 import { STRINGS } from './strings.js';
 
 export function normalizeLang(code) {
@@ -14,26 +15,36 @@ export function getStrings(lang) {
   return STRINGS[normalizeLang(lang)];
 }
 
+export function translate(key, locale) {
+  const s = getStrings(locale);
+  return key in s ? s[key] : key;
+}
+
+export function getCurrentLocale() {
+  return normalizeLang(document.documentElement.getAttribute('data-lang') || DEFAULT_LANG);
+}
+
+export function setCurrentLocale(locale) {
+  applyLang(locale);
+}
+
 export function readStoredLang() {
-  try {
-    const v = localStorage.getItem(LANG_STORAGE_KEY);
-    if (v) return normalizeLang(v);
-    for (const legacy of LANG_LEGACY_KEYS) {
-      const old = localStorage.getItem(legacy);
-      if (old) {
-        localStorage.setItem(LANG_STORAGE_KEY, normalizeLang(old));
-        localStorage.removeItem(legacy);
-        return normalizeLang(old);
-      }
+  const primary = getStoredValue(LANG_STORAGE_KEY);
+  if (primary) return normalizeLang(primary);
+  for (const legacy of LANG_LEGACY_KEYS) {
+    const old = getStoredValue(legacy);
+    if (old) {
+      const L = normalizeLang(old);
+      setStoredValue(LANG_STORAGE_KEY, L);
+      removeStoredValue(legacy);
+      return L;
     }
-  } catch (_) {}
+  }
   return DEFAULT_LANG;
 }
 
 function storeLang(lang) {
-  try {
-    localStorage.setItem(LANG_STORAGE_KEY, lang);
-  } catch (_) {}
+  setStoredValue(LANG_STORAGE_KEY, lang);
 }
 
 function applyMeta(s) {

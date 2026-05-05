@@ -3,7 +3,7 @@
  * Strategy: precache shell + network-first w/ cache fallback for same-origin GETs.
  * Bump CACHE on every deploy to invalidate stale assets.
  */
-const CACHE = 'justiceapp-v4';
+const CACHE = 'justiceapp-v5';
 const PRECACHE = [
   './',
   './index.html',

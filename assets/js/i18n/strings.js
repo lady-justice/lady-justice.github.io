@@ -5,9 +5,9 @@
  */
 export const STRINGS = {
   en: {
-    meta_title: 'JusticeApp — book in Nicosia',
+    meta_title: 'JusticeApp — JUSTICE Fitness & Dance, Nicosia',
     meta_description:
-      'Book one-to-one sessions or private studio time at JUSTICE Fitness & Dance, Nicosia (Ilia Venezi 5).',
+      'The JusticeApp for JUSTICE Fitness & Dance: group class schedule, private sessions, studio rental, and studio info — Nicosia, Ilia Venezi 5.',
 
     brand_name: 'JusticeApp',
     brand_alt: 'JusticeApp',
@@ -158,9 +158,9 @@ export const STRINGS = {
   },
 
   el: {
-    meta_title: 'JusticeApp — κράτηση στη Λευκωσία',
+    meta_title: 'JusticeApp — JUSTICE Fitness & Dance, Λευκωσία',
     meta_description:
-      'Κλείστε ατομικά μαθήματα ή ιδιωτικό χρόνο στο στούντιο στο JUSTICE Fitness & Dance, Λευκωσία (Ilia Venezi 5).',
+      'Η εφαρμογή JusticeApp για το JUSTICE Fitness & Dance: ομαδικό πρόγραμμα, ατομικά μαθήματα, ενοικίαση στούντιο και πληροφορίες — Λευκωσία, Ilia Venezi 5.',
 
     brand_name: 'JusticeApp',
     brand_alt: 'JusticeApp',
@@ -311,9 +311,9 @@ export const STRINGS = {
   },
 
   ru: {
-    meta_title: 'JusticeApp — запись в Никосии',
+    meta_title: 'JusticeApp — JUSTICE Fitness & Dance, Никосия',
     meta_description:
-      'Персональные занятия или бронь студии в JUSTICE Fitness & Dance, Никосия (Ilia Venezi 5).',
+      'Приложение JusticeApp для JUSTICE Fitness & Dance: расписание групповых занятий, индивидуальные занятия, аренда студии — Никосия, Ilia Venezi 5.',
 
     brand_name: 'JusticeApp',
     brand_alt: 'JusticeApp',

@@ -5,7 +5,7 @@
  * 3. Run page-specific module based on body class.
  */
 import { initPwa } from './pwa.js';
-import { initShell } from './ui/shell.js';
+import { initShell } from './ui/shell/shell.js';
 
 async function init() {
   initPwa();
@@ -14,10 +14,10 @@ async function init() {
   const { classList } = document.body;
 
   if (classList.contains('page--home')) {
-    const { initHomePreview } = await import('./ui/home.js');
-    await initHomePreview();
+    const { initHomePage } = await import('./ui/home/home-page.js');
+    await initHomePage();
   } else if (classList.contains('page--schedule')) {
-    const { initSchedulePage } = await import('./ui/schedule.js');
+    const { initSchedulePage } = await import('./ui/schedule/schedule-page.js');
     await initSchedulePage();
   } else if (classList.contains('page--studio')) {
     const { initStudioPage } = await import('./ui/studio.js');

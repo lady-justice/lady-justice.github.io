@@ -7,7 +7,7 @@ import {
   PHONE_TEL,
   INSTAGRAM_STUDIO,
   studioWhatsAppUrl,
-} from '../config.js';
+} from '../core/config.js';
 import { getStrings, normalizeLang } from '../i18n/apply.js';
 
 function wireMapsLinks() {

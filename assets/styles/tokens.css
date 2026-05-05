@@ -7,7 +7,7 @@
  *   3. --c-*           Stable aliases used across CSS (avoid renaming callers).
  *   4. Schedule       Week chrome; JSON `accent` ∈ teal|berry|warm|violet (`teal` = turquoise slot); chips.
  *
- * IMPORTANT: keep --bp-desktop-min in sync with VIEWPORT_DESKTOP_MIN_PX in assets/js/config.js.
+ * IMPORTANT: keep --bp-desktop-min in sync with VIEWPORT_DESKTOP_MIN_PX in assets/js/core/config.js.
  */
 
 :root {
@@ -43,7 +43,7 @@
   --palette-amber-50: #fff7e8;
 
   /*
-   * Schedule class UI accents — four themes (see safeAccent() in data/schedule.js).
+   * Schedule class UI accents — four themes (see safeAccent() in data/schedule.model.js).
    * berry | warm | violet | teal (slot name; uses turquoise palette)
    */
   --palette-class-berry: #c8506e;

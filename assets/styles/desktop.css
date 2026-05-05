@@ -1,6 +1,6 @@
 /**
  * Desktop overrides (mobile-first base lives in the per-page CSS files).
- * Breakpoint must match VIEWPORT_DESKTOP_MIN_PX in assets/js/config.js.
+ * Breakpoint must match VIEWPORT_DESKTOP_MIN_PX in assets/js/core/config.js.
  */
 
 @media (min-width: 900px) {
