@@ -1,7 +1,8 @@
 /**
  * Mounts layout chrome used on every page:
- *   #j-header  — shared template
- *   #j-dock    — bottom nav
+ *   #app       — site-top, header mount, page root, dock mount
+ *   #j-header  — header + drawer (via replaceMount)
+ *   #j-dock    — bottom nav (via replaceMount)
  */
 import { PHONE_TEL, PHONE_DISPLAY, ICON_192 } from '../../core/config.js';
 import { replaceMount } from '../../core/dom.js';
@@ -26,7 +27,7 @@ const langOptionsDrawer = buildDrawerLangOptionsHtml();
 function headerTpl() {
   return /* html */ `
 <header class="header">
-  <a class="brand" href="index.html" data-i18n-attr="aria-label:brand_alt">
+  <a class="brand" href="#/" data-i18n-attr="aria-label:brand_alt">
     <span class="brand__mark" aria-hidden="true">
       <img class="brand__logo" src="${ICON_192}" width="192" height="192" alt="" decoding="async" />
     </span>
@@ -53,11 +54,11 @@ function headerTpl() {
 <div id="j-backdrop" class="drawer-backdrop" aria-hidden="true"></div>
 <aside id="j-drawer" class="drawer" inert>
   <nav class="drawer__nav" data-i18n-attr="aria-label:nav_aria">
-    <a href="index.html" data-nav-key="home" data-i18n="nav_home">Home</a>
-    <a href="schedule.html" data-nav-key="schedule" data-i18n="nav_schedule">Schedule</a>
-    <a href="book.html" data-nav-key="book" data-i18n="nav_book">Book</a>
-    <a href="studio.html" data-nav-key="studio" data-i18n="nav_studio">Studio</a>
-    <a href="contact.html" data-nav-key="contact" data-i18n="nav_contact">Contact</a>
+    <a href="#/" data-nav-key="home" data-i18n="nav_home">Home</a>
+    <a href="#/schedule" data-nav-key="schedule" data-i18n="nav_schedule">Schedule</a>
+    <a href="#/book" data-nav-key="book" data-i18n="nav_book">Book</a>
+    <a href="#/studio" data-nav-key="studio" data-i18n="nav_studio">Studio</a>
+    <a href="#/contact" data-nav-key="contact" data-i18n="nav_contact">Contact</a>
   </nav>
   <select class="drawer__lang j-lang-select" data-i18n-attr="aria-label:lang_aria" autocomplete="off">${langOptionsDrawer}</select>
   <div class="drawer__extras">
@@ -81,7 +82,19 @@ function fillYear() {
   document.querySelectorAll('[data-year]').forEach((el) => (el.textContent = stamp));
 }
 
+function appScaffoldTpl() {
+  return /* html */ `
+<div id="site-top" class="top-anchor" aria-hidden="true"></div>
+<div id="j-header"></div>
+<div data-page-root id="j-page-root"></div>
+<div id="j-dock"></div>`;
+}
+
 export function initShell() {
+  const app = document.getElementById('app');
+  if (app) {
+    app.innerHTML = appScaffoldTpl();
+  }
   replaceMount('j-header', headerTpl());
 
   replaceMount('j-dock', dockTpl());

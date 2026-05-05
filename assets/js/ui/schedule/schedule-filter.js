@@ -6,7 +6,7 @@ import { getStoredValue, setStoredValue } from '../../core/storage.js';
 
 const BANNER_DISMISS_KEY = APP_CONFIG.storageKeys.scheduleBannerDismissed;
 
-export function bindScheduleFilterSheet(root) {
+export function bindScheduleFilterSheet(root, { signal } = {}) {
   const sheet = document.getElementById('j-schedule-sheet');
   const openBtn = document.getElementById('j-schedule-filter');
   const backdrop = document.getElementById('j-schedule-sheet-backdrop');
@@ -25,23 +25,31 @@ export function bindScheduleFilterSheet(root) {
     done?.focus();
   }
 
-  openBtn.addEventListener('click', open);
-  backdrop?.addEventListener('click', close);
-  done?.addEventListener('click', close);
+  openBtn.addEventListener('click', open, { signal });
+  backdrop?.addEventListener('click', close, { signal });
+  done?.addEventListener('click', close, { signal });
 
   sheet.querySelectorAll('.schedule-chip').forEach((chip) => {
-    chip.addEventListener('click', () => {
-      sheet.querySelectorAll('.schedule-chip').forEach((c) => c.classList.remove('is-active'));
-      chip.classList.add('is-active');
-    });
+    chip.addEventListener(
+      'click',
+      () => {
+        sheet.querySelectorAll('.schedule-chip').forEach((c) => c.classList.remove('is-active'));
+        chip.classList.add('is-active');
+      },
+      { signal },
+    );
   });
 
-  root.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && sheet.classList.contains('is-open')) {
-      e.preventDefault();
-      close();
-    }
-  });
+  root.addEventListener(
+    'keydown',
+    (e) => {
+      if (e.key === 'Escape' && sheet.classList.contains('is-open')) {
+        e.preventDefault();
+        close();
+      }
+    },
+    { signal },
+  );
 }
 
 export function initScheduleBanner() {

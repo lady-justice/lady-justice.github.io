@@ -50,11 +50,11 @@ function storeLang(lang) {
 function applyMeta(s) {
   const titleEl = document.querySelector('title');
   if (titleEl) {
-    const body = document.body;
+    const page = document.body?.dataset?.page;
     titleEl.textContent =
-      body?.classList.contains('page--studio') && s.studio_meta_title
+      page === 'studio' && s.studio_meta_title
         ? s.studio_meta_title
-        : body?.classList.contains('page--schedule') && s.schedule_meta_title
+        : page === 'schedule' && s.schedule_meta_title
           ? s.schedule_meta_title
           : s.meta_title;
   }

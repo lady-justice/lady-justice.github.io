@@ -71,13 +71,17 @@ function wireRecenter() {
   });
 }
 
-export function initStudioPage() {
+export function initStudioPage({ signal } = {}) {
   wireMapsLinks();
   wireChips();
   wireShare();
   wireRecenter();
-  document.addEventListener('justice:lang', () => {
-    wireMapsLinks();
-    wireChips();
-  });
+  document.addEventListener(
+    'justice:lang',
+    () => {
+      wireMapsLinks();
+      wireChips();
+    },
+    { signal },
+  );
 }

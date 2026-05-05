@@ -72,12 +72,16 @@ export function renderWeekStrip(container, weekStart, locale, selectedIndex, has
   container.replaceChildren(frag);
 }
 
-export function bindWeekStripClick(strip, handler) {
-  strip.addEventListener('click', (e) => {
-    const btn = e.target.closest('.week__strip-cell');
-    if (!btn || !strip.contains(btn)) return;
-    const ix = Number.parseInt(btn.dataset.stripIndex ?? '', 10);
-    if (Number.isNaN(ix)) return;
-    handler(ix);
-  });
+export function bindWeekStripClick(strip, handler, { signal } = {}) {
+  strip.addEventListener(
+    'click',
+    (e) => {
+      const btn = e.target.closest('.week__strip-cell');
+      if (!btn || !strip.contains(btn)) return;
+      const ix = Number.parseInt(btn.dataset.stripIndex ?? '', 10);
+      if (Number.isNaN(ix)) return;
+      handler(ix);
+    },
+    { signal },
+  );
 }

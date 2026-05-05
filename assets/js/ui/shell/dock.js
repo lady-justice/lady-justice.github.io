@@ -6,19 +6,19 @@ const dockPlusIcon = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none
 export function dockTpl() {
   return /* html */ `
 <nav class="dock" data-i18n-attr="aria-label:dock_nav_aria">
-  <a class="dock__btn" href="index.html" data-nav-key="home">
+  <a class="dock__btn" href="#/" data-nav-key="home">
     <span class="dock__icon">${dockHomeIcon}</span>
     <span class="dock__label" data-i18n="dock_home">Home</span>
   </a>
-  <a class="dock__btn" href="schedule.html" data-nav-key="schedule">
+  <a class="dock__btn" href="#/schedule" data-nav-key="schedule">
     <span class="dock__icon">${dockScheduleIcon}</span>
     <span class="dock__label" data-i18n="dock_schedule">Schedule</span>
   </a>
-  <a class="dock__btn dock__btn--fab" href="book.html" data-nav-key="book" data-i18n-attr="aria-label:dock_book_center">
+  <a class="dock__btn dock__btn--fab" href="#/book" data-nav-key="book" data-i18n-attr="aria-label:dock_book_center">
     <span class="dock__icon">${dockPlusIcon}</span>
     <span class="dock__label" data-i18n="dock_book_center">Book</span>
   </a>
-  <a class="dock__btn" href="studio.html" data-nav-key="studio">
+  <a class="dock__btn" href="#/studio" data-nav-key="studio">
     <span class="dock__icon">${dockStudioIcon}</span>
     <span class="dock__label" data-i18n="dock_studio">Studio</span>
   </a>
@@ -30,12 +30,8 @@ export function dockTpl() {
 }
 
 function activeNavKey() {
-  const body = document.body;
-  if (body.classList.contains('page--home')) return 'home';
-  if (body.classList.contains('page--schedule')) return 'schedule';
-  if (body.classList.contains('page--book')) return 'book';
-  if (body.classList.contains('page--contact')) return 'contact';
-  if (body.classList.contains('page--studio')) return 'studio';
+  const key = document.body?.dataset?.page;
+  if (key && ['home', 'schedule', 'book', 'contact', 'studio'].includes(key)) return key;
   return null;
 }
 

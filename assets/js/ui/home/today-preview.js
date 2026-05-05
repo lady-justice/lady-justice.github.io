@@ -114,7 +114,7 @@ export function renderTodayPreview(root, scheduleModel) {
           : '';
       const divider = i < events.length - 1 ? '<hr class="home-card__divider" />' : '';
       return `
-        <a class="home-card__slot${accentClass}${pastClass}" href="schedule.html">
+        <a class="home-card__slot${accentClass}${pastClass}" href="#/schedule">
           <span class="home-card__slot-icon">${clockSvg}</span>
           <span class="home-card__slot-main">
             <span class="home-card__time">${time}</span>
@@ -141,7 +141,7 @@ export function renderTodayPreview(root, scheduleModel) {
     <div class="home-card__body">
       <div class="home-card__slots">${rows}</div>
     </div>
-    <a class="home-card__see-link" href="schedule.html" aria-label="${seeLabel}">
+    <a class="home-card__see-link" href="#/schedule" aria-label="${seeLabel}">
       <span>${seeLabel}</span>
       <span class="home-card__see-link-chevron">${chevronSvg}</span>
     </a>`;

@@ -100,13 +100,13 @@ function updateWeekStripSelection(strip, viewWeekStart, selectedIndex, scheduleM
   });
 }
 
-export async function initSchedulePage() {
+export async function initSchedulePage({ signal } = {}) {
   const container = document.getElementById('j-week-panels');
   const strip = document.getElementById('j-week-strip');
   if (!container || !strip) return;
 
   initScheduleBanner();
-  bindScheduleFilterSheet(document);
+  bindScheduleFilterSheet(document, { signal });
 
   const getLang = () => normalizeLang(document.documentElement.getAttribute('data-lang') || 'en');
   const store = createSchedulePageStore(new Date());
@@ -114,6 +114,7 @@ export async function initSchedulePage() {
   let scheduleModel;
   try {
     const raw = await fetchSchedule();
+    if (signal?.aborted) return;
     scheduleModel = createScheduleModel(validateSchedule(raw));
   } catch (err) {
     showScheduleLoadError(container, err);
@@ -139,28 +140,44 @@ export async function initSchedulePage() {
     updateVisibleDayPanels(container, store.selected);
   }
 
-  bindWeekStripClick(strip, (ix) => {
-    store.setSelected(ix);
-    updateShellPartial();
-  });
+  bindWeekStripClick(
+    strip,
+    (ix) => {
+      store.setSelected(ix);
+      updateShellPartial();
+    },
+    { signal },
+  );
 
   const todayBtn = document.getElementById('j-schedule-today');
   if (todayBtn) {
-    todayBtn.addEventListener('click', () => {
-      store.jumpToToday(new Date());
-      paintWeek();
-    });
+    todayBtn.addEventListener(
+      'click',
+      () => {
+        store.jumpToToday(new Date());
+        paintWeek();
+      },
+      { signal },
+    );
   }
 
-  document.getElementById('j-week-prev')?.addEventListener('click', () => {
-    store.shiftWeek(-7);
-    paintWeek();
-  });
-  document.getElementById('j-week-next')?.addEventListener('click', () => {
-    store.shiftWeek(7);
-    paintWeek();
-  });
+  document.getElementById('j-week-prev')?.addEventListener(
+    'click',
+    () => {
+      store.shiftWeek(-7);
+      paintWeek();
+    },
+    { signal },
+  );
+  document.getElementById('j-week-next')?.addEventListener(
+    'click',
+    () => {
+      store.shiftWeek(7);
+      paintWeek();
+    },
+    { signal },
+  );
 
   paintWeek();
-  document.addEventListener('justice:lang', paintWeek);
+  document.addEventListener('justice:lang', paintWeek, { signal });
 }
