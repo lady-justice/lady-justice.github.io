@@ -55,7 +55,9 @@ export function renderWeekStrip(container, weekStart, locale, selectedIndex, has
     btn.dataset.stripIndex = String(i);
     btn.setAttribute(
       'aria-label',
-      new Intl.DateTimeFormat(locale, { weekday: 'long', day: 'numeric', month: 'long' }).format(day),
+      new Intl.DateTimeFormat(locale, { weekday: 'long', day: 'numeric', month: 'long' }).format(
+        day
+      )
     );
 
     const has = hasEventsFlags[i];
@@ -82,6 +84,6 @@ export function bindWeekStripClick(strip, handler, { signal } = {}) {
       if (Number.isNaN(ix)) return;
       handler(ix);
     },
-    { signal },
+    { signal }
   );
 }

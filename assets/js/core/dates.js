@@ -51,7 +51,9 @@ export function parseScheduleMetaTimes(meta) {
 
 /** Minutes since midnight from `HH:MM` or null if invalid. */
 export function parseTimeToMinutes(time) {
-  const m = String(time || '').trim().match(/^(\d{1,2}):(\d{2})$/);
+  const m = String(time || '')
+    .trim()
+    .match(/^(\d{1,2}):(\d{2})$/);
   if (!m) return null;
   const h = parseInt(m[1], 10);
   const min = parseInt(m[2], 10);

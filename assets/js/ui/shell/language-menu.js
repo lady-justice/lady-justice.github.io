@@ -1,5 +1,5 @@
 import { SUPPORTED_LANGS } from '../../core/config.js';
-import { applyLang, getStrings, normalizeLang } from '../../i18n/apply.js';
+import { applyLang, normalizeLang } from '../../i18n/apply.js';
 
 export const LANG_HEADER_CODE = { en: 'EN', el: 'EL', ru: 'RU' };
 export const LANG_MENU_LABEL = { en: 'English', el: 'Ελληνικά', ru: 'Русский' };
@@ -16,7 +16,7 @@ export function buildHeaderLangListHtml() {
     (code) => /* html */ `
   <li class="header__lang-item" role="none">
     <button type="button" class="header__lang-option" role="option" data-lang="${code}">${LANG_MENU_LABEL[code]}</button>
-  </li>`,
+  </li>`
   ).join('');
 }
 

@@ -58,7 +58,7 @@ export async function initHomePage({ signal } = {}) {
       renderHomeDate();
       renderHomeGreeting();
     },
-    { signal },
+    { signal }
   );
 }
 

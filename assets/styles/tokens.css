@@ -143,10 +143,8 @@
   --r-schedule-training: clamp(22px, 5.2vw, 30px);
   --schedule-training-border: rgba(38, 32, 28, 0.07);
   --shadow-schedule-training:
-    inset 0 1px 0 rgba(255, 252, 248, 0.94),
-    0 1px 2px rgba(38, 32, 28, 0.038),
-    0 10px 28px rgba(38, 32, 28, 0.065),
-    0 22px 48px rgba(38, 32, 28, 0.048);
+    inset 0 1px 0 rgba(255, 252, 248, 0.94), 0 1px 2px rgba(38, 32, 28, 0.038),
+    0 10px 28px rgba(38, 32, 28, 0.065), 0 22px 48px rgba(38, 32, 28, 0.048);
 
   /* ═══════════════════════════════════════════════════════════════════════════
      Shadows — global
@@ -193,8 +191,9 @@
      Type
      ═══════════════════════════════════════════════════════════════════════════ */
 
-  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Helvetica,
-    Arial, sans-serif;
+  --font-sans:
+    'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Helvetica, Arial,
+    sans-serif;
 
   /* ═══════════════════════════════════════════════════════════════════════════
      Layout

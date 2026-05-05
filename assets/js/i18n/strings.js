@@ -69,7 +69,8 @@ export const STRINGS = {
     schedule_filter: 'Filter',
     schedule_filter_aria: 'Open class filters',
     schedule_filter_title: 'Filter classes',
-    schedule_filter_hint: 'Tap a category to preview filters. They are not applied to the list yet.',
+    schedule_filter_hint:
+      'Tap a category to preview filters. They are not applied to the list yet.',
     schedule_filter_done: 'Done',
     schedule_filter_chips_aria: 'Filter categories',
     schedule_filter_chip_all: 'All',

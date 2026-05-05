@@ -2,11 +2,7 @@
  * Single schedule card DOM — receives validated JSON event + i18n strings bag.
  */
 import { parseScheduleMetaTimes } from '../../core/dates.js';
-import {
-  safeAccent,
-  scheduleTagI18nKey,
-  normalizeScheduleTag,
-} from '../../data/schedule.model.js';
+import { safeAccent, scheduleTagI18nKey, normalizeScheduleTag } from '../../data/schedule.model.js';
 
 const ICON_CLOCK =
   '<svg class="schedule-card__clock" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M12 7.25v5.25l3.25 1.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>';

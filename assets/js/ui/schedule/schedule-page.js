@@ -87,8 +87,7 @@ function updateWeekStripSelection(strip, viewWeekStart, selectedIndex, scheduleM
     const day = addDays(viewWeekStart, i);
     const abbr = weekdayAbbr(loc, day);
     const dataIx = scheduleDataIndexFromJsWeekday(day.getDay());
-    const has =
-      dataIx !== null && (scheduleModel.days[dataIx]?.events ?? []).length > 0;
+    const has = dataIx !== null && (scheduleModel.days[dataIx]?.events ?? []).length > 0;
 
     if (i === selectedIndex) {
       const monthShort = new Intl.DateTimeFormat(loc, { month: 'short' }).format(day);
@@ -146,7 +145,7 @@ export async function initSchedulePage({ signal } = {}) {
       store.setSelected(ix);
       updateShellPartial();
     },
-    { signal },
+    { signal }
   );
 
   const todayBtn = document.getElementById('j-schedule-today');
@@ -157,7 +156,7 @@ export async function initSchedulePage({ signal } = {}) {
         store.jumpToToday(new Date());
         paintWeek();
       },
-      { signal },
+      { signal }
     );
   }
 
@@ -167,7 +166,7 @@ export async function initSchedulePage({ signal } = {}) {
       store.shiftWeek(-7);
       paintWeek();
     },
-    { signal },
+    { signal }
   );
   document.getElementById('j-week-next')?.addEventListener(
     'click',
@@ -175,7 +174,7 @@ export async function initSchedulePage({ signal } = {}) {
       store.shiftWeek(7);
       paintWeek();
     },
-    { signal },
+    { signal }
   );
 
   paintWeek();

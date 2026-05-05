@@ -95,7 +95,9 @@ body.page--schedule main {
   color: var(--c-turquoise-deep);
   background: var(--c-schedule-turquoise-soft);
   box-shadow: var(--shadow-sm);
-  transition: background 0.18s ease, box-shadow 0.18s ease;
+  transition:
+    background 0.18s ease,
+    box-shadow 0.18s ease;
 }
 .schedule-head__today:hover {
   background: color-mix(in srgb, var(--c-schedule-turquoise-soft) 75%, var(--c-mint));
@@ -121,7 +123,9 @@ body.page--schedule main {
   color: var(--c-turquoise-deep);
   background: var(--c-schedule-turquoise-soft);
   box-shadow: var(--shadow-sm);
-  transition: background 0.18s ease, box-shadow 0.18s ease;
+  transition:
+    background 0.18s ease,
+    box-shadow 0.18s ease;
 }
 .schedule-filter-btn:hover {
   background: color-mix(in srgb, var(--c-schedule-turquoise-soft) 75%, var(--c-mint));
@@ -165,7 +169,10 @@ body.page--schedule main {
   background: var(--c-schedule-turquoise-soft);
   box-shadow: var(--shadow-sm);
   cursor: pointer;
-  transition: background 0.16s ease, color 0.16s ease, box-shadow 0.16s ease;
+  transition:
+    background 0.16s ease,
+    color 0.16s ease,
+    box-shadow 0.16s ease;
 }
 .week__nav:hover {
   background: color-mix(in srgb, var(--c-schedule-turquoise-soft) 70%, var(--c-mint));
@@ -214,7 +221,10 @@ body.page--schedule main {
   background: transparent;
   cursor: pointer;
   color: var(--ink);
-  transition: background 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
+  transition:
+    background 0.18s ease,
+    color 0.18s ease,
+    box-shadow 0.18s ease;
 }
 .week__strip-letter {
   font-size: 0.58rem;
@@ -274,7 +284,9 @@ body.page--schedule main {
 .schedule-body {
   min-height: 4rem;
 }
-.week__panels { padding: 0 0 0.25rem; }
+.week__panels {
+  padding: 0 0 0.25rem;
+}
 .week__error {
   margin: 0;
   padding: 1rem;
@@ -337,13 +349,12 @@ body.page--schedule main {
   border-radius: var(--r-schedule-training);
   border: 1px solid var(--schedule-training-border);
   box-shadow: var(--shadow-schedule-training);
-  background:
-    linear-gradient(
-      168deg,
-      #ffffff 0%,
-      color-mix(in srgb, var(--schedule-accent-soft) 38%, #ffffff) 48%,
-      color-mix(in srgb, var(--bg-canvas) 55%, #ffffff) 100%
-    );
+  background: linear-gradient(
+    168deg,
+    #ffffff 0%,
+    color-mix(in srgb, var(--schedule-accent-soft) 38%, #ffffff) 48%,
+    color-mix(in srgb, var(--bg-canvas) 55%, #ffffff) 100%
+  );
   text-align: left;
   position: relative;
 }
@@ -490,7 +501,14 @@ body.page--schedule main {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--schedule-chip-cat-fg, var(--ink-muted));
-  background: var(--schedule-chip-cat-bg, linear-gradient(180deg, rgba(255, 255, 255, 0.92), color-mix(in srgb, var(--ink) 3.5%, transparent)));
+  background: var(
+    --schedule-chip-cat-bg,
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.92),
+      color-mix(in srgb, var(--ink) 3.5%, transparent)
+    )
+  );
   border: 1px solid var(--schedule-chip-cat-border, var(--rule-soft));
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.95),
@@ -504,7 +522,11 @@ body.page--schedule main {
     color-mix(in srgb, var(--schedule-chip-cat-fitness-bg) 55%, #ffffff),
     var(--schedule-chip-cat-fitness-bg)
   );
-  --schedule-chip-cat-border: color-mix(in srgb, var(--schedule-chip-cat-fitness-fg) 14%, transparent);
+  --schedule-chip-cat-border: color-mix(
+    in srgb,
+    var(--schedule-chip-cat-fitness-fg) 14%,
+    transparent
+  );
 }
 
 .schedule-card[data-schedule-tag='dance'] .schedule-card__category-chip {
@@ -514,7 +536,11 @@ body.page--schedule main {
     color-mix(in srgb, var(--schedule-chip-cat-dance-bg) 50%, #ffffff),
     var(--schedule-chip-cat-dance-bg)
   );
-  --schedule-chip-cat-border: color-mix(in srgb, var(--schedule-chip-cat-dance-fg) 16%, transparent);
+  --schedule-chip-cat-border: color-mix(
+    in srgb,
+    var(--schedule-chip-cat-dance-fg) 16%,
+    transparent
+  );
 }
 
 .schedule-card[data-schedule-tag='kids'] .schedule-card__category-chip {
@@ -605,7 +631,11 @@ body.page--schedule main {
   font-size: 0.58rem;
   font-weight: 800;
   letter-spacing: 0.02em;
-  background: linear-gradient(145deg, var(--schedule-accent-soft), color-mix(in srgb, var(--schedule-accent-soft) 65%, #ffffff));
+  background: linear-gradient(
+    145deg,
+    var(--schedule-accent-soft),
+    color-mix(in srgb, var(--schedule-accent-soft) 65%, #ffffff)
+  );
   color: var(--schedule-accent-deep);
   border: 1px solid color-mix(in srgb, var(--schedule-accent) 18%, transparent);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
@@ -631,7 +661,11 @@ body.page--schedule main {
     inset 0 1px 0 rgba(255, 255, 255, 0.95),
     0 2px 6px rgba(15, 23, 42, 0.06),
     0 8px 18px rgba(15, 23, 42, 0.05);
-  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease;
 }
 
 .schedule-card__menu:hover {
@@ -814,7 +848,10 @@ body.page--schedule main {
   color: var(--ink-muted);
   background: var(--bg-schedule-page);
   cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
 }
 .schedule-chip:hover {
   border-color: color-mix(in srgb, var(--c-schedule-turquoise) 35%, var(--rule-soft));

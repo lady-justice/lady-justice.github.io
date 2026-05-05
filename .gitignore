@@ -1,2 +1,26 @@
 # Local files for development (md and other)
 .temp/
+
+# Dependencies (npm install)
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Env / secrets (if you add them later)
+.env
+.env.local
+.env.*.local
+
+# Tooling cache (optional)
+.eslintcache
+
+# Future build output (if you add a bundler)
+dist/
+build/
+coverage/

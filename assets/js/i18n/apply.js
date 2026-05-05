@@ -70,7 +70,9 @@ function applyMapIframe(lang) {
     const u = new URL(iframe.src);
     u.searchParams.set('hl', hl);
     iframe.src = u.toString();
-  } catch (_) {}
+  } catch {
+    void 0;
+  }
 }
 
 export function applyLang(lang) {
@@ -96,13 +98,16 @@ export function applyLang(lang) {
   document.querySelectorAll('[data-i18n-attr]').forEach((el) => {
     const spec = el.getAttribute('data-i18n-attr');
     if (!spec) return;
-    spec.trim().split(/\s+/).forEach((pair) => {
-      const c = pair.indexOf(':');
-      if (c < 0) return;
-      const attr = pair.slice(0, c).trim();
-      const k = pair.slice(c + 1).trim();
-      if (attr && k && k in s) el.setAttribute(attr, s[k]);
-    });
+    spec
+      .trim()
+      .split(/\s+/)
+      .forEach((pair) => {
+        const c = pair.indexOf(':');
+        if (c < 0) return;
+        const attr = pair.slice(0, c).trim();
+        const k = pair.slice(c + 1).trim();
+        if (attr && k && k in s) el.setAttribute(attr, s[k]);
+      });
   });
 
   document.querySelectorAll('.j-lang-select').forEach((sel) => {

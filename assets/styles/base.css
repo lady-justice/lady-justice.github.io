@@ -3,9 +3,15 @@
  * The fixed elliptical gradient lives on html::before so it stays anchored
  * regardless of scroll position (no jumping on iOS rubber-band).
  */
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 html {
   font-size: 16px;
@@ -24,7 +30,7 @@ html:has(body.page--home) {
 }
 
 html::before {
-  content: "";
+  content: '';
   position: fixed;
   inset: 0;
   z-index: -1;
@@ -56,9 +62,15 @@ a {
   text-decoration: none;
   transition: color 0.18s ease;
 }
-a:hover { text-decoration: underline; text-underline-offset: 3px; }
+a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
 
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
   font-weight: 600;
   letter-spacing: -0.02em;
   line-height: 1.2;
@@ -74,7 +86,10 @@ button {
   cursor: pointer;
 }
 
-img { max-width: 100%; display: block; }
+img {
+  max-width: 100%;
+  display: block;
+}
 
 .sr-only {
   position: absolute !important;

@@ -36,7 +36,7 @@ export function bindScheduleFilterSheet(root, { signal } = {}) {
         sheet.querySelectorAll('.schedule-chip').forEach((c) => c.classList.remove('is-active'));
         chip.classList.add('is-active');
       },
-      { signal },
+      { signal }
     );
   });
 
@@ -48,7 +48,7 @@ export function bindScheduleFilterSheet(root, { signal } = {}) {
         close();
       }
     },
-    { signal },
+    { signal }
   );
 }
 

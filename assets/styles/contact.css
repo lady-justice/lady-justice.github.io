@@ -61,7 +61,10 @@
   font-weight: 600;
   letter-spacing: -0.02em;
 }
-.map-card__name-justice { text-transform: uppercase; letter-spacing: 0.06em; }
+.map-card__name-justice {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
 .map-card__address {
   margin: 0;
   font-size: 0.72rem;
@@ -79,7 +82,10 @@
   text-decoration: underline;
   text-underline-offset: 3px;
 }
-.map-card__link:hover { color: var(--c-turquoise-deep); text-decoration: none; }
+.map-card__link:hover {
+  color: var(--c-turquoise-deep);
+  text-decoration: none;
+}
 
 .map-card__embed {
   position: relative;
@@ -90,7 +96,12 @@
   border: 1px solid var(--rule-soft);
   background: var(--c-cyan-soft);
 }
-.map-card__embed iframe { width: 100%; height: 100%; border: 0; display: block; }
+.map-card__embed iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
 
 /* ─── Studio page (reference: location / map / quick actions) ───────── */
 

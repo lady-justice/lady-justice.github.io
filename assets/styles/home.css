@@ -34,10 +34,7 @@
   max-width: 100%;
   margin: 0 auto;
   gap: var(--home-gap);
-  padding:
-    0.35rem
-    max(1rem, env(safe-area-inset-right, 0px))
-    1rem
+  padding: 0.35rem max(1rem, env(safe-area-inset-right, 0px)) 1rem
     max(1rem, env(safe-area-inset-left, 0px));
 }
 
@@ -82,7 +79,7 @@
 
 /* Subtle top-right highlight, like the reference */
 .home__date::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   right: 0;
@@ -117,7 +114,9 @@
   letter-spacing: -0.025em;
   line-height: 1.1;
   color: var(--ink);
-  font-feature-settings: "lnum" 1, "pnum" 1;
+  font-feature-settings:
+    'lnum' 1,
+    'pnum' 1;
 }
 
 .home__date-status {
@@ -152,7 +151,9 @@
   border-radius: 50%;
   color: var(--c-turquoise-deep);
   background: var(--surface);
-  box-shadow: var(--shadow-sm), 0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+  box-shadow:
+    var(--shadow-sm),
+    0 0 0 1px rgba(255, 255, 255, 0.6) inset;
 }
 
 /* ──────────────────────────── 3. Today at the studio ───────────────── */
@@ -189,7 +190,7 @@
 
 /* Short turquoise underline under the section title */
 .home__intro::after {
-  content: "";
+  content: '';
   width: 2.25rem;
   height: 2px;
   border-radius: 2px;
@@ -235,12 +236,18 @@
 }
 
 @keyframes home-shimmer {
-  0% { background-position: 100% 0; }
-  100% { background-position: -100% 0; }
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .home-card__placeholder { animation: none; }
+  .home-card__placeholder {
+    animation: none;
+  }
 }
 
 .home-card__slots {
@@ -290,7 +297,10 @@
   --home-slot-accent: var(--c-accent-violet);
 }
 
-.home-card__slot:hover { background: color-mix(in srgb, var(--c-mint) 22%, transparent); text-decoration: none; }
+.home-card__slot:hover {
+  background: color-mix(in srgb, var(--c-mint) 22%, transparent);
+  text-decoration: none;
+}
 .home-card__slot:focus-visible {
   outline: 2px solid color-mix(in srgb, var(--c-turquoise) 55%, transparent);
   outline-offset: -3px;
@@ -461,8 +471,13 @@
   background: transparent;
   transition: background 0.15s ease;
 }
-.home-card__see-link:hover { background: color-mix(in srgb, var(--c-mint) 22%, transparent); text-decoration: none; }
-.home-card__see-link:active { opacity: 0.88; }
+.home-card__see-link:hover {
+  background: color-mix(in srgb, var(--c-mint) 22%, transparent);
+  text-decoration: none;
+}
+.home-card__see-link:active {
+  opacity: 0.88;
+}
 .home-card__see-link:focus-visible {
   outline: 2px solid color-mix(in srgb, var(--c-turquoise) 55%, transparent);
   outline-offset: -3px;
@@ -497,10 +512,19 @@
   color: #fff;
   background: var(--grad-cta);
   box-shadow: var(--shadow-cta);
-  transition: box-shadow 0.18s ease, transform 0.15s ease;
+  transition:
+    box-shadow 0.18s ease,
+    transform 0.15s ease;
 }
-.home__book-private:hover { text-decoration: none; box-shadow: 0 8px 22px rgba(13, 148, 136, 0.40), 0 3px 8px rgba(13, 148, 136, 0.24); }
-.home__book-private:active { transform: scale(0.99); }
+.home__book-private:hover {
+  text-decoration: none;
+  box-shadow:
+    0 8px 22px rgba(13, 148, 136, 0.4),
+    0 3px 8px rgba(13, 148, 136, 0.24);
+}
+.home__book-private:active {
+  transform: scale(0.99);
+}
 .home__book-private:focus-visible {
   outline: 2px solid color-mix(in srgb, var(--c-turquoise-bright) 65%, #fff);
   outline-offset: 3px;
@@ -557,8 +581,12 @@
 @media (prefers-reduced-motion: reduce) {
   .home__book-private,
   .home-card__slot,
-  .home-card__see-link { transition: none; }
-  .home__book-private:active { transform: none; }
+  .home-card__see-link {
+    transition: none;
+  }
+  .home__book-private:active {
+    transform: none;
+  }
 }
 
 /* ─────────── Home single-screen shell tweaks ─────────── */
@@ -570,10 +598,7 @@ body.page--home .home-main {
 
 body.page--home .home {
   --home-gap: clamp(0.7rem, 2.2vw, 0.95rem);
-  padding:
-    clamp(0.3rem, 1.4vw, 0.55rem)
-    var(--home-pad-inline-end)
-    clamp(0.45rem, 1.5vw, 0.75rem)
+  padding: clamp(0.3rem, 1.4vw, 0.55rem) var(--home-pad-inline-end) clamp(0.45rem, 1.5vw, 0.75rem)
     var(--home-pad-inline);
 }
 
@@ -639,7 +664,13 @@ body.page--home .home-card__body::-webkit-scrollbar-thumb:hover {
 }
 
 @media (max-height: 640px) {
-  body.page--home .home__date-eyebrow { font-size: 0.66rem; }
-  body.page--home .home__date-title { font-size: 1.3rem; }
-  body.page--home .home-card__slot { padding-block: 0.7rem; }
+  body.page--home .home__date-eyebrow {
+    font-size: 0.66rem;
+  }
+  body.page--home .home__date-title {
+    font-size: 1.3rem;
+  }
+  body.page--home .home-card__slot {
+    padding-block: 0.7rem;
+  }
 }

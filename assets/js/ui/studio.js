@@ -67,7 +67,10 @@ function wireRecenter() {
   if (!btn) return;
   btn.addEventListener('click', () => {
     const iframe = document.querySelector('.studio-map iframe');
-    if (iframe) iframe.src = iframe.src;
+    if (iframe) {
+      const { src } = iframe;
+      iframe.src = src;
+    }
   });
 }
 
@@ -82,6 +85,6 @@ export function initStudioPage({ signal } = {}) {
       wireMapsLinks();
       wireChips();
     },
-    { signal },
+    { signal }
   );
 }

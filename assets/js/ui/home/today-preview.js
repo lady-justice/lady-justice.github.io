@@ -30,7 +30,12 @@ function cyprusMinutesSinceMidnight(instant = new Date()) {
     minute: 'numeric',
     hour12: false,
   });
-  const parts = Object.fromEntries(dtf.formatToParts(instant).filter((p) => p.type !== 'literal').map((p) => [p.type, p.value]));
+  const parts = Object.fromEntries(
+    dtf
+      .formatToParts(instant)
+      .filter((p) => p.type !== 'literal')
+      .map((p) => [p.type, p.value])
+  );
   return parseInt(parts.hour ?? '0', 10) * 60 + parseInt(parts.minute ?? '0', 10);
 }
 
@@ -53,7 +58,8 @@ function isPastInCyprus(meta, now = new Date()) {
 
 function timeFromMeta(meta) {
   const t = String(meta || '').trim();
-  return (t.match(/^(\d{1,2}:\d{2})/) || [, t])[1];
+  const m = t.match(/^(\d{1,2}:\d{2})/);
+  return m ? m[1] : t;
 }
 
 const clockSvg = `
@@ -203,8 +209,10 @@ export function renderHomeGreeting() {
   const s = getStrings(lang);
   const hr = Math.floor(cyprusMinutesSinceMidnight() / 60);
   const key =
-    hr >= 5 && hr < 12 ? 'home_greeting_morning' :
-    hr >= 12 && hr < 18 ? 'home_greeting_afternoon' :
-    'home_greeting_evening';
+    hr >= 5 && hr < 12
+      ? 'home_greeting_morning'
+      : hr >= 12 && hr < 18
+        ? 'home_greeting_afternoon'
+        : 'home_greeting_evening';
   el.textContent = s[key] ?? s.home_greeting ?? '';
 }
