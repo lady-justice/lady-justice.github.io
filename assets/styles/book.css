@@ -45,27 +45,21 @@
   scroll-margin-top: 4.6rem;
 }
 
-/* Convex “squircle” plate — light top-left, soft depth bottom-right (like the header mark) */
+/* Flat chrome — same bg as the page so the embed doesn’t read as a separate “card”. */
 .book__frame {
   position: relative;
-  border-radius: var(--r-xl);
+  border-radius: var(--r-lg);
   overflow: visible;
-  border: 1px solid color-mix(in srgb, #fff 70%, var(--rule-soft));
-  background: linear-gradient(152deg, #fffefb 0%, #fff8f3 38%, #ffefe6 100%);
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.95) inset,
-    0 0 0 1px rgba(255, 255, 255, 0.4) inset,
-    -3px -4px 10px rgba(255, 255, 255, 0.75),
-    2px 3px 8px rgba(18, 72, 76, 0.06),
-    6px 10px 22px rgba(18, 72, 76, 0.1),
-    12px 22px 40px rgba(18, 72, 76, 0.06);
+  border: none;
+  background: transparent;
+  box-shadow: none;
 }
 
 .book__frame .calendly-inline-widget {
   min-width: 100% !important;
-  border-radius: var(--r-xl);
+  border-radius: var(--r-lg);
   overflow: hidden;
-  background: #fff6f1;
+  background: var(--bg-canvas);
   /* Room for sticky header + bottom dock + compact intro; Calendly scrolls inside */
   height: clamp(480px, calc(100dvh - var(--header-h) - var(--dock-h) - 5.5rem), 720px) !important;
   min-height: 440px;

@@ -67,7 +67,7 @@ const SCHEDULE_HTML = /* html */ `
           <svg width="22" height="22" viewBox="0 0 18 14" fill="none"><path d="M2 2h4a2 2 0 1 0 4 0h6M2 7h10a2 2 0 1 0 4 0h0M2 12h6a2 2 0 1 0 4 0h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="6.5" cy="2" r="1.35" fill="currentColor"/><circle cx="14.5" cy="7" r="1.35" fill="currentColor"/><circle cx="10.5" cy="12" r="1.35" fill="currentColor"/></svg>
         </span>
         <h2 class="schedule-sheet__title" id="j-schedule-sheet-title" data-i18n="schedule_filter_title">Filter classes</h2>
-        <p class="schedule-sheet__hint" data-i18n="schedule_filter_hint">Tap a category to narrow the list. More filters will appear here later.</p>
+        <p class="schedule-sheet__hint" data-i18n="schedule_filter_hint">Choose a category to show only those classes. Tap Done when finished.</p>
       </header>
       <div class="schedule-sheet__chips" role="group" data-i18n-attr="aria-label:schedule_filter_chips_aria">
         <button type="button" class="schedule-chip is-active" data-filter="all" data-i18n="schedule_filter_chip_all">All</button>

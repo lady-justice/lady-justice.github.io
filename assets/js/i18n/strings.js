@@ -2,9 +2,12 @@
  * UI copy for en / el / ru.
  * Schedule event titles & times live in docs/group-schedule.json.
  * Coach names are keyed (`schedule_coach_*`) so they translate per language.
+ *
+ * Within each locale object, keys are grouped by section (comments only — no runtime effect).
  */
 export const STRINGS = {
   en: {
+    // ─── Meta & brand ───
     meta_title: 'JusticeApp — JUSTICE Fitness & Dance, Nicosia',
     meta_description:
       'The JusticeApp for JUSTICE Fitness & Dance: group class schedule, private sessions, studio rental, and studio info — Nicosia, Ilia Venezi 5.',
@@ -14,6 +17,7 @@ export const STRINGS = {
     brand_tagline: 'Fitness & Dance',
     app_copyright_name: 'JusticeApp',
 
+    // ─── Navigation ───
     nav_aria: 'Main navigation',
     nav_home: 'Home',
     nav_schedule: 'Schedule',
@@ -28,6 +32,7 @@ export const STRINGS = {
     nav_book_now: 'Book Now',
     lang_aria: 'Language',
 
+    // ─── Home ───
     home_date_aria: 'Today’s date',
     home_today_eyebrow: 'Today',
     home_today_schedule: 'Today at the studio',
@@ -54,6 +59,7 @@ export const STRINGS = {
     home_preview_empty: 'No classes listed for today.',
     home_preview_error: 'Could not load schedule.',
 
+    // ─── Dock ───
     dock_book_aria: 'Book or rent studio',
     dock_book_indiv: 'Book Private',
     dock_book_studio: 'Rent Studio',
@@ -62,21 +68,23 @@ export const STRINGS = {
     dock_schedule: 'Schedule',
     dock_studio: 'Studio',
     dock_more: 'More',
-    dock_book_center: 'Book',
+    dock_book_center: 'Book 1:1',
 
+    // ─── Schedule ───
     schedule_page_title: 'Group Schedule',
     schedule_meta_title: 'Group Schedule — JusticeApp',
     schedule_filter: 'Filter',
     schedule_filter_aria: 'Open class filters',
     schedule_filter_title: 'Filter classes',
     schedule_filter_hint:
-      'Tap a category to preview filters. They are not applied to the list yet.',
+      'Choose a category to show only those classes. Tap Done when finished.',
     schedule_filter_done: 'Done',
     schedule_filter_chips_aria: 'Filter categories',
     schedule_filter_chip_all: 'All',
     schedule_filter_chip_kids: 'Kids',
     schedule_filter_chip_dance: 'Dance',
     schedule_filter_chip_fitness: 'Fitness',
+    schedule_filter_day_empty: 'No classes match this filter on this day.',
     schedule_sheet_close_aria: 'Close',
     schedule_banner_book_early: 'Classes fill up fast! Book early to secure your spot.',
     schedule_banner_close_aria: 'Dismiss',
@@ -110,13 +118,17 @@ export const STRINGS = {
     schedule_weekday_long_fri: 'Friday',
     schedule_weekday_long_sat: 'Saturday',
 
+    // ─── Shared dialogs (reuse outside schedule) ───
+    coming_soon: 'Still in development — thanks for your patience!',
+    app_dialog_ok: 'OK',
+    app_dialog_backdrop_aria: 'Close dialog',
+
+    // ─── Book ───
     book_kicker: 'Scheduling',
     book_title: 'Book a lesson',
     book_sub: 'Choose a time below. Calendar and confirmations are handled by Calendly.',
 
-    contact_intro_title: 'Contact',
-    contact_intro_note: 'Bookings and questions — email, phone, or Instagram.',
-    contact_link_studio: 'Studio location & map',
+    // ─── Studio ───
     studio_intro_title: 'Studio',
     studio_meta_title: 'Studio — JusticeApp',
     studio_hero_subline: 'JUSTICE Fitness & Dance · Nicosia',
@@ -142,6 +154,13 @@ export const STRINGS = {
     studio_share_copied: 'Address and map link copied.',
     studio_share_copy_hint: 'Copy this text:',
 
+    // ─── Contact ───
+    contact_intro_title: 'Contact',
+    contact_intro_note: 'Bookings and questions — email, phone, or Instagram.',
+    contact_wip_badge: 'Still in development — more coming soon.',
+    contact_link_studio: 'Studio location & map',
+
+    // ─── Footer ───
     footer_touch_eyebrow: 'Bookings, studio visits, or a quick hello',
     footer_touch_aria: 'Get in touch',
     footer_touch_line: 'Get in touch',
@@ -159,6 +178,7 @@ export const STRINGS = {
   },
 
   el: {
+    // ─── Meta & brand ───
     meta_title: 'JusticeApp — JUSTICE Fitness & Dance, Λευκωσία',
     meta_description:
       'Η εφαρμογή JusticeApp για το JUSTICE Fitness & Dance: ομαδικό πρόγραμμα, ατομικά μαθήματα, ενοικίαση στούντιο και πληροφορίες — Λευκωσία, Ilia Venezi 5.',
@@ -168,6 +188,7 @@ export const STRINGS = {
     brand_tagline: 'Fitness & Dance',
     app_copyright_name: 'JusticeApp',
 
+    // ─── Navigation ───
     nav_aria: 'Κύρια πλοήγηση',
     nav_home: 'Αρχική',
     nav_schedule: 'Πρόγραμμα',
@@ -182,6 +203,7 @@ export const STRINGS = {
     nav_book_now: 'Κλείστε τώρα',
     lang_aria: 'Γλώσσα',
 
+    // ─── Home ───
     home_date_aria: 'Σημερινή ημερομηνία',
     home_today_eyebrow: 'Σήμερα',
     home_today_schedule: 'Σήμερα στο στούντιο',
@@ -208,6 +230,7 @@ export const STRINGS = {
     home_preview_empty: 'Δεν υπάρχουν μαθήματα για αυτή την ημέρα.',
     home_preview_error: 'Δεν ήταν δυνατή η φόρτωση του προγράμματος.',
 
+    // ─── Dock ───
     dock_book_aria: 'Κράτηση ή ενοικίαση στούντιο',
     dock_book_indiv: 'Ιδιωτικό',
     dock_book_studio: 'Ενοικίαση στούντιο',
@@ -216,20 +239,23 @@ export const STRINGS = {
     dock_schedule: 'Πρόγραμμα',
     dock_studio: 'Στούντιο',
     dock_more: 'Περισσότερα',
-    dock_book_center: 'Κράτηση',
+    dock_book_center: 'Κράτηση 1:1',
 
+    // ─── Schedule ───
     schedule_page_title: 'Ομαδικό πρόγραμμα',
     schedule_meta_title: 'Ομαδικό πρόγραμμα — JusticeApp',
     schedule_filter: 'Φίλτρο',
     schedule_filter_aria: 'Άνοιγμα φίλτρων μαθημάτων',
     schedule_filter_title: 'Φίλτρο μαθημάτων',
-    schedule_filter_hint: 'Δοκιμάστε επιλογές εδώ. Τα φίλτρα δεν εφαρμόζονται ακόμα στη λίστα.',
+    schedule_filter_hint:
+      'Επιλέξτε κατηγορία για να εμφανίζονται μόνο τα σχετικά μαθήματα. Πατήτε Έτοιμο όταν τελειώσετε.',
     schedule_filter_done: 'Έτοιμο',
     schedule_filter_chips_aria: 'Κατηγορίες φίλτρου',
     schedule_filter_chip_all: 'Όλα',
     schedule_filter_chip_kids: 'Παιδιά',
     schedule_filter_chip_dance: 'Χορός',
     schedule_filter_chip_fitness: 'Fitness',
+    schedule_filter_day_empty: 'Δεν υπάρχουν μαθήματα αυτής της κατηγορίας αυτή την ημέρα.',
     schedule_sheet_close_aria: 'Κλείσιμο',
     schedule_banner_book_early: 'Γεμίζουν γρήγορα! Κλείστε νωρίς για να εξασφαλίσετε θέση.',
     schedule_banner_close_aria: 'Κλείσιμο',
@@ -263,13 +289,17 @@ export const STRINGS = {
     schedule_weekday_long_fri: 'Παρασκευή',
     schedule_weekday_long_sat: 'Σάββατο',
 
+    // ─── Shared dialogs (reuse outside schedule) ───
+    coming_soon: 'Σύντομα · υπό ανάπτυξη.',
+    app_dialog_ok: 'Εντάξει',
+    app_dialog_backdrop_aria: 'Κλείσιμο διαλόγου',
+
+    // ─── Book ───
     book_kicker: 'Προγραμματισμός',
     book_title: 'Κλείστε μάθημα',
     book_sub: 'Διαλέξτε ώρα παρακάτω. Το ημερολόγιο και οι επιβεβαιώσεις γίνονται μέσω Calendly.',
 
-    contact_intro_title: 'Επικοινωνία',
-    contact_intro_note: 'Κρατήσεις και ερωτήσεις — email, τηλέφωνο ή Instagram.',
-    contact_link_studio: 'Τοποθεσία στούντιο & χάρτης',
+    // ─── Studio ───
     studio_intro_title: 'Στούντιο',
     studio_meta_title: 'Στούντιο — JusticeApp',
     studio_hero_subline: 'JUSTICE Fitness & Dance · Λευκωσία',
@@ -295,6 +325,13 @@ export const STRINGS = {
     studio_share_copied: 'Αντιγράφηκαν η διεύθυνση και ο σύνδεσμος χάρτη.',
     studio_share_copy_hint: 'Αντιγράψτε αυτό το κείμενο:',
 
+    // ─── Contact ───
+    contact_intro_title: 'Επικοινωνία',
+    contact_intro_note: 'Κρατήσεις και ερωτήσεις — email, τηλέφωνο ή Instagram.',
+    contact_wip_badge: 'Υπό ανάπτυξη — σύντομα περισσότερα.',
+    contact_link_studio: 'Τοποθεσία στούντιο & χάρτης',
+
+    // ─── Footer ───
     footer_touch_eyebrow: 'Κρατήσεις, επίσκεψη στο studio ή ένα γρήγορο γεια',
     footer_touch_aria: 'Επικοινωνήστε μαζί μου',
     footer_touch_line: 'Επικοινωνήστε μαζί μου',
@@ -312,6 +349,7 @@ export const STRINGS = {
   },
 
   ru: {
+    // ─── Meta & brand ───
     meta_title: 'JusticeApp — JUSTICE Fitness & Dance, Никосия',
     meta_description:
       'Приложение JusticeApp для JUSTICE Fitness & Dance: расписание групповых занятий, индивидуальные занятия, аренда студии — Никосия, Ilia Venezi 5.',
@@ -321,6 +359,7 @@ export const STRINGS = {
     brand_tagline: 'Фитнес и танец',
     app_copyright_name: 'JusticeApp',
 
+    // ─── Navigation ───
     nav_aria: 'Основная навигация',
     nav_home: 'Главная',
     nav_schedule: 'Расписание',
@@ -335,6 +374,7 @@ export const STRINGS = {
     nav_book_now: 'Записаться',
     lang_aria: 'Язык',
 
+    // ─── Home ───
     home_date_aria: 'Сегодняшняя дата',
     home_today_eyebrow: 'Сегодня',
     home_today_schedule: 'Сегодня в студии',
@@ -361,6 +401,7 @@ export const STRINGS = {
     home_preview_empty: 'На сегодня в расписании нет занятий.',
     home_preview_error: 'Не удалось загрузить расписание.',
 
+    // ─── Dock ───
     dock_book_aria: 'Запись и аренда студии',
     dock_book_indiv: 'Персонально',
     dock_book_studio: 'Аренда студии',
@@ -369,24 +410,26 @@ export const STRINGS = {
     dock_schedule: 'Расписание',
     dock_studio: 'Студия',
     dock_more: 'Ещё',
-    dock_book_center: 'Запись',
+    dock_book_center: 'Запись 1:1',
 
+    // ─── Schedule ───
     schedule_page_title: 'Групповое расписание',
     schedule_meta_title: 'Групповое расписание — JusticeApp',
     schedule_filter: 'Фильтр',
     schedule_filter_aria: 'Открыть фильтры занятий',
     schedule_filter_title: 'Фильтр занятий',
-    schedule_filter_hint: 'Нажмите категорию — это превью, фильтры пока не влияют на список.',
+    schedule_filter_hint:
+      'Выберите категорию — в списке останутся только такие занятия. Нажмите «Готово», когда закончите.',
     schedule_filter_done: 'Готово',
     schedule_filter_chips_aria: 'Категории фильтра',
     schedule_filter_chip_all: 'Все',
     schedule_filter_chip_kids: 'Дети',
     schedule_filter_chip_dance: 'Танцы',
     schedule_filter_chip_fitness: 'Фитнес',
+    schedule_filter_day_empty: 'В этот день нет занятий выбранной категории.',
     schedule_sheet_close_aria: 'Закрыть',
     schedule_banner_book_early: 'Места разбирают быстро! Бронируйте заранее.',
     schedule_banner_close_aria: 'Скрыть',
-
     schedule_group_kicker: 'Групповые занятия',
     schedule_week_aria: 'Расписание групповых занятий, текущая календарная неделя',
     schedule_tabs_aria: 'Выберите день, чтобы увидеть занятия',
@@ -417,13 +460,17 @@ export const STRINGS = {
     schedule_weekday_long_fri: 'Пятница',
     schedule_weekday_long_sat: 'Суббота',
 
+    // ─── Shared dialogs (reuse outside) ───
+    coming_soon: 'В разработке. Скоро.',
+    app_dialog_ok: 'Понятно',
+    app_dialog_backdrop_aria: 'Закрыть',
+
+    // ─── Book ───
     book_kicker: 'Бронирование',
     book_title: 'Записаться на урок',
     book_sub: 'Выберите время ниже. Календарь и подтверждения — через Calendly.',
 
-    contact_intro_title: 'Контакты',
-    contact_intro_note: 'Бронирование и вопросы — почта, телефон или Instagram.',
-    contact_link_studio: 'Адрес студии и карта',
+    // ─── Studio ───
     studio_intro_title: 'Студия',
     studio_meta_title: 'Студия — JusticeApp',
     studio_hero_subline: 'JUSTICE Fitness & Dance · Никосия',
@@ -449,6 +496,13 @@ export const STRINGS = {
     studio_share_copied: 'Адрес и ссылка на карту скопированы.',
     studio_share_copy_hint: 'Скопируйте этот текст:',
 
+    // ─── Contact ───
+    contact_intro_title: 'Контакты',
+    contact_intro_note: 'Бронирование и вопросы — почта, телефон или Instagram.',
+    contact_wip_badge: 'Раздел в разработке — скоро больше деталей.',
+    contact_link_studio: 'Адрес студии и карта',
+
+    // ─── Footer ───
     footer_touch_eyebrow: 'Бронирование, визит в студию или короткое «привет»',
     footer_touch_aria: 'Связаться',
     footer_touch_line: 'Связаться',

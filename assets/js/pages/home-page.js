@@ -23,13 +23,6 @@ const HOME_HTML = /* html */ `
             <span id="j-home-date-status">3 classes today</span>
           </p>
         </div>
-        <span class="home__date-cta" aria-hidden="true">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-            <rect x="3.5" y="5.5" width="17" height="14" rx="2.5" stroke="currentColor" stroke-width="1.6"/>
-            <path d="M3.5 10.5h17" stroke="currentColor" stroke-width="1.6"/>
-            <path d="M8 3.5V7M16 3.5V7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-          </svg>
-        </span>
       </article>
 
       <section class="home__today" aria-labelledby="home-schedule-heading">

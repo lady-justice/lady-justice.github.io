@@ -36,6 +36,22 @@
   font-size: 0.95rem;
 }
 
+/* “In development” — mint pill in brand chrome */
+.contact-intro__wip {
+  margin: 1rem auto 0;
+  max-width: 26rem;
+  padding: 0.52rem 1rem;
+  border-radius: var(--r-pill);
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: center;
+  color: var(--c-turquoise-deep);
+  background: color-mix(in srgb, var(--c-mint-soft) 78%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--c-turquoise) 22%, var(--rule-soft));
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.75) inset;
+}
+
 .map-card {
   display: flex;
   flex-direction: column;

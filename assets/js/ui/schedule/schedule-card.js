@@ -3,6 +3,7 @@
  */
 import { parseScheduleMetaTimes } from '../../core/dates.js';
 import { safeAccent, scheduleTagI18nKey, normalizeScheduleTag } from '../../data/schedule.model.js';
+import { showAppDialog } from '../app-dialog.js';
 
 const ICON_CLOCK =
   '<svg class="schedule-card__clock" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M12 7.25v5.25l3.25 1.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>';
@@ -116,6 +117,14 @@ export function createScheduleCardElement(ev, s) {
   menu.setAttribute('aria-label', s.schedule_card_menu_aria ?? 'Menu');
   menu.tabIndex = -1;
   menu.innerHTML = '<span class="schedule-card__menu-dots" aria-hidden="true"></span>';
+  menu.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    showAppDialog(s.coming_soon ?? 'Coming soon.', {
+      confirmLabel: s.app_dialog_ok ?? 'OK',
+      backdropLabel: s.app_dialog_backdrop_aria ?? 'Close',
+    });
+  });
 
   top.append(textCol, menu);
 

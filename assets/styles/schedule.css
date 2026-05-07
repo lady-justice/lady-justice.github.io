@@ -359,6 +359,11 @@ body.page--schedule main {
   position: relative;
 }
 
+/* `[hidden]` loses to `display: grid` above — tie out (same pattern as .schedule-banner[hidden]) */
+.schedule-card[hidden] {
+  display: none !important;
+}
+
 .schedule-card__time-shell {
   display: flex;
   align-self: stretch;

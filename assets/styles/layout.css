@@ -805,3 +805,81 @@ body.page--home .dock {
   margin-inline: auto;
   border-radius: 0;
 }
+
+/* ───────── Small in-app dialog ───────── */
+.app-dialog-root {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  box-sizing: border-box;
+}
+
+.app-dialog-root[hidden] {
+  display: none !important;
+}
+
+.app-dialog-backdrop {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: rgba(38, 32, 28, 0.42);
+  cursor: pointer;
+}
+
+.app-dialog-panel {
+  position: relative;
+  z-index: 1;
+  width: min(17.5rem, 100%);
+  padding: 1rem 1.1rem 1rem;
+  border-radius: var(--r-lg);
+  background: var(--surface-glass-bright);
+  border: 1px solid var(--glass-border-mid);
+  box-shadow:
+    var(--shadow-lg),
+    0 0 0 1px rgba(255, 255, 255, 0.35) inset;
+}
+
+.app-dialog-message {
+  margin: 0 0 0.85rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--ink);
+  text-align: center;
+}
+
+.app-dialog-ok {
+  display: block;
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--c-turquoise) 35%, var(--rule-soft));
+  border-radius: var(--r-md);
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--c-turquoise-deep);
+  background: color-mix(in srgb, var(--c-mint-soft) 52%, var(--surface));
+  cursor: pointer;
+  transition:
+    background 0.18s ease,
+    transform 0.15s ease;
+}
+
+.app-dialog-ok:hover {
+  background: color-mix(in srgb, var(--c-mint-soft) 72%, var(--surface));
+}
+
+.app-dialog-ok:active {
+  transform: scale(0.98);
+}
+
+.app-dialog-ok:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--c-turquoise) 55%, transparent);
+  outline-offset: 2px;
+}

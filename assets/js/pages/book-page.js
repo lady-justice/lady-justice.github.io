@@ -1,5 +1,9 @@
+/**
+ * Inline widget tint — hex without `#`. Matches page canvas + ink; `primary_color` tints buttons and
+ * calendar date selection (Calendly does not expose a separate date color).
+ */
 const CALENDLY_URL =
-  'https://calendly.com/themida-lj/30min?hide_event_type_details=1&hide_gdpr_banner=1&background_color=fff6f1&text_color=3a2832&primary_color=14a9a8';
+  'https://calendly.com/themida-lj/30min?hide_event_type_details=1&hide_gdpr_banner=1&background_color=f5f3ee&text_color=1c1c1c&primary_color=14a9a8';
 
 const BOOK_HTML = /* html */ `
   <main>

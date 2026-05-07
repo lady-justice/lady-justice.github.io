@@ -1,5 +1,6 @@
 # Local files for development (md and other)
 .temp/
+preview.html
 
 # Dependencies (npm install)
 node_modules/

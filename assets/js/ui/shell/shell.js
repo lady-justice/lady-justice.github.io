@@ -87,7 +87,8 @@ function appScaffoldTpl() {
 <div id="site-top" class="top-anchor" aria-hidden="true"></div>
 <div id="j-header"></div>
 <div data-page-root id="j-page-root"></div>
-<div id="j-dock"></div>`;
+<div id="j-dock"></div>
+<div id="j-app-dialog-root" class="app-dialog-root" hidden aria-hidden="true"></div>`;
 }
 
 export function initShell() {

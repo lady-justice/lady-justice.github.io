@@ -3,7 +3,7 @@
  *
  * Composition top → bottom:
  *   1. Greeting line ("Good morning! 👋")
- *   2. TODAY card  (mint gradient, day+date + status row, round white calendar btn)
+ *   2. TODAY card  (mint gradient, day+date + status row)
  *   3. "TODAY AT THE STUDIO"  (uppercase eyebrow with short turquoise underline)
  *      White card with class rows: clock-circle | time + title + meta | chevron
  *      "See all upcoming classes" footer with chevron
@@ -64,7 +64,6 @@
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 1rem;
   width: 100%;
   margin: 0;
@@ -137,23 +136,6 @@
   height: 1rem;
   color: var(--c-turquoise-deep);
   flex-shrink: 0;
-}
-
-.home__date-cta {
-  position: relative;
-  z-index: 1;
-  flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 3.1rem;
-  height: 3.1rem;
-  border-radius: 50%;
-  color: var(--c-turquoise-deep);
-  background: var(--surface);
-  box-shadow:
-    var(--shadow-sm),
-    0 0 0 1px rgba(255, 255, 255, 0.6) inset;
 }
 
 /* ──────────────────────────── 3. Today at the studio ───────────────── */
@@ -644,10 +626,6 @@ body.page--home .home-card__body::-webkit-scrollbar-thumb:hover {
 @media (max-height: 720px) {
   body.page--home .home__date {
     padding: 0.95rem 1rem 0.95rem 1.1rem;
-  }
-  body.page--home .home__date-cta {
-    width: 2.7rem;
-    height: 2.7rem;
   }
   body.page--home .home__book-private {
     min-height: 3.85rem;

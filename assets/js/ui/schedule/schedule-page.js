@@ -11,12 +11,18 @@ import { createScheduleCardElement } from './schedule-card.js';
 import {
   scheduleLocale,
   weekdayAbbr,
-  weekHasEventsFlags,
   renderMonthYear,
   renderWeekStrip,
   bindWeekStripClick,
 } from './week-strip.js';
-import { bindScheduleFilterSheet, initScheduleBanner } from './schedule-filter.js';
+import {
+  applyScheduleListFilter,
+  bindScheduleFilterSheet,
+  dayHasMatchingFilter,
+  initScheduleBanner,
+  readActiveScheduleFilter,
+  weekFilterEventFlags,
+} from './schedule-filter.js';
 import { createSchedulePageStore } from './schedule-store.js';
 
 function showScheduleLoadError(container, err) {
@@ -79,15 +85,21 @@ function updateVisibleDayPanels(container, selectedIndex) {
   });
 }
 
-function updateWeekStripSelection(strip, viewWeekStart, selectedIndex, scheduleModel, loc) {
+function updateWeekStripSelection(
+  strip,
+  viewWeekStart,
+  selectedIndex,
+  scheduleModel,
+  loc,
+  tagFilter
+) {
   strip.querySelectorAll('.week__strip-cell').forEach((btn, i) => {
     btn.setAttribute('aria-selected', i === selectedIndex ? 'true' : 'false');
     btn.classList.toggle('week__strip-cell--on', i === selectedIndex);
 
     const day = addDays(viewWeekStart, i);
     const abbr = weekdayAbbr(loc, day);
-    const dataIx = scheduleDataIndexFromJsWeekday(day.getDay());
-    const has = dataIx !== null && (scheduleModel.days[dataIx]?.events ?? []).length > 0;
+    const has = dayHasMatchingFilter(scheduleModel, i, viewWeekStart, tagFilter);
 
     if (i === selectedIndex) {
       const monthShort = new Intl.DateTimeFormat(loc, { month: 'short' }).format(day);
@@ -105,7 +117,6 @@ export async function initSchedulePage({ signal } = {}) {
   if (!container || !strip) return;
 
   initScheduleBanner();
-  bindScheduleFilterSheet(document, { signal });
 
   const getLang = () => normalizeLang(document.documentElement.getAttribute('data-lang') || 'en');
   const store = createSchedulePageStore(new Date());
@@ -124,20 +135,36 @@ export async function initSchedulePage({ signal } = {}) {
     const lang = getLang();
     const s = getStrings(lang);
     const loc = scheduleLocale(lang);
-    const flags = weekHasEventsFlags(scheduleModel, store.viewWeekStart);
+    const tagFilter = readActiveScheduleFilter();
+    const flags = weekFilterEventFlags(scheduleModel, store.viewWeekStart, tagFilter);
     renderWeekStrip(strip, store.viewWeekStart, loc, store.selected, flags);
     buildDayPanels(container, scheduleModel, store.viewWeekStart, s);
+    applyScheduleListFilter(container, s);
     updateShellPartial();
   }
 
   function updateShellPartial() {
     const lang = getLang();
     const loc = scheduleLocale(lang);
+    const tagFilter = readActiveScheduleFilter();
     const selectedDate = addDays(store.viewWeekStart, store.selected);
     renderMonthYear(loc, selectedDate);
-    updateWeekStripSelection(strip, store.viewWeekStart, store.selected, scheduleModel, loc);
+    updateWeekStripSelection(strip, store.viewWeekStart, store.selected, scheduleModel, loc, tagFilter);
     updateVisibleDayPanels(container, store.selected);
   }
+
+  function refreshScheduleCategoryFilter() {
+    const lang = getLang();
+    const s = getStrings(lang);
+    const loc = scheduleLocale(lang);
+    const tagFilter = readActiveScheduleFilter();
+    applyScheduleListFilter(container, s);
+    const flags = weekFilterEventFlags(scheduleModel, store.viewWeekStart, tagFilter);
+    renderWeekStrip(strip, store.viewWeekStart, loc, store.selected, flags);
+    updateWeekStripSelection(strip, store.viewWeekStart, store.selected, scheduleModel, loc, tagFilter);
+  }
+
+  bindScheduleFilterSheet(document, { signal, onFilterChange: refreshScheduleCategoryFilter });
 
   bindWeekStripClick(
     strip,
