@@ -1,12 +1,17 @@
 import { SUPPORTED_LANGS } from '../../core/config.js';
 import { applyLang, normalizeLang } from '../../i18n/apply.js';
 
-export const LANG_HEADER_CODE = { en: 'EN', el: 'EL', ru: 'RU' };
-export const LANG_MENU_LABEL = { en: 'English', el: 'Ελληνικά', ru: 'Русский' };
+export const LANG_HEADER_CODE = { en: 'EN', el: 'EL', ru: 'RU', ka: 'KA' };
+export const LANG_MENU_LABEL = {
+  en: 'English',
+  el: 'Ελληνικά',
+  ru: 'Русский',
+  ka: 'ქართული',
+};
 
 export function buildDrawerLangOptionsHtml() {
   return SUPPORTED_LANGS.map((code) => {
-    const label = code === 'el' ? 'Ελληνικά' : code === 'ru' ? 'Русский' : 'English';
+    const label = LANG_MENU_LABEL[code] ?? code.toUpperCase();
     return `<option value="${code}">${label}</option>`;
   }).join('');
 }

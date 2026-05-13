@@ -7,7 +7,7 @@ export const APP_CONFIG = Object.freeze({
   /** Home / “today” preview uses this IANA zone for weekday row + clocks. */
   scheduleHomeTimezone: 'Asia/Nicosia',
   defaultLocale: 'en',
-  supportedLocales: /** @type {const} */ (['en', 'el', 'ru']),
+  supportedLocales: /** @type {const} */ (['en', 'el', 'ru', 'ka']),
   storageKeys: Object.freeze({
     locale: 'justice-lang',
     localeLegacy: /** @type {const} */ (['lj-lang']),

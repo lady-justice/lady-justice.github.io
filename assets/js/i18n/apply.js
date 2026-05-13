@@ -65,7 +65,7 @@ function applyMeta(s) {
 function applyMapIframe(lang) {
   const iframe = document.querySelector('.studio-map iframe');
   if (!iframe) return;
-  const hl = lang === 'el' ? 'el' : lang === 'ru' ? 'ru' : 'en';
+  const hl = lang === 'el' ? 'el' : lang === 'ru' ? 'ru' : lang === 'ka' ? 'ka' : 'en';
   try {
     const u = new URL(iframe.src);
     u.searchParams.set('hl', hl);
