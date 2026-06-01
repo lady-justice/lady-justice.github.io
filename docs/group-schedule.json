@@ -1,30 +1,23 @@
 {
-  "version": 7,
+  "version": 8,
   "days": [
     {
       "headingId": "sch-day-mon",
       "dayNameKey": "schedule_day_mon",
       "events": [
         {
+          "accent": "violet",
+          "title": "Flexibility Class",
+          "coachKey": "schedule_coach_themida",
+          "meta": "19:00–20:00",
+          "tag": "fitness"
+        },
+        {
           "accent": "berry",
-          "title": "Band Dance",
-          "coachKey": "schedule_coach_themida",
-          "meta": "16:30–17:00",
-          "tag": "fitness"
-        },
-        {
-          "accent": "teal",
-          "title": "Stretching",
-          "coachKey": "schedule_coach_themida",
-          "meta": "17:15–18:00",
-          "tag": "fitness"
-        },
-        {
-          "accent": "warm",
-          "title": "Core Burn",
-          "coachKey": "schedule_coach_themida",
-          "meta": "18:15–19:00",
-          "tag": "fitness"
+          "title": "Frame Up Heels",
+          "coachKey": "schedule_coach_julia",
+          "meta": "20:15–21:15",
+          "tag": "dance"
         }
       ]
     },
@@ -33,18 +26,18 @@
       "dayNameKey": "schedule_day_tue",
       "events": [
         {
-          "accent": "violet",
-          "title": "Latin",
-          "coachKey": "schedule_coach_dinos",
-          "meta": "18:00–19:00",
-          "tag": "dance"
+          "accent": "teal",
+          "title": "Kids Dance Acro & Fitness",
+          "coachKey": "schedule_coach_sofia",
+          "meta": "17:00–19:00",
+          "tag": "kids"
         },
         {
-          "accent": "warm",
-          "title": "Booty Pump",
+          "accent": "teal",
+          "title": "Kids Advanced",
           "coachKey": "schedule_coach_christina",
-          "meta": "20:15–21:00",
-          "tag": "fitness"
+          "meta": "19:15–21:15",
+          "tag": "kids"
         }
       ]
     },
@@ -53,25 +46,18 @@
       "dayNameKey": "schedule_day_wed",
       "events": [
         {
-          "accent": "teal",
-          "title": "Kids Acro",
-          "coachKey": "schedule_coach_sofia",
-          "meta": "17:15–18:15",
-          "tag": "kids"
+          "accent": "warm",
+          "title": "Fitness Mix",
+          "coachKey": "schedule_coach_themida",
+          "meta": "19:00–20:00",
+          "tag": "fitness"
         },
         {
           "accent": "berry",
-          "title": "Band Dance",
-          "coachKey": "schedule_coach_themida",
-          "meta": "20:15–20:45",
-          "tag": "fitness"
-        },
-        {
-          "accent": "teal",
-          "title": "Stretching",
-          "coachKey": "schedule_coach_themida",
-          "meta": "21:00–21:45",
-          "tag": "fitness"
+          "title": "Frame Up Heels",
+          "coachKey": "schedule_coach_julia",
+          "meta": "20:15–21:15",
+          "tag": "dance"
         }
       ]
     },
@@ -80,53 +66,30 @@
       "dayNameKey": "schedule_day_thu",
       "events": [
         {
-          "accent": "violet",
-          "title": "Greek Beginners",
-          "coachKey": "schedule_coach_dinos",
-          "meta": "18:00–19:00",
-          "tag": "dance"
+          "accent": "teal",
+          "title": "Kids Dance Acro & Fitness",
+          "coachKey": "schedule_coach_sofia",
+          "meta": "17:00–19:00",
+          "tag": "kids"
         },
         {
-          "accent": "warm",
-          "title": "Core Burn",
-          "coachKey": "schedule_coach_themida",
-          "meta": "20:15–21:00",
-          "tag": "fitness"
-        },
-        {
-          "accent": "berry",
-          "title": "FrameUp/Heels",
-          "coachKey": "schedule_coach_julia",
-          "meta": "21:00–22:00",
-          "tag": "dance"
+          "accent": "teal",
+          "title": "Kids Advanced",
+          "coachKey": "schedule_coach_christina",
+          "meta": "19:15–21:15",
+          "tag": "kids"
         }
       ]
     },
     {
       "headingId": "sch-day-fri",
       "dayNameKey": "schedule_day_fri",
-      "events": [
-        {
-          "accent": "warm",
-          "title": "Booty Pump",
-          "coachKey": "schedule_coach_themida",
-          "meta": "17:15–18:00",
-          "tag": "fitness"
-        }
-      ]
+      "events": []
     },
     {
       "headingId": "sch-day-sat",
       "dayNameKey": "schedule_day_sat",
-      "events": [
-        {
-          "accent": "teal",
-          "title": "Kids Acro",
-          "coachKey": "schedule_coach_sofia_christina",
-          "meta": "10:30–11:30",
-          "tag": "kids"
-        }
-      ]
+      "events": []
     }
   ]
 }
