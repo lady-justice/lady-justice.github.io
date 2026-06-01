@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, viewport-fit=cover" />
+    <title>Trainer Check-in — JusticeApp</title>
+    <meta name="description" content="Temporary trainer attendance check-in for JUSTICE Fitness & Dance." />
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/images/icon-192.png" />
+    <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png" />
+    <meta name="theme-color" content="#14a9a8" />
+    <link rel="stylesheet" href="assets/styles/main.css" />
+    <link rel="stylesheet" href="assets/styles/trainers.css" />
+  </head>
+  <body class="page--trainers">
+    <main class="trainer-shell" aria-labelledby="trainer-page-title">
+      <header class="trainer-hero">
+        <a class="trainer-brand" href="./" aria-label="Open JusticeApp home">
+          <span class="trainer-brand__mark" aria-hidden="true">
+            <img src="assets/images/icon-192.png" alt="" />
+          </span>
+          <span class="trainer-brand__text">
+            <span class="trainer-brand__name">JusticeApp</span>
+            <span class="trainer-brand__tagline">Fitness &amp; Dance</span>
+          </span>
+        </a>
+
+        <div class="trainer-hero__card">
+          <p class="trainer-hero__eyebrow">Trainer check-in</p>
+          <h1 class="trainer-hero__title" id="trainer-page-title">Class attendance</h1>
+          <p class="trainer-hero__copy">Pick the date and class — trainer and time come from the schedule.</p>
+        </div>
+      </header>
+
+      <form class="trainer-form" id="trainer-checkin-form">
+        <section class="trainer-panel" aria-labelledby="trainer-class-title">
+          <div class="trainer-section-head">
+            <p class="trainer-section-head__eyebrow">Class details</p>
+            <h2 class="trainer-section-head__title" id="trainer-class-title">Training session</h2>
+          </div>
+
+          <label class="trainer-field trainer-field--date" for="trainer-date">
+            <span class="trainer-label">Date</span>
+            <input class="trainer-control" id="trainer-date" name="date" type="date" required />
+          </label>
+
+          <label class="trainer-field" for="trainer-class">
+            <span class="trainer-label">Class</span>
+            <select class="trainer-control" id="trainer-class" name="classSlot" required disabled>
+              <option value="">Loading schedule…</option>
+            </select>
+          </label>
+
+          <div class="trainer-class-summary" id="trainer-class-summary" hidden>
+            <p class="trainer-class-summary__time" id="trainer-summary-time"></p>
+            <p class="trainer-class-summary__trainer">Trainer: <span id="trainer-summary-trainer"></span></p>
+          </div>
+
+          <label class="trainer-substitute" for="trainer-substitute">
+            <input id="trainer-substitute" name="isSubstitute" type="checkbox" />
+            <span class="trainer-substitute__box" aria-hidden="true"></span>
+            <span class="trainer-substitute__text">Substitute trainer</span>
+          </label>
+
+          <div class="trainer-substitute-field" id="trainer-substitute-field" hidden>
+            <label class="trainer-field trainer-field--full" for="trainer-substitute-name">
+              <span class="trainer-label">Who led the class?</span>
+              <select class="trainer-control" id="trainer-substitute-name" name="substituteTrainer">
+                <option value="">Choose trainer</option>
+              </select>
+            </label>
+          </div>
+        </section>
+
+        <section class="trainer-panel" aria-labelledby="trainer-students-title">
+          <div class="trainer-section-head">
+            <p class="trainer-section-head__eyebrow">Attendance</p>
+            <h2 class="trainer-section-head__title" id="trainer-students-title">Who attended</h2>
+          </div>
+
+          <div class="trainer-roster-wrap" id="trainer-roster-wrap" hidden>
+            <p class="trainer-label" id="trainer-roster-label">Regular students</p>
+            <div class="trainer-roster" id="trainer-roster" role="group" aria-label="Regular students"></div>
+          </div>
+
+          <div class="trainer-students-add">
+            <label class="sr-only" for="trainer-student-input">Student name</label>
+            <input
+              class="trainer-control trainer-students-add__input"
+              id="trainer-student-input"
+              type="text"
+              autocomplete="off"
+              placeholder="New student name"
+            />
+            <button class="trainer-students-add__btn" id="trainer-student-add" type="button">Add</button>
+          </div>
+
+          <div class="trainer-attended">
+            <div class="trainer-attended__head">
+              <p class="trainer-label">Attended today</p>
+              <span class="trainer-attended__count" id="trainer-attended-count">0</span>
+            </div>
+            <ol class="trainer-attended-list" id="trainer-attended-list" aria-live="polite"></ol>
+            <p class="trainer-attended-hint" id="trainer-attended-hint">
+              Mark regular students or add a new name above.
+            </p>
+          </div>
+        </section>
+
+        <section class="trainer-panel" aria-labelledby="trainer-notes-title">
+          <div class="trainer-section-head">
+            <p class="trainer-section-head__eyebrow">Extra</p>
+            <h2 class="trainer-section-head__title" id="trainer-notes-title">Notes</h2>
+          </div>
+
+          <label class="trainer-field trainer-field--full" for="trainer-notes">
+            <span class="trainer-label">Notes</span>
+            <textarea
+              class="trainer-control trainer-control--textarea"
+              id="trainer-notes"
+              name="notes"
+              rows="4"
+              placeholder="Trial class, payment note, anything important…"
+            ></textarea>
+          </label>
+        </section>
+
+        <div class="trainer-submit-bar">
+          <p class="trainer-status" id="trainer-status" role="status" aria-live="polite">Ready to submit</p>
+          <button class="trainer-submit" id="trainer-submit" type="submit">Submit attendance</button>
+        </div>
+      </form>
+    </main>
+
+    <script type="module" src="assets/js/trainers.js?v=8"></script>
+  </body>
+</html>

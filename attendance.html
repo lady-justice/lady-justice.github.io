@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, viewport-fit=cover" />
+    <title>Attendance — JusticeApp</title>
+    <meta name="description" content="Temporary attendance view for JUSTICE Fitness & Dance." />
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/images/icon-192.png" />
+    <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png" />
+    <meta name="theme-color" content="#14a9a8" />
+    <link rel="stylesheet" href="assets/styles/main.css" />
+    <link rel="stylesheet" href="assets/styles/attendance.css" />
+  </head>
+  <body class="page--attendance">
+    <main class="attendance-shell" aria-labelledby="attendance-page-title">
+      <header class="attendance-hero">
+        <a class="attendance-brand" href="./" aria-label="Open JusticeApp home">
+          <span class="attendance-brand__mark" aria-hidden="true">
+            <img src="assets/images/icon-192.png" alt="" />
+          </span>
+          <span class="attendance-brand__text">
+            <span class="attendance-brand__name">JusticeApp</span>
+            <span class="attendance-brand__tagline">Fitness &amp; Dance</span>
+          </span>
+        </a>
+
+        <div class="attendance-hero__card">
+          <p class="attendance-hero__eyebrow">Attendance</p>
+          <h1 class="attendance-hero__title" id="attendance-page-title">Посещаемость</h1>
+          <p class="attendance-hero__copy">Quick view of submitted class attendance.</p>
+        </div>
+      </header>
+
+      <section class="attendance-panel attendance-filters" aria-labelledby="attendance-filters-title">
+        <div class="attendance-section-head">
+          <p class="attendance-section-head__eyebrow">Filters</p>
+          <h2 class="attendance-section-head__title" id="attendance-filters-title">View period</h2>
+        </div>
+
+        <div class="attendance-filter-grid">
+          <label class="attendance-field" for="attendance-date-from">
+            <span class="attendance-label">Date from</span>
+            <input class="attendance-control" id="attendance-date-from" type="date" />
+          </label>
+
+          <label class="attendance-field" for="attendance-date-to">
+            <span class="attendance-label">Date to</span>
+            <input class="attendance-control" id="attendance-date-to" type="date" />
+          </label>
+
+          <label class="attendance-field" for="attendance-class-filter">
+            <span class="attendance-label">Class</span>
+            <select class="attendance-control" id="attendance-class-filter">
+              <option value="">All classes</option>
+            </select>
+          </label>
+
+          <label class="attendance-field" for="attendance-trainer-filter">
+            <span class="attendance-label">Trainer</span>
+            <select class="attendance-control" id="attendance-trainer-filter">
+              <option value="">All trainers</option>
+            </select>
+          </label>
+        </div>
+
+        <button class="attendance-reset" id="attendance-reset" type="button">Reset filters</button>
+      </section>
+
+      <section class="attendance-summary" aria-label="Attendance summary">
+        <article class="attendance-stat">
+          <span class="attendance-stat__label">Total classes</span>
+          <strong class="attendance-stat__value" id="attendance-total-classes">0</strong>
+        </article>
+        <article class="attendance-stat">
+          <span class="attendance-stat__label">Total visits</span>
+          <strong class="attendance-stat__value" id="attendance-total-visits">0</strong>
+        </article>
+        <article class="attendance-stat">
+          <span class="attendance-stat__label">Unique students</span>
+          <strong class="attendance-stat__value" id="attendance-unique-students">0</strong>
+        </article>
+        <article class="attendance-stat attendance-stat--wide">
+          <span class="attendance-stat__label">Most attended class</span>
+          <strong class="attendance-stat__value attendance-stat__value--text" id="attendance-top-class">-</strong>
+        </article>
+      </section>
+
+      <section class="attendance-panel attendance-results" aria-labelledby="attendance-results-title">
+        <div class="attendance-section-head attendance-results__head">
+          <div>
+            <p class="attendance-section-head__eyebrow">Records</p>
+            <h2 class="attendance-section-head__title" id="attendance-results-title">Submitted classes</h2>
+          </div>
+          <p class="attendance-results__count" id="attendance-results-count">0 records</p>
+        </div>
+
+        <div class="attendance-state" id="attendance-loading" role="status">Loading attendance...</div>
+        <div class="attendance-state attendance-state--error" id="attendance-error" role="alert" hidden></div>
+        <div class="attendance-state" id="attendance-empty" hidden>No attendance records for these filters.</div>
+        <div class="attendance-list" id="attendance-list"></div>
+      </section>
+    </main>
+
+    <script type="module" src="assets/js/attendance.js?v=1"></script>
+  </body>
+</html>
