@@ -11,7 +11,7 @@ export const APP_CONFIG = Object.freeze({
   storageKeys: Object.freeze({
     locale: 'justice-lang',
     localeLegacy: /** @type {const} */ (['lj-lang']),
-    scheduleBannerDismissed: 'justice-schedule-banner-dismissed',
+    scheduleBannerDismissed: 'justice-summer-schedule-banner-dismissed',
   }),
 });
 

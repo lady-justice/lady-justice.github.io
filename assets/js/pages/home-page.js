@@ -38,19 +38,21 @@ const HOME_HTML = /* html */ `
       </section>
 
       <div class="home__booking">
-        <a class="home__book-private" href="#/book#book-individual">
-          <span class="home__book-private-icon" aria-hidden="true">
+        <a class="home__summer-cta" href="#/schedule" data-i18n-attr="aria-label:home_summer_promo_aria">
+          <span class="home__summer-cta-icon" aria-hidden="true">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-              <circle cx="12" cy="9" r="3.6" stroke="currentColor" stroke-width="1.6"/>
-              <path d="M5 20.5c0-3 3-5 7-5s7 2 7 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-              <path d="M18.5 5.2l.65 1.4 1.55.18-1.15 1.05.32 1.52L18.5 8.6l-1.37.77.32-1.52L16.3 6.78l1.55-.18z" fill="currentColor"/>
+              <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/>
+              <path d="M12 3v2M12 19v2M5.64 5.64l1.41 1.41M16.95 16.95l1.41 1.41M3 12h2M19 12h2M5.64 18.36l1.41-1.41M16.95 7.05l1.41-1.41" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
             </svg>
           </span>
-          <span class="home__book-private-text">
-            <span class="home__book-private-title" data-i18n="home_book_private_title">Book Private</span>
-            <span class="home__book-private-sub" data-i18n="home_book_private_desc">One-to-One Class</span>
+          <span class="home__summer-cta-text">
+            <span class="home__summer-cta-title-row">
+              <span class="home__summer-cta-title" data-i18n="home_summer_promo">Summer schedule</span>
+              <span class="home__summer-cta-badge" data-i18n="home_summer_promo_badge">NEW</span>
+            </span>
+            <span class="home__summer-cta-sub" data-i18n="home_summer_promo_sub">See what’s on this week</span>
           </span>
-          <span class="home__book-private-arrow" aria-hidden="true">
+          <span class="home__summer-cta-arrow" aria-hidden="true">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </span>
         </a>

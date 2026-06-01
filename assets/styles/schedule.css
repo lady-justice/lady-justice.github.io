@@ -739,6 +739,19 @@ body.page--schedule main {
   line-height: 1.35;
   box-shadow: var(--shadow-schedule-float);
 }
+.schedule-banner--summer {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, #fff4e0 92%, var(--surface)) 0%,
+    color-mix(in srgb, #ffe4cc 88%, var(--surface)) 55%,
+    color-mix(in srgb, #ffd6b8 85%, var(--surface)) 100%
+  );
+  color: #9a3412;
+  border: 1px solid color-mix(in srgb, #fb923c 35%, transparent);
+}
+.schedule-banner--summer .schedule-banner__icon {
+  color: #ea580c;
+}
 .schedule-banner__icon {
   flex-shrink: 0;
   display: flex;

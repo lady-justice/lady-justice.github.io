@@ -48,11 +48,11 @@ const SCHEDULE_HTML = /* html */ `
     </section>
   </main>
 
-  <div class="schedule-banner" id="j-schedule-banner" hidden>
+  <div class="schedule-banner schedule-banner--summer" id="j-schedule-banner" hidden>
     <span class="schedule-banner__icon" aria-hidden="true">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M8 2v3M16 2v3M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/><path d="M3 14h18" stroke="currentColor" stroke-width="1.75"/></svg>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.75"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>
     </span>
-    <p class="schedule-banner__text" data-i18n="schedule_banner_book_early">Classes fill up fast! Book early to secure your spot.</p>
+    <p class="schedule-banner__text" data-i18n="schedule_banner_summer">New summer schedule is here — take a look!</p>
     <button type="button" class="schedule-banner__close" id="j-schedule-banner-close" data-i18n-attr="aria-label:schedule_banner_close_aria">
       <span aria-hidden="true">&times;</span>
     </button>
